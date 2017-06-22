@@ -1,6 +1,9 @@
 
 set (target "borc-tdd")
-set (sources "TestSomething.cpp")
+set (sources 
+    "MainTest.cpp"
+    "ProjectModelTest.cpp"
+)
 
 include_directories("../dep/unittest-cpp/")
 include_directories("../src/borc/")

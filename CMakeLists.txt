@@ -9,8 +9,10 @@ set (CMAKE_CXX_STANDARD 14)
 add_subdirectory("dep/unittest-cpp")
 
 # borc core
+add_subdirectory("src/borc-core")
+
+# borc command line utility
 add_subdirectory("src/borc")
 
 # unit testing
-include_directories("dep/unittest-cpp/")
 add_subdirectory("src/borc-tdd")

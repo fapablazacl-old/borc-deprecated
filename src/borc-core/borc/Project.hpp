@@ -9,7 +9,7 @@ namespace borc {
     public:
         virtual ~Project();
 
-        virtual void generateTasks(TaskPerformer *performer) = 0;
+        virtual void generateTasks(TaskPerformer *performer) const = 0;
     };
 }
 

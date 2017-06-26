@@ -12,6 +12,8 @@ set (sources
     "borc/SerialTaskPerformer.cpp"
     "borc/Project.hpp"
     "borc/Project.cpp"
+    "borc/CppProject.hpp"
+    "borc/CppProject.cpp"
 )
 
 add_library(${target} ${sources})

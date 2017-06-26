@@ -2,7 +2,7 @@
 #ifndef __borc_taskperformer_hpp__
 #define __borc_taskperformer_hpp__
 
-#include <vector>
+#include <memory>
 
 namespace borc {
     class Task;
@@ -10,7 +10,9 @@ namespace borc {
     public:
         virtual ~TaskPerformer();
 
-        virtual void perform(const std::vector<Task*> &tasks) = 0;
+        virtual void appendTask(std::unique_ptr<Task> task) = 0;
+
+        virtual void perform() = 0;
     };
 }
 

@@ -9,7 +9,7 @@ namespace borc {
     CommandTask::~CommandTask() {}
         
     void CommandTask::perform() {
-        const int result = std::system(m_command);
+        const int result = std::system(m_command.c_str());
 
         if (result != 0) {
             std::string msg;

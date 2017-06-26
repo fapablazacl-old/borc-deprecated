@@ -2,9 +2,7 @@
 BORC Description Document
 Version 1.0
 
-BORC Is a suite of tools (binaries and libraries) for build software products,
-
-based on a project description file.
+BORC Is a suite of tools (binaries and libraries) for build software products, based on a project description file.
 
 ==============================
 1. A Simple Example

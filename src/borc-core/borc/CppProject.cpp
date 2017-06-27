@@ -2,6 +2,7 @@
 #include "CppProject.hpp"
 
 #include <cassert>
+#include <algorithm>
 
 namespace borc {
     void CppProject::generateTasks(TaskPerformer *performer) const {
@@ -27,6 +28,8 @@ namespace borc {
     }
 
     std::unique_ptr<Target> CppProject::removeTarget(Target *target) {
+        assert(target);
+        
         return std::unique_ptr<Target>();
     }
 }

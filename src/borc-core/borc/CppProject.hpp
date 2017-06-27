@@ -8,7 +8,6 @@
 #include <vector>
 
 namespace borc {
-
     struct Target {
         std::string name;
         std::string outName;

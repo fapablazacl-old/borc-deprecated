@@ -8,6 +8,9 @@ set (CMAKE_CXX_STANDARD 14)
 # UnitTest++
 add_subdirectory("dep/unittest-cpp")
 
+# TinyXML-2
+add_subdirectory("dep/tinyxml2")
+
 # borc core
 add_subdirectory("src/borc-core")
 

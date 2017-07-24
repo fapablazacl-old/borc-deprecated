@@ -1,6 +1,5 @@
 
-#include <UnitTest++/UnitTest++.h>
-
+#include <catch.hpp>
 #include <string>
 
 namespace borc {
@@ -19,15 +18,11 @@ namespace borc {
     };
 }
 
-SUITE(ProjectModelTest)
-{
-    TEST(Project) {
-        borc::Project prj;
+TEST_CASE("Project class behaves correctly", "[borc::Project]") {
+    borc::Project prj;
+    const std::string projectName = "testProject";
 
-        const std::string projectName = "testProject";
+    prj.setName(projectName);
 
-        prj.setName(projectName);
-
-        CHECK_EQUAL(prj.getName(), projectName);
-    }
+    REQUIRE(prj.getName() == projectName);
 }

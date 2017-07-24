@@ -1,7 +1,3 @@
 
-#include <UnitTest++/UnitTest++.h>
-#include <iostream>
-
-int main(int argc, char **argv) {
-    return UnitTest::RunAllTests();
-}
+#define CATCH_CONFIG_MAIN
+#include <catch.hpp>

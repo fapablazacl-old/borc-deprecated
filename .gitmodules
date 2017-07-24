@@ -4,3 +4,9 @@
 [submodule "dep/tinyxml2"]
 	path = dep/tinyxml2
 	url = https://github.com/leethomason/tinyxml2.git
+[submodule "dep/yaml-cpp"]
+	path = dep/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git
+[submodule "dep/Catch"]
+	path = dep/Catch
+	url = https://github.com/philsquared/Catch.git

@@ -3,10 +3,11 @@ cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 
 project(borc)
 
-set (CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_STANDARD 17)
 
 # UnitTest++
 add_subdirectory("dep/unittest-cpp")
+include_directories("dep/unittest-cpp")
 
 # TinyXML-2
 add_subdirectory("dep/tinyxml2")

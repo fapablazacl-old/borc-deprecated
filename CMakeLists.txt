@@ -16,3 +16,6 @@ add_subdirectory("src/borc")
 
 # unit testing
 add_subdirectory("src/borc-tdd")
+enable_testing()
+
+add_test(BorcTest "${CMAKE_CURRENT_BINARY_DIR}/src/borc-tdd/borc-tdd")

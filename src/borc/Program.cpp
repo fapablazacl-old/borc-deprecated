@@ -8,10 +8,8 @@ int main(int argc, char **argv) {
     auto desc = po::options_description("Allowed options");
 
     desc.add_options()
-        ("help", "")
-        ("generate,g", po::value<int>(), "generate skeleton project")
-        ("build,b", po::value<int>(), "build project")
-        ("configure,c", po::value<int>(), "configure project")
+        ("help", "show this message")
+        ("init,i", "setup an initial project")
     ;
 
     po::variables_map vm;
@@ -23,10 +21,8 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    if (vm.count("compression")) {
-        std::cout << "Level compression " << vm["compression"].as<int>() << std::endl;
-    } else {
-        std::cout << "There is no compression level" << std::endl;
+    if (vm.count("init")) {
+        std::cout << "Initialized empty project structure on the folder current folder." << std::endl;
     }
 
     return 0;

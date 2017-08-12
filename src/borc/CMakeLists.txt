@@ -4,6 +4,7 @@ set (sources "Program.cpp")
 
 find_package(Boost 1.45.0 REQUIRED COMPONENTS
     program_options
+    filesystem
 )
 
 include_directories(${Boost_INCLUDE_DIRS})

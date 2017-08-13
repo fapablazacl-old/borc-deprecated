@@ -1,13 +1,13 @@
 
-project: borc
-
+project: 
+  name: borc
+  
 targets:
   path: src
 
   program: 
     name: borc
-    imports: 
-      borc-core
+    imports: [borc-core]
 
   library:
     name: borc-core

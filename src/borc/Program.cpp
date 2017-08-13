@@ -1,39 +1,62 @@
 
 #include <iostream>
+#include <list>
 #include <stdexcept>
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
+#include <yaml-cpp/yaml.h>
 
 namespace fs = boost::filesystem;
 namespace po = boost::program_options;
 
 int setupProject(const fs::path &path);
+int buildProject(const fs::path &path);
+
+int borc_main(const po::variables_map &vm, const po::options_description &desc);
 
 int main(int argc, char **argv) {
-    auto desc = po::options_description("Allowed options");
 
-    desc.add_options()
-        ("help", "show this message")
-        ("init,i", "setup an initial project")
-    ;
+    try {
+        auto desc = po::options_description("Allowed options");
 
-    po::variables_map vm;
-    po::store(po::parse_command_line(argc, argv, desc), vm);
-    po::notify(vm);
+        desc.add_options()
+            ("init,i", "setup an initial project")
+            ("build,b", "build the current project")
+        ;
 
-    if (vm.count("help")) {
-        std::cout << desc << std::endl;
+        po::variables_map vm;
+        po::store(po::parse_command_line(argc, argv, desc), vm);
+        po::notify(vm);
 
-        return 0;
+        return borc_main(vm, desc);
+
+    } catch (const std::runtime_error &exp) {
+        std::cout << "The following error occurred:" << std::endl;
+        std::cout << exp.what() << std::endl;
+
+        return 1;
+    } catch (const std::exception &exp) {
+        std::cout << "The following unexcepted error occurred:" << std::endl;
+        std::cout << exp.what() << std::endl;
+
+        return 2;
+    } catch (...) {
+        std::cout << "FATAL unknown error occurred." << std::endl;
+        return 3;
     }
+}
 
+int borc_main(const po::variables_map &vm, const po::options_description &desc) {
     if (vm.count("init")) {
         fs::path current = fs::current_path();
         
-        return setupProject(current);
+        setupProject(current);
+    } else if (vm.count("build")) {
+        fs::path current = fs::current_path();
+        buildProject(current / "borcfile.yaml");
+    } else {
+        std::cout << desc << std::endl;
     }
-
-    std::cout << desc << std::endl;
 
     return 0;
 }
@@ -67,6 +90,88 @@ int setupProject(const fs::path &path) {
         program: borc-tdd
     */
     std::cout << "Initialized empty '" << name << "' project structure in '" << path.string() << "'" << std::endl;
+
+    return 0;
+}
+
+void checkExistense(const fs::path &path) {
+    if (!fs::exists(path)) {
+        const std::string msg = 
+            "The file '" + path.string() + "' wasn't found";
+
+        throw std::runtime_error(msg);
+    }
+}
+
+enum class TargetType {
+    Program = 1, 
+    Library = 2
+};
+
+struct Target {
+    std::string name;
+    std::string path;
+    std::list<std::string> deps;
+    TargetType type;
+};
+
+struct Project {
+    std::string name;
+    std::list<Target> targets;
+};
+
+Target parseTarget(const YAML::Node &node) {
+    Target target;
+
+    // get name
+    target.name = node["name"].as<std::string>();
+
+    // get target relative directory
+    if (node["path"]) {
+        target.path = node["path"].as<std::string>();
+    } else {
+        target.path = target.name;
+    }
+
+    // get target dependencies 
+    if (node["imports"]) {
+        if (node["imports"].IsSequence()) {
+            for (const YAML::Node &depNode : node["imports"]) {
+                target.deps.push_back(depNode.as<std::string>());
+            }
+        } else {
+            const auto dep = node["imports"].as<std::string>();
+            target.deps.push_back(dep);
+        }
+    }
+
+    return target;
+}
+
+Project parseProject(const YAML::Node &node) {
+    Project project;
+
+    project.name = node["name"].as<std::string>();
+
+    return project;
+}
+
+int buildProject(const fs::path &path) {
+    checkExistense(path);
+
+    YAML::Node borcfile = YAML::LoadFile(path.string());
+
+    if (!borcfile["project"]) {
+        throw std::runtime_error("There isn't a 'project' section defined");
+    }
+
+    if (!borcfile["targets"]) {
+        throw std::runtime_error("There isn't a 'targets' section defined");
+    }
+
+    Project project = parseProject(borcfile["project"]);
+
+    YAML::Node programNode = borcfile["targets"]["program"];
 
     return 0;
 }

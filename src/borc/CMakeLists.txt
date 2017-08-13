@@ -15,6 +15,7 @@ target_link_libraries (
     ${target} 
     ${Boost_LIBRARIES} 
     borc-core
+    yaml-cpp
 )
 
 install(TARGETS ${target} DESTINATION "bin")

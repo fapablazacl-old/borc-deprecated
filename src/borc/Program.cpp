@@ -76,19 +76,8 @@ int setupProject(const fs::path &path) {
     const std::string name = path.filename().string();
 
     // generate the project structure
-    /*
-        project 
-          borcfile
-          src
-    */
 
     // generate the main YAML description file
-    /*
-        project: borc
-        library: borc-core
-        program: borc
-        program: borc-tdd
-    */
     std::cout << "Initialized empty '" << name << "' project structure in '" << path.string() << "'" << std::endl;
 
     return 0;
@@ -107,6 +96,13 @@ enum class TargetType {
     Program = 1, 
     Library = 2
 };
+
+std::string to_string(const TargetType type) {
+    switch (type) {
+        case TargetType::Program: return "TargetType::Program";
+        case TargetType::Library: return "TargetType::Library";
+    }
+}
 
 struct Target {
     std::string name;
@@ -165,13 +161,23 @@ int buildProject(const fs::path &path) {
         throw std::runtime_error("There isn't a 'project' section defined");
     }
 
-    if (!borcfile["targets"]) {
+    if (!borcfile["targets"] || borcfile["targets"].size() == 0) {
         throw std::runtime_error("There isn't a 'targets' section defined");
     }
 
     Project project = parseProject(borcfile["project"]);
 
-    YAML::Node programNode = borcfile["targets"]["program"];
+    for (const YAML::Node targetNode : borcfile["targets"]) {
+        Target target = parseTarget(targetNode);
 
+        if (targetNode["library"]) {
+            target.type = TargetType::Library;
+        } else if (targetNode["program"]) {
+            target.type = TargetType::Program;
+        }
+
+        project.targets.push_back(target);
+    }
+    
     return 0;
 }

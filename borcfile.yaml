@@ -3,16 +3,15 @@ project:
   name: borc
   
 targets:
-  path: src
-
-  program: 
+  - program: 
     name: borc
     imports: [borc-core]
 
-  library:
+  - library:
     name: borc-core
     imports: [Boost.filesystem]
 
-  program:
+  - program:
     name: borc-tdd
     imports: [Catch]
+    

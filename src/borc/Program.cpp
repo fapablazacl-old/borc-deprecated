@@ -179,5 +179,12 @@ int buildProject(const fs::path &path) {
         project.targets.push_back(target);
     }
     
+    // display results 
+    std::cout << project.name << std::endl;
+
+    for (const Target &target : project.targets) {
+        std::cout << "  " << target.name << ": " << to_string(target.type) << std::endl;
+    }
+    
     return 0;
 }

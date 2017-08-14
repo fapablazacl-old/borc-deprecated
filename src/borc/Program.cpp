@@ -101,6 +101,7 @@ std::string to_string(const TargetType type) {
     switch (type) {
         case TargetType::Program: return "TargetType::Program";
         case TargetType::Library: return "TargetType::Library";
+		default: return "TargetType::<Error>";
     }
 }
 

@@ -1,0 +1,6 @@
+buildTool:
+  tool: "ld"
+  type: "linker"
+  switches:
+    library: "-l"
+    libraryPath: "-L"

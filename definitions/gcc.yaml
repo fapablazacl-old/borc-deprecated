@@ -1,18 +1,8 @@
 buildTool:
   name: "gcc"
   type: "compiler"
-  language: "c++"
+  language: "C++"
   switches:
     includePath: "-I"
     compile: "-c"
     outputFile: "-o"
-
-  options:
-    optimize_level0:  "-O0"
-    optimize_level1:  "-O1"
-    optimize_level2:  "-O2"
-    optimize_level3:  "-O3"
-
-  profiles:
-    debug: "-O0 -g"
-    release: "-O2"

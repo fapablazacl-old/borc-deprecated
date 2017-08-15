@@ -1,0 +1,9 @@
+
+project: 
+  name: hello-world
+  
+targets:
+  - program: 
+    name: borc
+    path: "./"
+    imports: [borc-core]

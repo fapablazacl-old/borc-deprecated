@@ -1,4 +1,7 @@
 
+# setup borc-core
+include_directories("../borc-core/")
+
 # setup boost
 set (Boost_USE_STATIC_LIBS OFF)
 set (Boost_USE_MULTITHREADED ON)

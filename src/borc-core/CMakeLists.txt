@@ -45,7 +45,7 @@ set (sources
     "borc/CppProjectParser.cpp"
 )
 
-source_group(\\ FILES ${sources})
+source_group("\\borc" FILES ${sources})
 
 add_library(${target} ${sources})
 

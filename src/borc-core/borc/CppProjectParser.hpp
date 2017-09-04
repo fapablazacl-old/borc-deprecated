@@ -15,7 +15,7 @@ namespace borc {
         /**
          * @brief Parse a XML file and return a CppProject object.
          */
-        virtual std::unique_ptr<Project> parser(const std::string &file) = 0;
+        virtual std::unique_ptr<Project> parse(const std::string &file) override;
     };
 }
 

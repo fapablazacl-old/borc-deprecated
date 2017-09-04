@@ -26,7 +26,7 @@ namespace borc {
 
         CppTarget* addTarget();
 
-        std::string getName() const {
+        virtual std::string getName() const override {
             return m_name;
         }
 

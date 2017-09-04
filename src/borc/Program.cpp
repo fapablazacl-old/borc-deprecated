@@ -4,13 +4,16 @@
 #include <stdexcept>
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
-#include <yaml-cpp/yaml.h>
+
+#include "borc/Project.hpp"
+#include "borc/CppProjectParser.hpp"
 
 namespace fs = boost::filesystem;
 namespace po = boost::program_options;
 
+void checkExistense(const fs::path &path);
+
 int setupProject(const fs::path &path);
-int buildProject(const fs::path &path);
 
 int borc_main(const po::variables_map &vm, const po::options_description &desc);
 
@@ -53,7 +56,15 @@ int borc_main(const po::variables_map &vm, const po::options_description &desc) 
         setupProject(current);
     } else if (vm.count("build")) {
         fs::path current = fs::current_path();
-        buildProject(current / "borcfile.yaml");
+        fs::path borcfile = current / "borcfile.yaml";
+
+        checkExistense(borcfile);
+
+        auto parser = std::make_unique<borc::CppProjectParser>();
+        auto project = parser->parse(borcfile.string());
+
+        std::cout << project->getName() << std::endl;
+
     } else {
         std::cout << desc << std::endl;
     }

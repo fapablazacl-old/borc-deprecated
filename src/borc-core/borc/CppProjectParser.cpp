@@ -39,7 +39,7 @@ namespace borc {
 
     CppProjectParser::~CppProjectParser() {}
 
-    std::unique_ptr<Project> CppProjectParser::parser(const std::string &file) {
+    std::unique_ptr<Project> CppProjectParser::parse(const std::string &file) {
         fs::path path(file);
 
         YAML::Node borcfile = YAML::LoadFile(path.string());

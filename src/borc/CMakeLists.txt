@@ -1,4 +1,5 @@
 
+# setup boost
 set (Boost_USE_STATIC_LIBS OFF)
 set (Boost_USE_MULTITHREADED ON)
 set (Boost_USE_STATIC_RUNTIME OFF)
@@ -15,6 +16,8 @@ find_package(Boost 1.45.0 REQUIRED COMPONENTS
 )
 
 include_directories(${Boost_INCLUDE_DIRS})
+
+source_group(\\ FILES ${sources})
 
 add_executable (${target} ${sources})
 

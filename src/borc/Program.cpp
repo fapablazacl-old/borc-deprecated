@@ -6,7 +6,7 @@
 #include <boost/filesystem.hpp>
 
 #include "borc/Project.hpp"
-#include "borc/CppProjectParser.hpp"
+#include "borc/ProjectParser.hpp"
 
 namespace fs = boost::filesystem;
 namespace po = boost::program_options;
@@ -18,7 +18,6 @@ int setupProject(const fs::path &path);
 int borc_main(const po::variables_map &vm, const po::options_description &desc);
 
 int main(int argc, char **argv) {
-
     try {
         auto desc = po::options_description("Allowed options");
 
@@ -60,7 +59,7 @@ int borc_main(const po::variables_map &vm, const po::options_description &desc) 
 
         checkExistense(borcfile);
 
-        auto parser = std::make_unique<borc::CppProjectParser>();
+        auto parser = std::make_unique<borc::ProjectParser>();
         auto project = parser->parse(borcfile.string());
 
         std::cout << project->getName() << std::endl;

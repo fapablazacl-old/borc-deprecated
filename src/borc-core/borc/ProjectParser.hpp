@@ -7,12 +7,11 @@
 
 namespace borc {
     class Project;
-
     class ProjectParser {
     public:
-        virtual ~ProjectParser();
+        ~ProjectParser() {}
 
-        virtual std::unique_ptr<Project> parse(const std::string &file) = 0;
+        std::unique_ptr<Project> parse(const std::string &file);
     };    
 }
 

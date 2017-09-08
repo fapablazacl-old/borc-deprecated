@@ -32,17 +32,15 @@ set (sources
     "borc/SerialTaskPerformer.hpp"
     "borc/SerialTaskPerformer.cpp"
     
+	"borc/Target.hpp"
+    "borc/Target.cpp"
     "borc/Project.hpp"
     "borc/Project.cpp"
     "borc/ProjectParser.hpp"
     "borc/ProjectParser.cpp"
 
-	"borc/CppTarget.hpp"
-    "borc/CppTarget.cpp"
     "borc/CppProject.hpp"
     "borc/CppProject.cpp"
-    "borc/CppProjectParser.hpp"
-    "borc/CppProjectParser.cpp"
 )
 
 source_group("\\borc" FILES ${sources})

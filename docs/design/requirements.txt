@@ -49,7 +49,7 @@ Project management
 
 Automatic management for build-time and run-time dependencies.
 	- runtime dependency: A dynamic library required to run the executable.
-	- buildtime dependency: A dynamic or static library and/or header-based library, required to build the binary (an executable or dynamic library).
+	- buildtime dependency: A import, static library and/or header-based library, required to build the binary (an executable or dynamic library).
 
 Automatic management for internal and external dependencies.
 	- Internal dependency: Dependency defined by the current project itself.

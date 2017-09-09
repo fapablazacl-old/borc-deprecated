@@ -5,7 +5,7 @@ set (sources
     "ProjectModelTest.cpp"
 )
 
-include_directories("../src/borc/")
+include_directories("../borc-core/")
 
 source_group(\\ FILES ${sources})
 

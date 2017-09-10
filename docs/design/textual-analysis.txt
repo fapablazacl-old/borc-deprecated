@@ -14,19 +14,7 @@ BORC
 		- Orchestrate the build proccess for a whole software product line, composed of many programs.
 		- Manage the building for a multi-technology project.
 		- Automatically import dependencies from version control systems.
-		
-Non-Functional Requirements:
-	- Ultra-Fast builds
-		- Smart, Parallel builds by default.
-		- Uses Precompiled-Headers automatically.
-	- Plugin-Based architecture.
-	- Convention-over-Configuration.
-		- Safe defaults.
-	- Based on Functional concepts.
-	- Deterministic Builds 
-		- It has to generate the same results regardless of the current status of the generated intermediate artifacts (even if those are corrupted).
-	- Support for Windows and Linux.
-	
+
 Concept Analysis
 
 1. Project:
@@ -100,16 +88,40 @@ Concept Analysis
 6. Templates
 	- A set of pre-constructed projects, targets, tasks, etc. for aiding the developer to put more value on their software projects.
 	
+
+Functional Requirements:
+	- Integration with other build systems (CMake, Gradle, etc).
+	- Support for C/C++ projects
+		- The libraries can be static or dynamic.
+		- Dependening on the compiler used, the following variations are avaiable:
+			- 32, 64 bits, etc.
+			- x86, ARM, etc.
+		- Automatic management for internal and external dependencies.
+			- Internal dependency: Dependency defined by the current project itself.
+			- External dependency: Dependency defined outsidfe the project itself:
+				- Defined by BORC itself
+				- Defined by third parties.
+		- Flexible and transparent build support
+			- Different compiler support (GCC, Visual C++, Intel C++, etc).
+			- Compiler independent
+			- Debug, Release and others.
+			- Static and Shared Libraries.
+			- Static and Shared Runtime Libraries.
+			
 	
-Physical File Layout
-	- BORC definitions are expressed in text files.
-	- The main definition is the Project Definition file, named 'main.borc' (this can't be overrided).
-	- The definition of the other entities can be splitted in many files (one of each entity).
-		- For example, an executable can have their own borc definition file (the same for libraries, packs, etc)
-		- Another example: A complex task can be defined in it's own borc definition file.
-	- The borc command-line utilities automatically scans all the non-hidden folders for definitions.
-		- [HINT]: This is a possible performance-killer.
+Non-Functional Requirements:
+	- Ultra-Fast builds
+		- Smart, Parallel builds by default.
+		- Uses Precompiled-Headers automatically.
+	- Plugin-Based architecture.
+	- Convention-over-Configuration.
+		- Safe defaults.
+	- Based on Functional concepts.
+	- Deterministic Builds 
+		- It has to generate the same results regardless of the current status of the generated intermediate artifacts (even if those are corrupted).
+	- Support for Windows and Linux.
 	
+
 Workflow Definition (Users Histories, expressed by command-line examples)
 	- As a [Developer] I want to [generate a blank project] In order to [later start to add components].
 		$ borc generate project --template=hello-world --lang=cpp17 my-hello-world
@@ -122,3 +134,13 @@ Workflow Definition (Users Histories, expressed by command-line examples)
 	- As a [Developer] I want to [build a project] In order to [test the project], [ship the project], [pack the project].
 		$ 
 		
+	
+Physical File Layout
+	- BORC definitions are expressed in text files.
+	- The main definition is the Project Definition file, named 'main.borc' (this can't be overrided).
+	- The definition of the other entities can be splitted in many files (one of each entity).
+		- For example, an executable can have their own borc definition file (the same for libraries, packs, etc)
+		- Another example: A complex task can be defined in it's own borc definition file.
+	- The borc command-line utilities automatically scans all the non-hidden folders for definitions.
+		- [HINT]: This is a possible performance-killer.
+	

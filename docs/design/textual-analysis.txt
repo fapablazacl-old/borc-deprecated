@@ -108,7 +108,6 @@ Functional Requirements:
 			- Static and Shared Libraries.
 			- Static and Shared Runtime Libraries.
 			
-	
 Non-Functional Requirements:
 	- Ultra-Fast builds
 		- Smart, Parallel builds by default.
@@ -121,22 +120,44 @@ Non-Functional Requirements:
 		- It has to generate the same results regardless of the current status of the generated intermediate artifacts (even if those are corrupted).
 	- Support for Windows and Linux.
 	
-Scenarios 
-	- Build a simple command line application, consisting in many files 
-	- Build a medium-sized GUI application, consisting in many files, some internal and external dependencies.
-	- 
-	
-Workflow Definition (Users Histories, expressed by command-line examples)
-	- As a [Developer] I want to [generate a blank project] In order to [later start to add components].
-		$ borc generate project --template=hello-world --lang=cpp17 my-hello-world
-		This will generate a project with the following structure:
+Usage Scenarios (Possible test-cases for functional tests)
+- Build a simple command line application, consisting in many files 
 
-	- As a [Developer] I want to [generate a skeleton project] In order to [start the development of a new software project].
-		$ borc generate project --template=hello-world --lang=cpp17 my-hello-world
-		This will generate a project with the following structure:
-	
-	- As a [Developer] I want to [build a project] In order to [test the project], [ship the project], [pack the project].
-		$ 
+- Build a machine-learning library, with many front-ends to other languages, with the following characteristics:
+	- Core in C++, and library interfaces for Python, Java and C#
+	- The project folder layout could be (Highly simplified):
+		+ DeepThoughts
+			- main.borc
+			+ src
+				+ dt-core
+					- Network.cpp
+					- Network.hpp
+					- Fuzz.cpp
+					- Fuzz.hpp
+					- dt-core.borc
+				+ dt-python
+					- dt-python.cpp
+					- dt-python.borc (depends on dt-core).
+				+ dt-cs
+					- dt-cs.cpp
+					- dt-cs.borc (depends on dt-core).
+				+ dt-java
+					- dt-java.cpp
+					- dt-java.borc (depends on dt-core).
+
+	- Dependening on the asked library interfaces, the building of this project could need:
+		- A C++ compiler (GCC, clang or Visual C++, etc)
+		- A Java Development Kit (Oracle, OpenJDK, etc) 
+		- A .NET Implementation (Microsoft, Mono)
+		- 
+
+Workflow Definition (Users Histories, expressed by command-line examples)
+	- As a [Developer] I want to [generate a blank project] In order to [use it as a starting point].
+	- As a [Developer] I want to [generate a skeleton project] In order to [use it as a starting point].
+	- As a [Developer] I want to [build a project with many toolchains] In order to [deliver the software product].
+	- As a [Developer] I want to [build a project] In order to [test the project].
+	- As a [Developer] I want to [build a project] In order to [pack the project].
+	- As a [Developer] I want to [test a project] In order to [ensure quality].
 	
 Physical File Layout
 	- BORC definitions are expressed in text files.
@@ -146,4 +167,3 @@ Physical File Layout
 		- Another example: A complex task can be defined in it's own borc definition file.
 	- The borc command-line utilities automatically scans all the non-hidden folders for definitions.
 		- [HINT]: This is a possible performance-killer.
-	

@@ -121,7 +121,11 @@ Non-Functional Requirements:
 		- It has to generate the same results regardless of the current status of the generated intermediate artifacts (even if those are corrupted).
 	- Support for Windows and Linux.
 	
-
+Scenarios 
+	- Build a simple command line application, consisting in many files 
+	- Build a medium-sized GUI application, consisting in many files, some internal and external dependencies.
+	- 
+	
 Workflow Definition (Users Histories, expressed by command-line examples)
 	- As a [Developer] I want to [generate a blank project] In order to [later start to add components].
 		$ borc generate project --template=hello-world --lang=cpp17 my-hello-world
@@ -133,7 +137,6 @@ Workflow Definition (Users Histories, expressed by command-line examples)
 	
 	- As a [Developer] I want to [build a project] In order to [test the project], [ship the project], [pack the project].
 		$ 
-		
 	
 Physical File Layout
 	- BORC definitions are expressed in text files.

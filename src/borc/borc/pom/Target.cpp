@@ -33,4 +33,10 @@ namespace borc {
 
         return this;
     }
+
+    Target* Target::addDependency(const Target *target) {
+        m_deps.push_back(target);
+
+        return this;
+    }
 }

@@ -2,7 +2,7 @@
 #ifndef __borc_cppproject_hpp__
 #define __borc_cppproject_hpp__
 
-#include <borc/Project.hpp>
+#include <borc/pom/Project.hpp>
 
 #include <memory>
 #include <vector>

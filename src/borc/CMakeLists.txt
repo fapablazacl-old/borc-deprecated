@@ -22,12 +22,12 @@ set (sources
     "borc/SerialTaskPerformer.hpp"
     "borc/SerialTaskPerformer.cpp"
     
-	"borc/Target.hpp"
-    "borc/Target.cpp"
-    "borc/Project.hpp"
-    "borc/Project.cpp"
-    #"borc/ProjectParser.hpp"
-    #"borc/ProjectParser.cpp"
+	"borc/pom/Target.hpp"
+    "borc/pom/Target.cpp"
+    "borc/pom/Project.hpp"
+    "borc/pom/Project.cpp"
+    #"borc/pom/ProjectParser.hpp"
+    #"borc/pom/ProjectParser.cpp"
 
     # C++ language support
     "borc/cpp/CppProject.hpp"

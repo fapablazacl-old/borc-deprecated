@@ -45,13 +45,12 @@ Concept Analysis
 		- documentation: A target that represents a generated documentation. 
 			- An example is Doxygen-based documentations.
 	- Is composed from many sources files.
-		- They can be:
-			- Source Code files.
-			- Intermediate-Format XML files used for generate other files during build-time.
-			- Transform images, sounds, and another multimedia resources from one format to another format more suitable for run-time performances.
-			- In short, to transform any source format file to another target format file, suitable for run-time consumption.
+		- They:
+			- Can be Source Code files.
+			- Can be Intermediate-Format (like XML files) used for generate other files source files during build-time.
+			- Are used to transform images, sounds, and another resources from one format to another format more suitable for run-time performance.
 		- Those source files can be transformed many times during the build proccess [need to find a way to express a artifact production pipeline clearly].
-		- To map a source file on a target file we need a Mapper (AKA Compilers for source code files).
+		- To map a source file on a target file we need a Compiler (AKA Compilers for source code files).
 		- To reduce many target files into a target, we need a Reducer (AKA Linker for source code files).
 
 3. Task:
@@ -75,7 +74,7 @@ Concept Analysis
 
 5. Toolchains
 	- A set of tools that map source files to target files.
-	- In other words, Toolchains provides Mappers and Reducers.
+	- In other words, Toolchains provides Compilers and/or Linkers.
 	- Based on their physical location, can be System Toolchains or Project Toolchains
 		- System Toolchains tipically contain Compilers, Linkers, Assemblers, Compressors, and another tools.
 		- Project Toolchains are custom toolchains that converts from one format to another one.
@@ -91,73 +90,3 @@ Concept Analysis
 	- A set of pre-constructed projects, targets, tasks, etc. for aiding the developer to put more value on their software projects.
 	- A project template, for example, can be used to generate a starting point to create a complete application.
 	- A project 
-	
-Functional Requirements:
-	- Integration with other build systems (CMake, Gradle, etc).
-	- Support for C/C++ projects
-		- The libraries can be static or dynamic.
-		- Dependening on the compiler used, the following variations are avaiable:
-			- 32, 64 bits, etc.
-			- x86, ARM, etc.
-		- Automatic management for internal and external dependencies.
-			- Internal dependency: Dependency defined by the current project itself.
-			- External dependency: Dependency defined outsidfe the project itself:
-				- Defined by BORC itself
-				- Defined by third parties.
-		- Flexible and transparent build support
-			- Different compiler support (GCC, Visual C++, Intel C++, etc).
-			- Compiler independent
-			- Debug, Release and others.
-			- Static and Shared Libraries.
-			- Static and Shared Runtime Libraries.
-			
-Non-Functional Requirements:
-	- Ultra-Fast builds
-		- Smart, Parallel builds by default.
-		- Uses Precompiled-Headers automatically.
-	- Plugin-Based architecture.
-	- Convention-over-Configuration.
-		- Safe defaults.
-	- Based on Functional concepts.
-	- Deterministic Builds 
-		- It has to generate the same results regardless of the current status of the generated intermediate artifacts (even if those are corrupted).
-	- Support for Windows and Linux.
-	
-Usage Scenarios (Possible test-cases for functional tests)
-- Build a simple command line application, consisting in many files 
-
-- Build a machine-learning library, with many front-ends to other languages, with the following characteristics:
-	- Core in C++, and library interfaces for Python, Java and C#
-	- The project folder layout could be (Highly simplified):
-		+ DeepThoughts
-			- main.borc
-			+ src
-				+ dt-core
-					- Network.cpp
-					- Network.hpp
-					- Fuzz.cpp
-					- Fuzz.hpp
-					- dt-core.borc
-				+ dt-python
-					- dt-python.cpp
-					- dt-python.borc (depends on dt-core).
-				+ dt-cs
-					- dt-cs.cpp
-					- dt-cs.borc (depends on dt-core).
-				+ dt-java
-					- dt-java.cpp
-					- dt-java.borc (depends on dt-core).
-
-	- Dependening on the asked library interfaces, the building of this project could need:
-		- A C++ compiler (GCC, clang or Visual C++, etc)
-		- A Java Development Kit (Oracle, OpenJDK, etc)
-		- A .NET Implementation (Microsoft, Mono)
-
-Physical File Layout
-	- BORC definitions are expressed in text files.
-	- The main definition is the Project Definition file, named 'main.borc' (this can't be overrided).
-	- The definition of the other entities can be splitted in many files (one of each entity).
-		- For example, an executable can have their own borc definition file (the same for libraries, packs, etc)
-		- Another example: A complex task can be defined in it's own borc definition file.
-	- The borc command-line utilities automatically scans all the non-hidden folders for definitions.
-		- [HINT]: This is a possible performance-killer.

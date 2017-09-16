@@ -4,9 +4,9 @@ First Iteration (MVP):
 =================================================
 - Develop the minimal core of the build system
     - Define the classes of the content of the project and its targets, properly, in order to be buildable.
-        - Independent of the Toolchain used.
-        - Independent of the Programming Language used.
-        - Must express the dependency relationships between targets.
+        - [OK] Independent of the Toolchain used.
+        - [OK] Independent of the Programming Language used.
+        - [OK] Must express the dependency relationships between targets.
 
     - Define the classes needed to express toolchains
         - The toolchains holds information about the available:

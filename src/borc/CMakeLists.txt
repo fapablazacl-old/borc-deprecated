@@ -26,6 +26,8 @@ set (sources
     "borc/pom/Target.cpp"
     "borc/pom/Project.hpp"
     "borc/pom/Project.cpp"
+    "borc/pom/Source.hpp"
+    "borc/pom/Source.cpp"
     #"borc/pom/ProjectParser.hpp"
     #"borc/pom/ProjectParser.cpp"
 

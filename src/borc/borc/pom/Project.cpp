@@ -1,6 +1,7 @@
 
 #include "Project.hpp"
 #include "Target.hpp"
+#include "Source.hpp"
 
 namespace borc {
     Project::Project(const std::string name) : m_name(name) {}

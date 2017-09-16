@@ -1,5 +1,6 @@
 
 #include "Target.hpp"
+#include "Source.hpp"
 
 namespace borc {
     std::string to_string(const TargetType type) {
@@ -38,5 +39,28 @@ namespace borc {
         m_deps.push_back(target);
 
         return this;
+    }
+
+    Source* Target::addSource(const std::string &filePath) {
+        // TODO: Check of previous existence
+        auto source = new Source(filePath, this);
+
+        m_sources.emplace_back(source);
+
+        return source;
+    }
+    
+    Target* Target::removeSource(const std::string &filePath) {
+        // TODO: Pending implementation
+
+        return this;
+    }
+
+    std::size_t Target::getSourceCount() const {
+        return m_sources.size();
+    }
+
+    const Source* Target::getSource(const std::size_t index) const {
+        return m_sources[index].get();
     }
 }

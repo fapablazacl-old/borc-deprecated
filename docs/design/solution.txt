@@ -1,5 +1,25 @@
 
 =================================================
+BORC
+=================================================
+
+Is a set of command line utilities and libraries for building software products based on a simple set of rules.
+
+Inputs:
+  - Source Files 
+  - Build descriptions
+  
+Output:
+  - Software artifacts.
+
+Possible use-cases:
+  - Cleanly manage the asset pipeline for a game.
+  - Orchestrate the build proccess for a whole software product line, composed of many programs.
+  - Manage the building for a multi-technology project.
+  - Automatically import dependencies from version control systems.
+
+
+=================================================
 Non-Functional Requirements:
 =================================================
 

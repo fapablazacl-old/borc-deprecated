@@ -1,21 +1,27 @@
 
-BORC
-	Is a set of command line utilities and libraries for building software products based on a simple set of rules.
-
-	Inputs:
-		- Source Files 
-		- Build descriptions
-		
-	Output:
-		- Software artifacts.
-
-	Possible use-cases:
-		- Cleanly manage the asset pipeline for a game.
-		- Orchestrate the build proccess for a whole software product line, composed of many programs.
-		- Manage the building for a multi-technology project.
-		- Automatically import dependencies from version control systems.
-
+=================================================
 Concept Analysis
+=================================================
+
+C. Compiler:
+  - Its a command line utility that produces an output file based on a input file.
+    - Programming Language Compilers.
+    - Assemblers.
+    - File Format Converters.
+    - Etc.
+    - Geometry Generators.
+    - Image Generators.
+    - Compressors.
+
+G. Generator:
+  - It's a command line utility that produces an output file based on command line parameters
+    - Mathematical - Table generators
+    
+L. Linker:
+  - It's a command line utility that produces an output file based on one or many input files
+    - Programming Language Linkers
+    - Librarians
+    - Archivers/Packers
 
 1. Project:
 	- It's the main entity in the build description file.
@@ -43,7 +49,7 @@ Concept Analysis
 		- library: The Target is a library that can be a dependency for another program or library.
 		- pack: A file that holds another files. Suitable for packaging the assets for a Game.
 		- documentation: A target that represents a generated documentation. 
-			- An example is Doxygen-based documentations.
+			- An example is Doxygen-based documentation.
 	- Is composed from many sources files.
 		- They:
 			- Can be Source Code files.
@@ -68,25 +74,26 @@ Concept Analysis
 		
 4. Configuration
 	- Is a set of properties that drive the way different variations of the artifacts can be defined.
+  - Those properties are of the kind of key:value.
 	- By default, exists the Debug and Release configurations:
 		- The Debug Configuration is a configuration suitable for development.
 		- The Release Configuration is a configuration suitable for production/deployment.
 
-5. Toolchains
+5. Toolchains (can be emulated using conventional projects that export prexisting compilers)
 	- A set of tools that map source files to target files.
-	- In other words, Toolchains provides Compilers and/or Linkers.
+	- In other words, Toolchains provides Compilers, Generators and/or Linkers.
 	- Based on their physical location, can be System Toolchains or Project Toolchains
 		- System Toolchains tipically contain Compilers, Linkers, Assemblers, Compressors, and another tools.
 		- Project Toolchains are custom toolchains that converts from one format to another one.
 			- A Project can invoke toolchains from another child toolchains.
 			- Example project toolchain: A tool that generate a source code file for any physical file, for embeddeding it directly in the executable.
-	- A BORC project can be built using many System Toolchains at the same time.
+	- The BORC project can be built using many System Toolchains at the same time.
 		- This is useful for a project targeting multiple platforms, like Desktop, Mobile and Web.
-	- Many versions of the same toolchains, and different toolchains, may be installed.
+	- Many versions of the same toolchains, and different toolchains, may be used on a borc project simultaneously
 	- The Supported Toolchains can be setted to the project at configuration time.
 	- The Supported Toolchains can be added and removed to the project configuration at any time.
 	
 6. Templates.
 	- A set of pre-constructed projects, targets, tasks, etc. for aiding the developer to put more value on their software projects.
 	- A project template, for example, can be used to generate a starting point to create a complete application.
-	- A project 
+  - Implementation HINT: Use a template engine.

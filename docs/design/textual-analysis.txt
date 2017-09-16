@@ -83,12 +83,15 @@ Concept Analysis
 			- Example project toolchain: A tool that generate a source code file for any physical file, for embeddeding it directly in the executable.
 	- A BORC project can be built using many System Toolchains at the same time.
 		- This is useful for a project targeting multiple platforms, like Desktop, Mobile and Web.
-	- 
+	- Many versions of the same toolchains, and different toolchains, may be installed.
+	- The Supported Toolchains can be setted to the project at configuration time.
+	- The Supported Toolchains can be added and removed to the project configuration at any time.
 	
-6. Templates
+6. Templates.
 	- A set of pre-constructed projects, targets, tasks, etc. for aiding the developer to put more value on their software projects.
+	- A project template, for example, can be used to generate a starting point to create a complete application.
+	- A project 
 	
-
 Functional Requirements:
 	- Integration with other build systems (CMake, Gradle, etc).
 	- Support for C/C++ projects
@@ -147,18 +150,9 @@ Usage Scenarios (Possible test-cases for functional tests)
 
 	- Dependening on the asked library interfaces, the building of this project could need:
 		- A C++ compiler (GCC, clang or Visual C++, etc)
-		- A Java Development Kit (Oracle, OpenJDK, etc) 
+		- A Java Development Kit (Oracle, OpenJDK, etc)
 		- A .NET Implementation (Microsoft, Mono)
-		- 
 
-Workflow Definition (Users Histories, expressed by command-line examples)
-	- As a [Developer] I want to [generate a blank project] In order to [use it as a starting point].
-	- As a [Developer] I want to [generate a skeleton project] In order to [use it as a starting point].
-	- As a [Developer] I want to [build a project with many toolchains] In order to [deliver the software product].
-	- As a [Developer] I want to [build a project] In order to [test the project].
-	- As a [Developer] I want to [build a project] In order to [pack the project].
-	- As a [Developer] I want to [test a project] In order to [ensure quality].
-	
 Physical File Layout
 	- BORC definitions are expressed in text files.
 	- The main definition is the Project Definition file, named 'main.borc' (this can't be overrided).

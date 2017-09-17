@@ -22,6 +22,16 @@ namespace borc {
         std::string getExtension() const;
 
         /**
+         * @brief Get the file title, without the path and the extension.
+         */
+        std::string getFileTitle() const;
+
+        /**
+         * @brief Get the file name, in the form filename.extesion (without the relative path)
+         */
+        std::string getFileName() const;
+
+        /**
          * @brief Get the relative path to the target, to identify the physical file.
          */
         std::string getFilePath() const;

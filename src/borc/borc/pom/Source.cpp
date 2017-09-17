@@ -17,6 +17,14 @@ namespace borc {
         return fs::extension(m_filePath);
     }
 
+    std::string Source::getFileTitle() const {
+        return fs::path(m_filePath).stem().string();
+    }
+    
+    std::string Source::getFileName() const {
+        return fs::path(m_filePath).filename().string();
+    }
+
     std::string Source::getFilePath() const {
         return m_filePath;
     }
@@ -25,4 +33,3 @@ namespace borc {
         return m_target;
     }
 }
-

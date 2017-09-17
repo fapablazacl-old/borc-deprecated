@@ -9,9 +9,9 @@ namespace borc {
     class Project;
     class ProjectParser {
     public:
-        ~ProjectParser() {}
+        virtual ~ProjectParser();
 
-        std::unique_ptr<Project> parse(const std::string &file);
+        virtual std::unique_ptr<Project> parse(const std::string &file) = 0;
     };    
 }
 

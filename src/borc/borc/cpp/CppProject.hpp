@@ -12,7 +12,7 @@ namespace borc {
     public:
         CppProject(const std::string &name);
 
-        virtual void generateTasks(TaskPerformer *performer) const override;
+        virtual void generateTasks(TaskPerformer *performer) const;
     };
 }
 

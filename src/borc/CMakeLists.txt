@@ -36,8 +36,10 @@ set (sources_borc_pom
     "borc/pom/Project.cpp"
     "borc/pom/Source.hpp"
     "borc/pom/Source.cpp"
-    #"borc/pom/ProjectParser.hpp"
-    #"borc/pom/ProjectParser.cpp"
+    "borc/pom/ProjectParser.hpp"
+    "borc/pom/ProjectParser.cpp"
+    "borc/pom/ProjectParserMock.hpp"
+    "borc/pom/ProjectParserMock.cpp"
 )
 
 set (sources_borc_cpp

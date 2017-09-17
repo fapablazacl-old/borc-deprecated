@@ -15,8 +15,6 @@ namespace borc {
 
         virtual ~Project();
 
-        virtual void generateTasks(TaskPerformer *performer) const = 0;
-
         std::size_t getTargetCount() const;
 
         Target* getTarget(const std::size_t index);

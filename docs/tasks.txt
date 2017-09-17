@@ -7,6 +7,7 @@ First Iteration (MVP):
         - [OK] Independent of the Toolchain used.
         - [OK] Independent of the Programming Language used.
         - [OK] Must express the dependency relationships between targets.
+        - [OK] Model the current BORC project structure for testing purposes.
 
     - Define the classes needed to express toolchains
         - The toolchains holds information about the available:

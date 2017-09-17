@@ -13,6 +13,9 @@ add_definitions(-DBOOST_PROGRAM_OPTIONS_DYN_LINK)
 set (target "borc")
 set (sources 
     "Program.cpp"
+)
+
+set (sources_borc
     "borc/Task.hpp"
     "borc/Task.cpp"
     "borc/CommandTask.hpp"
@@ -21,7 +24,12 @@ set (sources
     "borc/TaskPerformer.cpp"
     "borc/SerialTaskPerformer.hpp"
     "borc/SerialTaskPerformer.cpp"
-    
+
+	"borc/FileTypeRegistry.hpp"
+	"borc/FileTypeRegistry.cpp"
+)
+
+set (sources_borc_pom
 	"borc/pom/Target.hpp"
     "borc/pom/Target.cpp"
     "borc/pom/Project.hpp"
@@ -30,7 +38,9 @@ set (sources
     "borc/pom/Source.cpp"
     #"borc/pom/ProjectParser.hpp"
     #"borc/pom/ProjectParser.cpp"
+)
 
+set (sources_borc_cpp
     # C++ language support
     "borc/cpp/CppProject.hpp"
     "borc/cpp/CppProject.cpp"
@@ -43,9 +53,17 @@ find_package(Boost 1.45.0 REQUIRED COMPONENTS
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-source_group(\\ FILES ${sources})
+source_group("\\" FILES ${sources})
+source_group("\\borc" FILES ${sources_borc})
+source_group("\\borc\\pom" FILES ${sources_borc_pom})
+source_group("\\borc\\cpp" FILES ${sources_borc_cpp})
 
-add_executable (${target} ${sources})
+add_executable (${target} 
+	${sources}
+	${sources_borc}
+	${sources_borc_pom}
+	${sources_borc_cpp}
+)
 
 target_link_libraries (
     ${target} 

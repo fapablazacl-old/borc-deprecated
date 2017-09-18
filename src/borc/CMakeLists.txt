@@ -16,20 +16,23 @@ set (sources
 )
 
 set (sources_borc
-    "borc/Task.hpp"
-    "borc/Task.cpp"
-    "borc/CommandTask.hpp"
-    "borc/CommandTask.cpp"
-    "borc/TaskPerformer.hpp"
-    "borc/TaskPerformer.cpp"
-    "borc/TaskHierarchy.hpp"
-    "borc/TaskHierarchy.cpp"
-    "borc/TaskHierarchyImpl.hpp"
-    "borc/TaskHierarchyImpl.cpp"
-    "borc/SerialTaskPerformer.hpp"
-    "borc/SerialTaskPerformer.cpp"
-	"borc/FileTypeRegistry.hpp"
-	"borc/FileTypeRegistry.cpp"
+    "borc/FileTypeRegistry.hpp"
+    "borc/FileTypeRegistry.cpp"
+)
+
+set (sources_borc_tasks
+    "borc/tasks/Task.hpp"
+    "borc/tasks/Task.cpp"
+    "borc/tasks/CommandTask.hpp"
+    "borc/tasks/CommandTask.cpp"
+    "borc/tasks/TaskPerformer.hpp"
+    "borc/tasks/TaskPerformer.cpp"
+    "borc/tasks/TaskHierarchy.hpp"
+    "borc/tasks/TaskHierarchy.cpp"
+    "borc/tasks/TaskHierarchyImpl.hpp"
+    "borc/tasks/TaskHierarchyImpl.cpp"
+    "borc/tasks/SerialTaskPerformer.hpp"
+    "borc/tasks/SerialTaskPerformer.cpp"
 )
 
 set (sources_borc_pom
@@ -70,13 +73,15 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 source_group("\\"                   FILES ${sources})
 source_group("\\borc"               FILES ${sources_borc})
+source_group("\\borc\\tasks"        FILES ${sources_borc_tasks})
 source_group("\\borc\\pom"          FILES ${sources_borc_pom})
 source_group("\\borc\\cpp"          FILES ${sources_borc_cpp})
 source_group("\\borc\\toolchains"   FILES ${sources_borc_toolchains})
 
 add_executable (${target} 
 	${sources}
-	${sources_borc}
+    ${sources_borc}
+    ${sources_borc_tasks}
 	${sources_borc_pom}
     ${sources_borc_cpp}
     ${sources_borc_toolchains}

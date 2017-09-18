@@ -15,8 +15,18 @@ namespace borc {
         return taskPtr;
     }
 
-    TaskHierarchyImpl* TaskHierarchyImpl::setTaskDependency(const Task *task, const Task* dependency) {
+    TaskHierarchyImpl* TaskHierarchyImpl::setTaskDependency(Task *task, Task* dependency) {
         m_taskDependencies[task].push_back(dependency);
         return this;
+    }
+
+    std::vector<Task*> TaskHierarchyImpl::getTaskDependencies(Task *task) const {
+        auto taskIterator = m_taskDependencies.find(task);
+
+        if (taskIterator != m_taskDependencies.end()) {
+            return taskIterator->second;
+        } else {
+            return std::vector<Task*>();
+        }
     }
 }

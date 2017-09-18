@@ -4,7 +4,6 @@
 
 #include "TaskHierarchy.hpp"
 
-#include <vector>
 #include <map>
 
 namespace borc {
@@ -21,11 +20,13 @@ namespace borc {
 
         virtual Task* addTask(std::unique_ptr<Task> task) override;
 
-        virtual TaskHierarchyImpl* setTaskDependency(const Task *task, const Task* dependency) override;
+        virtual TaskHierarchyImpl* setTaskDependency(Task *task, Task* dependency) override;
+
+        virtual std::vector<Task*> getTaskDependencies(Task *task) const override;
 
     private:
         std::vector<std::unique_ptr<Task>> m_tasks;
-        std::map<const Task*, std::vector<const Task*>> m_taskDependencies;
+        std::map<Task*, std::vector<Task*>> m_taskDependencies;
     };
 }
 

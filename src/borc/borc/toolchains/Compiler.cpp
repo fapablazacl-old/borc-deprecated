@@ -1,6 +1,7 @@
 
 #include "Compiler.hpp"
 
+#include <borc/tasks/Task.hpp>
 #include <borc/pom/Source.hpp>
 
 namespace borc {
@@ -31,5 +32,10 @@ namespace borc {
 
     std::string Compiler::getPath() const {
         return m_path;
+    }
+
+    std::unique_ptr<Task> Compiler::createTask(const Source *source) {
+        // TODO: Add implementation
+        return std::unique_ptr<Task>();
     }
 }

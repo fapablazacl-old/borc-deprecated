@@ -4,17 +4,38 @@
 
 #include <cstddef>
 
+#include <vector>
+#include <memory>
+
 namespace borc {
+    class Project;
+
+    class TaskHierarchy;
+
     class Compiler;
     class Linker;
 
+    class Task;
+    
     class Toolchain {
     public:
+        Toolchain();
+
         virtual ~Toolchain();
 
-        virtual std::size_t getCompilerCount() const = 0;
+        virtual Compiler* getCompiler(const std::size_t index);
+
+        virtual std::size_t getCompilerCount() const;
+
+        virtual Linker* getLinker(const std::size_t index);
+
+        virtual std::size_t getLinkerCount() const;
+
+        virtual void setupTaskHierarchy(TaskHierarchy *hierarchy, const Project *project);
         
-        virtual const Compiler* getCompiler(const std::size_t index) const = 0;
+    private:
+        std::vector<std::unique_ptr<Compiler>> m_compilers;
+        std::vector<std::unique_ptr<Linker>> m_linkers;
     };
 }
 

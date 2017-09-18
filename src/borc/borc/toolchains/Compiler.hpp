@@ -4,11 +4,13 @@
 
 #include <string>
 #include <set>
+#include <memory>
 
 #include <borc/FileTypeRegistry.hpp>
 
 namespace borc {
 
+    class Task;
     class Source;
     class FileTypeRegistry;
 
@@ -35,6 +37,11 @@ namespace borc {
          */
         std::string getPath() const;
         
+        /**
+         * @brief Creates a task wich will build the specified source file at a later stage.
+         */
+        std::unique_ptr<Task> createTask(const Source *source);
+
     private:
         std::string m_toolName;
         std::string m_path;

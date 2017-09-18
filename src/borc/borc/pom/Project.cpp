@@ -1,5 +1,8 @@
 
 #include "Project.hpp"
+
+#include <algorithm>
+
 #include "Target.hpp"
 #include "Source.hpp"
 
@@ -8,16 +11,14 @@ namespace borc {
 
     Project::~Project() {}
 
-    std::size_t Project::getTargetCount() const {
-        return m_targets.size();
-    }
+    std::vector<Target*> Project::getTargets() const {
+        std::vector<Target*> targets;
+        
+        std::transform(m_targets.begin(), m_targets.end(), targets.begin(), [](const auto &target) {
+            return target.get();
+        });
 
-    Target* Project::getTarget(const std::size_t index) {
-        return m_targets[index].get();
-    }
-
-    const Target* Project::getTarget(const std::size_t index) const {
-        return m_targets[index].get();
+        return targets;
     }
 
     Target* Project::addTarget() {

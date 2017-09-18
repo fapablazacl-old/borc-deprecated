@@ -1,8 +1,13 @@
 
+
 #include "Toolchain.hpp"
+
+#include <cassert>
 
 #include "Compiler.hpp"
 #include "Linker.hpp"
+
+#include <algorithm>
 
 #include <borc/pom/Project.hpp>
 #include <borc/pom/Target.hpp>
@@ -13,23 +18,29 @@ namespace borc {
     
     Toolchain::~Toolchain() {}
 
-    Compiler* Toolchain::getCompiler(const std::size_t index) {
-        return m_compilers[index].get();
+    std::vector<Compiler*> Toolchain::getCompilers() const {
+        std::vector<Compiler*> compilers;
+
+        std::transform(m_compilers.begin(), m_compilers.end(), compilers.begin(), [](const auto &compiler) {
+            return compiler.get();
+        });
+
+        return compilers;
     }
     
-    std::size_t Toolchain::getCompilerCount() const {
-        return m_compilers.size();
-    }
+    std::vector<Linker*> Toolchain::getLinkers() const {
+        std::vector<Linker*> linkers;
+        
+        std::transform(m_linkers.begin(), m_linkers.end(), linkers.begin(), [](const auto &linker) {
+            return linker.get();
+        });
 
-    Linker* Toolchain::getLinker(const std::size_t index) {
-        return m_linkers[index].get();
-    }
-
-    std::size_t Toolchain::getLinkerCount() const {
-        return m_linkers.size();
+        return linkers;
     }
 
     void Toolchain::setupTaskHierarchy(TaskHierarchy *hierarchy, const Project *project) {
-
+        assert(hierarchy);
+        assert(project);
+        
     }
 }

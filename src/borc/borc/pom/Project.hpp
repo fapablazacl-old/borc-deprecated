@@ -15,11 +15,7 @@ namespace borc {
 
         virtual ~Project();
 
-        std::size_t getTargetCount() const;
-
-        Target* getTarget(const std::size_t index);
-
-        const Target* getTarget(const std::size_t index) const;
+        virtual std::vector<Target*> getTargets() const;
 
         Target* addTarget();
 

@@ -1,5 +1,8 @@
 
 #include "Target.hpp"
+
+#include <algorithm>
+
 #include "Source.hpp"
 
 namespace borc {
@@ -56,11 +59,17 @@ namespace borc {
         return this;
     }
 
-    std::size_t Target::getSourceCount() const {
-        return m_sources.size();
+    std::vector<const Target*> Target::getDependencies() const {
+        return m_deps;
     }
 
-    const Source* Target::getSource(const std::size_t index) const {
-        return m_sources[index].get();
+    std::vector<const Source*> Target::getSources() const {
+        std::vector<const Source*> sources;
+        
+        std::transform(m_sources.begin(), m_sources.end(), sources.begin(), [](auto &source) {
+            return source.get();
+        });
+
+        return sources;
     }
 }

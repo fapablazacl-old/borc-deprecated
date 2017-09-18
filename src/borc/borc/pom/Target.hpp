@@ -45,21 +45,13 @@ namespace borc {
 
         Target* addDependency(const Target *target);
 
-        std::size_t getDependencyCount() const {
-            return m_deps.size();
-        }
-
-        const Target* getDependency(const std::size_t index) const {
-            return m_deps[index];
-        }
+        std::vector<const Target*> getDependencies() const;
 
         Source* addSource(const std::string &filePath);
 
         Target* removeSource(const std::string &filePath);
 
-        std::size_t getSourceCount() const;
-
-        const Source* getSource(const std::size_t index) const;
+        std::vector<const Source*> getSources() const;
         
     private:
         Project *m_project;

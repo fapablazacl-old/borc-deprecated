@@ -23,13 +23,9 @@ namespace borc {
 
         virtual ~Toolchain();
 
-        virtual Compiler* getCompiler(const std::size_t index);
+        virtual std::vector<Compiler*> getCompilers() const;
 
-        virtual std::size_t getCompilerCount() const;
-
-        virtual Linker* getLinker(const std::size_t index);
-
-        virtual std::size_t getLinkerCount() const;
+        virtual std::vector<Linker*> getLinkers() const;
 
         virtual void setupTaskHierarchy(TaskHierarchy *hierarchy, const Project *project);
         

@@ -10,8 +10,11 @@ namespace borc {
 
     class Toolchain {
     public:
-        std::size_t getCompilerCount() const;
-        const Compiler* getCompiler(const std::size_t index) const;
+        virtual ~Toolchain();
+
+        virtual std::size_t getCompilerCount() const = 0;
+        
+        virtual const Compiler* getCompiler(const std::size_t index) const = 0;
     };
 }
 

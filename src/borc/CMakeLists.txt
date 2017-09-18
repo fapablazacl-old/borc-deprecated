@@ -22,9 +22,12 @@ set (sources_borc
     "borc/CommandTask.cpp"
     "borc/TaskPerformer.hpp"
     "borc/TaskPerformer.cpp"
+    "borc/TaskHierarchy.hpp"
+    "borc/TaskHierarchy.cpp"
+    "borc/TaskHierarchyImpl.hpp"
+    "borc/TaskHierarchyImpl.cpp"
     "borc/SerialTaskPerformer.hpp"
     "borc/SerialTaskPerformer.cpp"
-
 	"borc/FileTypeRegistry.hpp"
 	"borc/FileTypeRegistry.cpp"
 )

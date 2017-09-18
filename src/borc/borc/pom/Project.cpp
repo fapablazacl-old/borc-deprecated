@@ -27,4 +27,16 @@ namespace borc {
 
         return target;
     }
+
+    std::string Project::getName() const {
+        return m_name;
+    }
+
+    std::string Project::getPath() const {
+        return m_path;
+    }
+
+    void Project::setPath(const std::string &path) {
+        m_path = path;
+    }
 }

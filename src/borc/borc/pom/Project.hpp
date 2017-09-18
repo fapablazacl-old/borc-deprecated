@@ -23,12 +23,15 @@ namespace borc {
 
         Target* addTarget();
 
-        std::string getName() const {
-            return m_name;
-        }
+        std::string getName() const;
+
+        std::string getPath() const;
+
+        void setPath(const std::string &path);
 
     private:
         std::string m_name;
+        std::string m_path;
         std::vector<std::unique_ptr<Target>> m_targets;
     };
 }

@@ -42,6 +42,16 @@ set (sources_borc_pom
     "borc/pom/ProjectParserMock.cpp"
 )
 
+set (sources_borc_toolchains
+    # C++ language support
+    "borc/toolchains/Compiler.hpp"
+    "borc/toolchains/Compiler.cpp"
+    "borc/toolchains/Linker.hpp"
+    "borc/toolchains/Linker.cpp"
+    "borc/toolchains/Toolchain.hpp"
+    "borc/toolchains/Toolchain.cpp"
+)
+
 set (sources_borc_cpp
     # C++ language support
     "borc/cpp/CppProject.hpp"
@@ -55,16 +65,18 @@ find_package(Boost 1.45.0 REQUIRED COMPONENTS
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-source_group("\\" FILES ${sources})
-source_group("\\borc" FILES ${sources_borc})
-source_group("\\borc\\pom" FILES ${sources_borc_pom})
-source_group("\\borc\\cpp" FILES ${sources_borc_cpp})
+source_group("\\"                   FILES ${sources})
+source_group("\\borc"               FILES ${sources_borc})
+source_group("\\borc\\pom"          FILES ${sources_borc_pom})
+source_group("\\borc\\cpp"          FILES ${sources_borc_cpp})
+source_group("\\borc\\toolchains"   FILES ${sources_borc_toolchains})
 
 add_executable (${target} 
 	${sources}
 	${sources_borc}
 	${sources_borc_pom}
-	${sources_borc_cpp}
+    ${sources_borc_cpp}
+    ${sources_borc_toolchains}
 )
 
 target_link_libraries (

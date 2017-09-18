@@ -17,7 +17,7 @@ First Iteration (MVP):
         - Need A toolchain and a Project
         - Must express the dependency relationships between the building of those tasks
 
-    - Define the classes needed for the build of those tasks
+    - Define the classes needed for execute those tasks
         - Must support the build proccess in serial and in parallel.
 
     - Define the classes neeed for running the executable targets of the project

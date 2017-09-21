@@ -1,8 +1,13 @@
 
 #include "Compiler.hpp"
 
+#include <memory>
+
 #include <borc/tasks/Task.hpp>
+#include <borc/tasks/LogTask.hpp>
 #include <borc/pom/Source.hpp>
+
+#include <fmt/format.h>
 
 namespace borc {
     Compiler::Compiler(const FileTypeRegistry *registry, const std::string &toolName, const std::set<FileType> &types) {
@@ -35,7 +40,8 @@ namespace borc {
     }
 
     std::unique_ptr<Task> Compiler::createTask(const Source *source) {
-        // TODO: Add implementation
-        return std::unique_ptr<Task>();
+        const std::string cmd = fmt::format("{0}", source->getFilePath());
+
+        return std::make_unique<LogTask>(cmd);
     }
 }

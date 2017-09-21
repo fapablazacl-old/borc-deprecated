@@ -12,6 +12,10 @@ set (CMAKE_CXX_STANDARD 17)
 #add_subdirectory("dep/yaml-cpp")
 #include_directories("dep/yaml-cpp/include")
 
+# fmt testing format library
+include_directories("dep/fmt/")
+add_subdirectory("dep/fmt/")
+
 # borc core
 #add_subdirectory("src/borc-core")
 

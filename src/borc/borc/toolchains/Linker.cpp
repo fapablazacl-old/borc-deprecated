@@ -2,6 +2,7 @@
 #include "Linker.hpp"
 
 #include <borc/pom/Target.hpp>
+#include <borc/tasks/LogTask.hpp>
 #include <borc/tasks/Task.hpp>
 
 namespace borc {
@@ -29,7 +30,6 @@ namespace borc {
     }
 
     std::unique_ptr<Task> Linker::createTask(const Target *target) {
-        // TODO: Add implementation
-        return std::unique_ptr<Task>();
+        return std::make_unique<LogTask>(target->getName());
     }
 }

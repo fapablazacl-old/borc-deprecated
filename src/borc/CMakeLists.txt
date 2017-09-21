@@ -23,6 +23,8 @@ set (sources_borc
 set (sources_borc_tasks
     "borc/tasks/Task.hpp"
     "borc/tasks/Task.cpp"
+    "borc/tasks/LogTask.hpp"
+    "borc/tasks/LogTask.cpp"
     "borc/tasks/CommandTask.hpp"
     "borc/tasks/CommandTask.cpp"
     "borc/tasks/TaskPerformer.hpp"
@@ -92,6 +94,7 @@ target_link_libraries (
     ${Boost_LIBRARIES} 
     #borc-core
     #yaml-cpp
+    fmt
 )
 
 install(TARGETS ${target} DESTINATION "bin")

@@ -23,7 +23,7 @@ namespace borc {
 
         virtual std::vector<Linker*> getLinkers() const override;
 
-        virtual std::unique_ptr<TaskNode> createBuildTask(const Project *project) = 0;
+        virtual std::unique_ptr<TaskNode> createBuildTask(const Project *project) override;
         
     private:
         std::vector<std::unique_ptr<Compiler>> m_compilers;

@@ -10,7 +10,6 @@
 
 #include <borc/tasks/TaskNode.hpp>
 #include <borc/tasks/Task.hpp>
-
 #include <borc/pom/Project.hpp>
 #include <borc/pom/Target.hpp>
 #include <borc/pom/Source.hpp>
@@ -61,12 +60,13 @@ namespace borc {
             }
 
             if (!linker) {
-                std::cout 
-                    << "The target " << target->getName() 
-                    << " could not be built. No supported toolchain found." << std::endl;
-
                 continue;
             }
+
+            auto targetTaskNode = std::make_unique<TaskNode>();
+            auto targetTask = linker->createTask(target);
+
+            targetTaskNode->task = std::move(targetTask);
 
             auto sources = target->getSources();
 
@@ -81,20 +81,18 @@ namespace borc {
                 }
 
                 if (!compiler) {
-                    std::cout 
-                        << "The source " << source->getFileName()
-                        << " could not be built. No supported compiler build tool found." << std::endl;
-
                     continue;
                 }
 
-                auto sourceBuildTask = compiler->createTask(source);
+                auto sourceTaskNode = std::make_unique<TaskNode>();
+                auto sourceTask = compiler->createTask(source);
 
-                // TODO: Add to the build hierarchy
-                // TODO: Add to the current list of tasks for the build of the target
-                // TODO: Create the dependency relation between the target task and the source tasks 
-                // TODO: Create the task list to make the dependencies between sources
+                sourceTaskNode->task = std::move(sourceTask);
+
+                targetTaskNode->childs.push_back(std::move(sourceTaskNode));
             }
+
+            projectTaskNode->childs.push_back(std::move(targetTaskNode));
         }
 
         return projectTaskNode;

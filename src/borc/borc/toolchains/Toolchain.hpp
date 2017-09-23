@@ -9,30 +9,21 @@
 
 namespace borc {
     class Project;
-
     class TaskHierarchy;
-
     class Compiler;
     class Linker;
-
     class Task;
     
     class Toolchain {
     public:
-        Toolchain();
-
         virtual ~Toolchain();
 
-        virtual std::vector<Compiler*> getCompilers() const;
+        virtual std::vector<Compiler*> getCompilers() const = 0;
 
-        virtual std::vector<Linker*> getLinkers() const;
+        virtual std::vector<Linker*> getLinkers() const = 0;
 
-        virtual void setupTaskHierarchy(TaskHierarchy *hierarchy, const Project *project);
-        
-    private:
-        std::vector<std::unique_ptr<Compiler>> m_compilers;
-        std::vector<std::unique_ptr<Linker>> m_linkers;
+        virtual void setupTaskHierarchy(TaskHierarchy *hierarchy, const Project *project) = 0;
     };
 }
 
-#endif 
+#endif

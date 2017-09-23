@@ -54,10 +54,16 @@ set (sources_borc_toolchains
     # C++ language support
     "borc/toolchains/Compiler.hpp"
     "borc/toolchains/Compiler.cpp"
+	"borc/toolchains/CompilerImpl.hpp"
+    "borc/toolchains/CompilerImpl.cpp"
     "borc/toolchains/Linker.hpp"
     "borc/toolchains/Linker.cpp"
+	"borc/toolchains/LinkerImpl.hpp"
+    "borc/toolchains/LinkerImpl.cpp"
     "borc/toolchains/Toolchain.hpp"
     "borc/toolchains/Toolchain.cpp"
+	"borc/toolchains/ToolchainImpl.hpp"
+    "borc/toolchains/ToolchainImpl.cpp"
 )
 
 set (sources_borc_cpp

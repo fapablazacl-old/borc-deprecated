@@ -40,7 +40,14 @@ namespace borc {
     }
 
     std::unique_ptr<Task> CompilerImpl::createTask(const Source *source) {
-        const std::string cmd = fmt::format("{0}", source->getFilePath());
+        assert(source);
+
+        const std::string commandTemplate = "{0} {1} /O0 /c /o {2}";
+
+        const std::string sourceFile = source->getFilePath();
+        const std::string targetFile = source->getFileTitle() + ".obj";
+
+        const std::string cmd = fmt::format(commandTemplate, m_toolName, sourceFile, targetFile);
 
         return std::make_unique<LogTask>(cmd);
     }

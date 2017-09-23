@@ -12,6 +12,7 @@ First Iteration (MVP):
     - Define the classes needed to express toolchains
         - The toolchains holds information about the available:
             - [OK] Compilers, Linkers and Generators used.
+		- For C/C++, the toolchain class must be independent about the compiler used.
 
     - Define the classes needed for generate the tasks neccesary in order to build the project
         - [OK] Need A toolchain and a Project

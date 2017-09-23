@@ -49,7 +49,6 @@ set (sources_borc_pom
 )
 
 set (sources_borc_toolchains
-    # C++ language support
     "borc/toolchains/Compiler.hpp"
     "borc/toolchains/Compiler.cpp"
 	"borc/toolchains/CompilerImpl.hpp"
@@ -65,7 +64,6 @@ set (sources_borc_toolchains
 )
 
 set (sources_borc_cpp
-    # C++ language support
     "borc/cpp/CppProject.hpp"
     "borc/cpp/CppProject.cpp"
 )

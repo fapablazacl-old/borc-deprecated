@@ -11,14 +11,15 @@ First Iteration (MVP):
 
     - Define the classes needed to express toolchains
         - The toolchains holds information about the available:
-            - Compilers, Linkers and Generators used.
+            - [OK] Compilers, Linkers and Generators used.
 
     - Define the classes needed for generate the tasks neccesary in order to build the project
-        - Need A toolchain and a Project
-        - Must express the dependency relationships between the building of those tasks
+        - [OK] Need A toolchain and a Project
+        - [OK] Must express the dependency relationships between the building of those tasks
 
     - Define the classes needed for execute those tasks
-        - Must support the build proccess in serial and in parallel.
+        - [OK] Must support the build proccess in serial
+		- Must support the build proccess in parallel.
 
     - Define the classes neeed for running the executable targets of the project
         - Must add to the path environment variable the locations of the runtime-dependencies

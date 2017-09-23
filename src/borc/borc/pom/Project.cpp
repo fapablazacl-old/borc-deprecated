@@ -14,9 +14,9 @@ namespace borc {
     std::vector<Target*> Project::getTargets() const {
         std::vector<Target*> targets;
         
-        std::transform(m_targets.begin(), m_targets.end(), targets.begin(), [](const auto &target) {
-            return target.get();
-        });
+        for (auto &target : m_targets) {
+            targets.push_back(target.get());
+        }
 
         return targets;
     }

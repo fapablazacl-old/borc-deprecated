@@ -23,13 +23,8 @@ namespace borc {
 
         virtual std::vector<Linker*> getLinkers() const override;
 
-        virtual void setupTaskHierarchy(TaskHierarchy *hierarchy, const Project *project) override;
+        virtual std::unique_ptr<TaskNode> createBuildTask(const Project *project) = 0;
         
-    private:
-        void fillHierarchy(TaskHierarchy *hierarchy, Linker *linker, Target *target);
-
-        void fillHierarchy(TaskHierarchy *hierarchy, Compiler *compiler, Source *source);
-
     private:
         std::vector<std::unique_ptr<Compiler>> m_compilers;
         std::vector<std::unique_ptr<Linker>> m_linkers;

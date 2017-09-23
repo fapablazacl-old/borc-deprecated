@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include <borc/tasks/TaskHierarchy.hpp>
+#include <borc/tasks/TaskNode.hpp>
 #include <borc/tasks/Task.hpp>
 
 #include <borc/pom/Project.hpp>
@@ -40,9 +40,10 @@ namespace borc {
         return linkers;
     }
 
-    void ToolchainImpl::setupTaskHierarchy(TaskHierarchy *hierarchy, const Project *project) {
-        assert(hierarchy);
+    std::unique_ptr<TaskNode> ToolchainImpl::createBuildTask(const Project *project)  {
         assert(project);
+
+        auto projectTaskNode = std::make_unique<TaskNode>();
 
         auto targets = project->getTargets();
 
@@ -95,22 +96,7 @@ namespace borc {
                 // TODO: Create the task list to make the dependencies between sources
             }
         }
-    }
 
-    void ToolchainImpl::fillHierarchy(TaskHierarchy *hierarchy, Linker *linker, Target *target) {
-        assert(hierarchy);
-        assert(linker);
-        assert(target);
-
-    }
-
-    void ToolchainImpl::fillHierarchy(TaskHierarchy *hierarchy, Compiler *compiler, Source *source) {
-        assert(hierarchy);
-        assert(compiler);
-        assert(source);
-
-        auto sourceBuildTask = compiler->createTask(source);
-
-        hierarchy->addTask(std::move(sourceBuildTask));
+        return projectTaskNode;
     }
 }

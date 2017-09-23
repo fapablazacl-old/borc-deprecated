@@ -23,6 +23,10 @@ set (sources_borc
 set (sources_borc_tasks
     "borc/tasks/Task.hpp"
     "borc/tasks/Task.cpp"
+	"borc/tasks/TaskNode.hpp"
+    "borc/tasks/TaskNode.cpp"
+	"borc/tasks/TaskTree.hpp"
+    "borc/tasks/TaskTree.cpp"
     "borc/tasks/LogTask.hpp"
     "borc/tasks/LogTask.cpp"
     "borc/tasks/CommandTask.hpp"

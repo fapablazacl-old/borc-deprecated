@@ -9,10 +9,11 @@
 
 namespace borc {
     class Project;
-    class TaskHierarchy;
     class Compiler;
     class Linker;
     class Task;
+
+    struct TaskNode;
     
     class Toolchain {
     public:
@@ -22,7 +23,10 @@ namespace borc {
 
         virtual std::vector<Linker*> getLinkers() const = 0;
 
-        virtual void setupTaskHierarchy(TaskHierarchy *hierarchy, const Project *project) = 0;
+        /**
+         * @brief Create the build task hierarchy needed to build the specified project
+         */
+        virtual std::unique_ptr<TaskNode> createBuildTask(const Project *project) = 0;
     };
 }
 

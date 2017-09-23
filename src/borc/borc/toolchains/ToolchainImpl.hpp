@@ -13,9 +13,11 @@ namespace borc {
     class Target;
     class Source;
 
+    class FileTypeRegistry;
+
     class ToolchainImpl : public Toolchain {
     public:
-        ToolchainImpl();
+        explicit ToolchainImpl(const FileTypeRegistry *registry);
 
         virtual ~ToolchainImpl();
 

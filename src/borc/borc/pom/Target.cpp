@@ -66,9 +66,9 @@ namespace borc {
     std::vector<const Source*> Target::getSources() const {
         std::vector<const Source*> sources;
         
-        std::transform(m_sources.begin(), m_sources.end(), sources.begin(), [](auto &source) {
-            return source.get();
-        });
+        for (auto &source : m_sources) {
+            sources.push_back(source.get());
+        }
 
         return sources;
     }

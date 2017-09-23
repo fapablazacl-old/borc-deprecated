@@ -4,10 +4,14 @@
 #include "Compiler.hpp"
 #include "Linker.hpp"
 
+#include "CompilerImpl.hpp"
+#include "LinkerImpl.hpp"
+
 #include <cassert>
 #include <algorithm>
 #include <iostream>
 
+#include <borc/FileTypeRegistry.hpp>
 #include <borc/tasks/TaskNode.hpp>
 #include <borc/tasks/Task.hpp>
 #include <borc/pom/Project.hpp>
@@ -15,26 +19,29 @@
 #include <borc/pom/Source.hpp>
 
 namespace borc {
-    ToolchainImpl::ToolchainImpl() {}
+    ToolchainImpl::ToolchainImpl(const FileTypeRegistry *registry) {
+        m_compilers.emplace_back(new CompilerImpl(registry, "g++", {borc::FileType::Cplusplus}));
+        m_linkers.emplace_back(new LinkerImpl("ld"));
+    }
     
     ToolchainImpl::~ToolchainImpl() {}
 
     std::vector<Compiler*> ToolchainImpl::getCompilers() const {
         std::vector<Compiler*> compilers;
 
-        std::transform(m_compilers.begin(), m_compilers.end(), compilers.begin(), [](const auto &compiler) {
-            return compiler.get();
-        });
+        for (auto &compiler : m_compilers) {
+            compilers.push_back(compiler.get());
+        }
 
         return compilers;
     }
     
     std::vector<Linker*> ToolchainImpl::getLinkers() const {
         std::vector<Linker*> linkers;
-        
-        std::transform(m_linkers.begin(), m_linkers.end(), linkers.begin(), [](const auto &linker) {
-            return linker.get();
-        });
+
+        for (auto &linker: m_linkers) {
+            linkers.push_back(linker.get());
+        }
 
         return linkers;
     }

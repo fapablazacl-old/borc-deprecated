@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <memory>
 
+#include <borc/FileTypeRegistry.hpp>
+
 #include <borc/pom/Project.hpp>
 #include <borc/pom/Target.hpp>
 #include <borc/pom/Source.hpp>
@@ -16,9 +18,11 @@
 #include <borc/tasks/TaskNodeVisitorSerial.hpp>
 
 int main(int argc, char **argv) {
+    auto registry = std::make_unique<borc::FileTypeRegistry>();
+    auto toolchain = std::make_unique<borc::ToolchainImpl>(registry.get());
+
     auto projectParser = std::make_unique<borc::ProjectParserMock>();
     auto project = projectParser->parse("nonexistingfile.any");
-    auto toolchain = std::make_unique<borc::ToolchainImpl>();
     auto taskTree = toolchain->createBuildTask(project.get());
     auto taskVisitor = std::make_unique<borc::TaskNodeVisitorSerial>();
 

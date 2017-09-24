@@ -16,6 +16,8 @@ set (sources
 )
 
 set (sources_borc
+	"borc/FileType.hpp"
+    "borc/FileType.cpp"
     "borc/FileTypeRegistry.hpp"
     "borc/FileTypeRegistry.cpp"
 )

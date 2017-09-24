@@ -7,16 +7,9 @@
 #include <vector>
 #include <tuple>
 
-namespace borc {
-    /**
-     * A specific file type
-     */
-    enum class FileType {
-        Unknown,
-        C,
-        Cplusplus, 
-    };
+#include "FileType.hpp"
 
+namespace borc {
     /**
      * @brief The registry for known file types
      */

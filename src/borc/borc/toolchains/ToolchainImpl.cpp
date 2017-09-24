@@ -20,8 +20,8 @@
 
 namespace borc {
     ToolchainImpl::ToolchainImpl(const FileTypeRegistry *registry) {
-        m_compilers.emplace_back(new CompilerImpl(registry, "g++", {borc::FileType::Cplusplus}));
-        m_linkers.emplace_back(new LinkerImpl("ld"));
+        m_compilers.emplace_back(new CompilerImpl(registry, "cl", {borc::FileType::Cplusplus}));
+        m_linkers.emplace_back(new LinkerImpl("link"));
     }
     
     ToolchainImpl::~ToolchainImpl() {}

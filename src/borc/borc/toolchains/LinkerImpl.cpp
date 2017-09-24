@@ -1,9 +1,14 @@
 
 #include "LinkerImpl.hpp"
 
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
+
 #include <borc/pom/Target.hpp>
 #include <borc/tasks/LogTask.hpp>
 #include <borc/tasks/Task.hpp>
+
+#include <fmt/format.h>
 
 namespace borc {
     LinkerImpl::LinkerImpl(const std::string &toolName) {
@@ -30,6 +35,14 @@ namespace borc {
     }
 
     std::unique_ptr<Task> LinkerImpl::createTask(const Target *target) {
-        return std::make_unique<LogTask>(target->getName());
+        assert(target);
+
+        namespace fs = boost::filesystem;
+
+        const std::string commandTemplate = "{0} {1}";
+        const std::string targetName = target->getName();
+        const std::string cmd = fmt::format(commandTemplate, m_toolName, targetName);
+
+        return std::make_unique<LogTask>(cmd);
     }
 }

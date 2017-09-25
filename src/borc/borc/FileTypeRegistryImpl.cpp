@@ -7,13 +7,7 @@
 #include <borc/pom/Source.hpp>
 
 namespace borc {
-    FileTypeRegistryImpl::FileTypeRegistryImpl() {
-        // TODO: Move this initial registered filetypes to another location
-        this->addFileType("C Source File", {".c"});
-        this->addFileType("C Header File", {".h"});
-        this->addFileType("C++ Source File", {".cc", ".cpp", ".cxx", "c++"});
-        this->addFileType("C++ Header File", {".hh", ".hpp", ".hxx", "h++"});
-    }
+    FileTypeRegistryImpl::FileTypeRegistryImpl() {}
 
     FileTypeRegistryImpl::~FileTypeRegistryImpl() {}
 

@@ -18,8 +18,10 @@ set (sources
 set (sources_borc
 	"borc/FileType.hpp"
     "borc/FileType.cpp"
-    "borc/FileTypeRegistry.hpp"
+	"borc/FileTypeRegistry.hpp"
     "borc/FileTypeRegistry.cpp"
+    "borc/FileTypeRegistryImpl.hpp"
+    "borc/FileTypeRegistryImpl.cpp"
 )
 
 set (sources_borc_tasks
@@ -63,6 +65,8 @@ set (sources_borc_toolchains
     "borc/toolchains/Toolchain.cpp"
 	"borc/toolchains/ToolchainImpl.hpp"
     "borc/toolchains/ToolchainImpl.cpp"
+	"borc/toolchains/ToolchainCpp.hpp"
+    "borc/toolchains/ToolchainCpp.cpp"
 )
 
 set (sources_borc_cpp

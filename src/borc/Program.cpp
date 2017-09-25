@@ -4,7 +4,7 @@
 #include <stdexcept>
 #include <memory>
 
-#include <borc/FileTypeRegistry.hpp>
+#include <borc/FileTypeRegistryImpl.hpp>
 
 #include <borc/pom/Project.hpp>
 #include <borc/pom/Target.hpp>
@@ -18,7 +18,7 @@
 #include <borc/tasks/TaskNodeVisitorSerial.hpp>
 
 int main(int argc, char **argv) {
-    auto registry = std::make_unique<borc::FileTypeRegistry>();
+    auto registry = std::make_unique<borc::FileTypeRegistryImpl>();
     auto toolchain = std::make_unique<borc::ToolchainImpl>(registry.get());
 
     auto projectParser = std::make_unique<borc::ProjectParserMock>();

@@ -7,11 +7,15 @@
 #include <set>
 
 namespace borc {
+
+    /**
+     * @brief Default compiler implementation
+     */
     class CompilerImpl : public Compiler {
     public:
-        explicit CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<FileType> &types);
+        explicit CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types);
 
-        explicit CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<FileType> &types, const std::string &path);
+        explicit CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types, const std::string &path);
 
         virtual ~CompilerImpl();
 
@@ -28,7 +32,7 @@ namespace borc {
         std::string m_path;
         const FileTypeRegistry *m_registry;
 
-        std::set<FileType> m_supportedTypes;
+        std::set<const FileType*> m_supportedTypes;
     };
 }
 

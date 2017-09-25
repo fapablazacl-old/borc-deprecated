@@ -3,18 +3,21 @@
 #define __borc_filetype_hpp__
 
 #include <string>
-#include <set>
 #include <vector>
-#include <tuple>
 
 namespace borc {
     /**
-     * A specific file type
+     * @brief A generic file type
      */
-    enum class FileType {
-        Unknown,
-        C,
-        Cplusplus, 
+    struct FileType {
+        std::string name;
+        std::vector<std::string> extensions;
+
+        bool operator == (const FileType &rhs) const;
+
+        bool operator != (const FileType &rhs) const;
+
+        bool check(const std::string &extension) const;
     };
 }
 

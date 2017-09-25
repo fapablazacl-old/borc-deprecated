@@ -4,9 +4,6 @@
 #include "Compiler.hpp"
 #include "Linker.hpp"
 
-#include "CompilerImpl.hpp"
-#include "LinkerImpl.hpp"
-
 #include <cassert>
 #include <algorithm>
 #include <iostream>
@@ -19,10 +16,7 @@
 #include <borc/pom/Source.hpp>
 
 namespace borc {
-    ToolchainImpl::ToolchainImpl(const FileTypeRegistry *registry) {
-        m_compilers.emplace_back(new CompilerImpl(registry, "cl", {borc::FileType::Cplusplus}));
-        m_linkers.emplace_back(new LinkerImpl("link"));
-    }
+    ToolchainImpl::ToolchainImpl(FileTypeRegistry *registry) {}
     
     ToolchainImpl::~ToolchainImpl() {}
 

@@ -3,25 +3,27 @@
 #define __borc_filetyperegistry_hpp__
 
 #include <string>
-#include <set>
 #include <vector>
-#include <tuple>
-
-#include "FileType.hpp"
 
 namespace borc {
-    /**
-     * @brief The registry for known file types
-     */
     class Source;
+    struct FileType;
+
+    /**
+     * @brief A registry for identification and registering for file types
+     *
+     * This registry class serves as a local database for known file types, and it's used for 
+     * know how to react during certain compilation operations.
+     */
     class FileTypeRegistry {
     public:
-        FileTypeRegistry();
+        virtual ~FileTypeRegistry();
 
-        FileType getFileType(const Source *source) const;
+        virtual const FileType* getFileType(const Source *source) const = 0;
 
-    private:
-        std::vector<std::pair<FileType, std::set<std::string>>> m_fileTypes;
+        virtual const FileType* addFileType(const std::string &name, const std::vector<std::string> &extensions) = 0;
+
+        virtual void removeFileType(const FileType *type) = 0;
     };
 }
 

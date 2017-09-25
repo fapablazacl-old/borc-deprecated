@@ -13,7 +13,7 @@
 #include <fmt/format.h>
 
 namespace borc {
-    CompilerImpl::CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<FileType> &types) {
+    CompilerImpl::CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types) {
         assert(registry);
 
         m_registry = registry;
@@ -21,7 +21,7 @@ namespace borc {
         m_supportedTypes = types;
     }
 
-    CompilerImpl::CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<FileType> &types, const std::string &path) {
+    CompilerImpl::CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types, const std::string &path) {
         assert(registry);
 
         m_registry = registry;
@@ -35,7 +35,7 @@ namespace borc {
     bool CompilerImpl::isCompilable(const Source *source) const {
         assert(source);
 
-        FileType fileType = m_registry->getFileType(source);
+        const FileType *fileType = m_registry->getFileType(source);
 
         return m_supportedTypes.find(fileType) != m_supportedTypes.end();
     }

@@ -17,7 +17,7 @@ namespace borc {
 
     class ToolchainImpl : public Toolchain {
     public:
-        explicit ToolchainImpl(const FileTypeRegistry *registry);
+        explicit ToolchainImpl(FileTypeRegistry *registry);
 
         virtual ~ToolchainImpl();
 
@@ -27,7 +27,7 @@ namespace borc {
 
         virtual std::unique_ptr<TaskNode> createBuildTask(const Project *project) override;
         
-    private:
+    protected:
         std::vector<std::unique_ptr<Compiler>> m_compilers;
         std::vector<std::unique_ptr<Linker>> m_linkers;
     };

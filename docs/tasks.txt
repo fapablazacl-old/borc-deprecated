@@ -8,6 +8,7 @@ First Iteration (MVP):
         - [OK] Independent of the Programming Language used.
         - [OK] Must express the dependency relationships between targets.
         - [OK] Model the current BORC project structure for testing purposes.
+        - Implement a project parser format
 
     - Define the classes needed to express toolchains
         - The toolchains holds information about the available:
@@ -20,11 +21,10 @@ First Iteration (MVP):
 
     - Define the classes needed for execute those tasks
         - [OK] Must support the build proccess in serial
-		- Must support the build proccess in parallel.
+		- [POSTPONED] Must support the build proccess in parallel.
 
     - Define the classes neeed for running the executable targets of the project
         - Must add to the path environment variable the locations of the runtime-dependencies
         - Dependens on the Project Model.
 
 - Develop the main command line tool of the build system
-    

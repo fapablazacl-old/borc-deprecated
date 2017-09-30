@@ -19,7 +19,7 @@ namespace borc {
     public:
         explicit ToolchainImpl(FileTypeRegistry *registry);
 
-        virtual ~ToolchainImpl();
+        virtual ~ToolchainImpl() = 0;
 
         virtual std::vector<Compiler*> getCompilers() const override;
 

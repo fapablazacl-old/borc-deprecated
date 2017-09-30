@@ -13,13 +13,13 @@ namespace borc {
     class Source;
     class Target;
 
-    class LinkerCpp : public Linker {
+    class LinkerImpl : public Linker {
     public:
-        explicit LinkerCpp(const std::string &toolName);
+        explicit LinkerImpl(const std::string &toolName);
 
-        explicit LinkerCpp(const std::string &toolName, const std::string &path);
+        explicit LinkerImpl(const std::string &toolName, const std::string &path);
 
-        virtual ~LinkerCpp();
+        virtual ~LinkerImpl();
 
         virtual bool isLinkable(const Target *target) const override;
 

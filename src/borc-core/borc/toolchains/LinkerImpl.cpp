@@ -1,5 +1,5 @@
 
-#include "LinkerCpp.hpp"
+#include "LinkerImpl.hpp"
 
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
@@ -11,30 +11,30 @@
 #include <fmt/format.h>
 
 namespace borc {
-    LinkerCpp::LinkerCpp(const std::string &toolName) {
+    LinkerImpl::LinkerImpl(const std::string &toolName) {
         m_toolName = toolName;
     }
 
-    LinkerCpp::LinkerCpp(const std::string &toolName, const std::string &path) {
+    LinkerImpl::LinkerImpl(const std::string &toolName, const std::string &path) {
         m_toolName = toolName;
         m_path = path;
     }
 
-    LinkerCpp::~LinkerCpp() {}
+    LinkerImpl::~LinkerImpl() {}
 
-    bool LinkerCpp::isLinkable(const Target *target) const {
+    bool LinkerImpl::isLinkable(const Target *target) const {
         return target->getSources().size() > 0;
     }
 
-    std::string LinkerCpp::getToolName() const {
+    std::string LinkerImpl::getToolName() const {
         return m_toolName;
     }
 
-    std::string LinkerCpp::getPath() const {
+    std::string LinkerImpl::getPath() const {
         return m_path;
     }
 
-    std::unique_ptr<Task> LinkerCpp::createTask(const Target *target) {
+    std::unique_ptr<Task> LinkerImpl::createTask(const Target *target) {
         assert(target);
 
         namespace fs = boost::filesystem;

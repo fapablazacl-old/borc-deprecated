@@ -11,13 +11,13 @@ namespace borc {
     /**
      * @brief Default compiler implementation
      */
-    class CompilerImpl : public Compiler {
+    class CompilerCpp : public Compiler {
     public:
-        explicit CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types);
+        explicit CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types);
 
-        explicit CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types, const std::string &path);
+        explicit CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types, const std::string &path);
 
-        virtual ~CompilerImpl();
+        virtual ~CompilerCpp();
 
         virtual bool isCompilable(const Source *source) const override;
 
@@ -33,6 +33,10 @@ namespace borc {
         const FileTypeRegistry *m_registry;
 
         std::set<const FileType*> m_supportedTypes;
+
+        std::string m_switch;
+        std::string m_additionalIncludeDirs;
+        std::string m_compileOnly;
     };
 }
 

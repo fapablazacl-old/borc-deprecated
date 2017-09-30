@@ -29,6 +29,10 @@ namespace borc {
     }
 
     const FileType* FileTypeRegistryImpl::addFileType(const std::string &name, const std::vector<std::string> &extensions) {
+        if (extensions.size() == 0) {
+            return nullptr;
+        } 
+
         auto fileType = new FileType{name, extensions};
 
         m_fileTypes.emplace_back(fileType);

@@ -1,8 +1,8 @@
 
-#ifndef __borc_toolchaincpp_hpp__
-#define __borc_toolchaincpp_hpp__
+#ifndef __borc_toolchainimpl_hpp__
+#define __borc_toolchainimpl_hpp__
 
-#include "ToolsetImpl.hpp"
+#include "Toolset.hpp"
 
 #include <cstddef>
 #include <vector>
@@ -11,15 +11,26 @@
 namespace borc {
     class Target;
     class Source;
-
-    struct FileType;
     class FileTypeRegistry;
 
-    class ToolsetCpp : public ToolsetImpl {
+    struct FileType;
+
+    class ToolsetCpp : public Toolset {
     public:
         explicit ToolsetCpp(FileTypeRegistry *registry);
 
-    private:
+        virtual ~ToolsetCpp();
+
+        virtual std::vector<Compiler*> getCompilers() const override;
+
+        virtual std::vector<Linker*> getLinkers() const override;
+
+        virtual std::unique_ptr<TaskNode> createBuildTask(const Project *project) override;
+        
+    protected:
+        std::vector<std::unique_ptr<Compiler>> m_compilers;
+        std::vector<std::unique_ptr<Linker>> m_linkers;
+
         const FileType *m_c_sourceFile = nullptr;
         const FileType *m_c_headerFile = nullptr;
         const FileType *m_cpp_sourceFile = nullptr;

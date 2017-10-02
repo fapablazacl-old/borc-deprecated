@@ -33,6 +33,8 @@ namespace borc {
         const FileTypeRegistry *m_registry;
 
         std::set<const FileType*> m_supportedTypes;
+
+        std::string m_switchSymbol;
     };
 }
 

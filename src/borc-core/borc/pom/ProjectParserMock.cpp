@@ -7,7 +7,7 @@
 
 namespace borc {
     std::unique_ptr<Project> ProjectParserMock::parse(const std::string &file) {
-        auto borcProject = std::make_unique<borc::Project>("borc");
+        auto borcProject = std::make_unique<borc::Project>("borc", nullptr);
         
         auto borcTarget = borcProject->addTarget()
             ->setName("borc")

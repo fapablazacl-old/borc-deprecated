@@ -1,11 +1,11 @@
 
-#include "ToolchainCpp.hpp"
+#include "ToolsetCpp.hpp"
 
 #include "CompilerImpl.hpp"
 #include "LinkerImpl.hpp"
 
 namespace borc {
-    ToolchainCpp::ToolchainCpp(FileTypeRegistry *registry) : ToolchainImpl(registry) {
+    ToolsetCpp::ToolsetCpp(FileTypeRegistry *registry) : ToolsetImpl(registry) {
         m_c_sourceFile = registry->addFileType("C Source File", {".c"});
         m_c_headerFile = registry->addFileType("C Header File", {".h"});
         m_cpp_sourceFile = registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});

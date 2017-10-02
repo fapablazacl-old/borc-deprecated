@@ -7,7 +7,10 @@
 #include "Source.hpp"
 
 namespace borc {
-    Project::Project(const std::string name) : m_name(name) {}
+    Project::Project(const std::string name, const Language *language) {
+        m_name = name;
+        m_language = language;
+    }
 
     Project::~Project() {}
 
@@ -39,5 +42,9 @@ namespace borc {
 
     void Project::setPath(const std::string &path) {
         m_path = path;
+    }
+
+    const Language* Project::getLanguage() const {
+        return m_language;
     }
 }

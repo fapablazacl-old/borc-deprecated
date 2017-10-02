@@ -50,26 +50,25 @@ set (sources_borc_pom
     "borc/pom/ProjectParserMock.cpp"
 )
 
-set (sources_borc_toolchains
-    "borc/toolchains/Compiler.hpp"
-    "borc/toolchains/Compiler.cpp"
-	"borc/toolchains/CompilerImpl.hpp"
-    "borc/toolchains/CompilerImpl.cpp"
-    "borc/toolchains/Linker.hpp"
-    "borc/toolchains/Linker.cpp"
-	"borc/toolchains/LinkerImpl.hpp"
-    "borc/toolchains/LinkerImpl.cpp"
-    "borc/toolchains/Toolchain.hpp"
-    "borc/toolchains/Toolchain.cpp"
-	"borc/toolchains/ToolchainImpl.hpp"
-    "borc/toolchains/ToolchainImpl.cpp"
-	"borc/toolchains/ToolchainCpp.hpp"
-    "borc/toolchains/ToolchainCpp.cpp"
+set (sources_borc_toolset
+    "borc/toolsets/Compiler.hpp"
+    "borc/toolsets/Compiler.cpp"
+	"borc/toolsets/CompilerImpl.hpp"
+    "borc/toolsets/CompilerImpl.cpp"
+    "borc/toolsets/Linker.hpp"
+    "borc/toolsets/Linker.cpp"
+	"borc/toolsets/LinkerImpl.hpp"
+    "borc/toolsets/LinkerImpl.cpp"
+    "borc/toolsets/Toolset.hpp"
+    "borc/toolsets/Toolset.cpp"
+	"borc/toolsets/ToolsetImpl.hpp"
+    "borc/toolsets/ToolsetImpl.cpp"
+	"borc/toolsets/ToolsetCpp.hpp"
+    "borc/toolsets/ToolsetCpp.cpp"
 )
 
 set (sources_borc_cpp
-    "borc/cpp/CppProject.hpp"
-    "borc/cpp/CppProject.cpp"
+    
 )
 
 find_package(Boost 1.45.0 REQUIRED COMPONENTS
@@ -84,7 +83,7 @@ source_group("\\borc"               FILES ${sources_borc})
 source_group("\\borc\\tasks"        FILES ${sources_borc_tasks})
 source_group("\\borc\\pom"          FILES ${sources_borc_pom})
 source_group("\\borc\\cpp"          FILES ${sources_borc_cpp})
-source_group("\\borc\\toolchains"   FILES ${sources_borc_toolchains})
+source_group("\\borc\\toolsets"   FILES ${sources_borc_toolset})
 
 add_library (${target} 
 	${sources}
@@ -92,7 +91,7 @@ add_library (${target}
     ${sources_borc_tasks}
 	${sources_borc_pom}
     ${sources_borc_cpp}
-    ${sources_borc_toolchains}
+    ${sources_borc_toolset}
 )
 
 target_link_libraries (

@@ -2,7 +2,7 @@
 #ifndef __borc_toolchaincpp_hpp__
 #define __borc_toolchaincpp_hpp__
 
-#include "ToolchainImpl.hpp"
+#include "ToolsetImpl.hpp"
 
 #include <cstddef>
 #include <vector>
@@ -15,9 +15,9 @@ namespace borc {
     struct FileType;
     class FileTypeRegistry;
 
-    class ToolchainCpp : public ToolchainImpl {
+    class ToolsetCpp : public ToolsetImpl {
     public:
-        explicit ToolchainCpp(FileTypeRegistry *registry);
+        explicit ToolsetCpp(FileTypeRegistry *registry);
 
     private:
         const FileType *m_c_sourceFile = nullptr;

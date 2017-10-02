@@ -1,5 +1,5 @@
 
-#include "ToolchainImpl.hpp"
+#include "ToolsetImpl.hpp"
 
 #include "Compiler.hpp"
 #include "Linker.hpp"
@@ -16,11 +16,11 @@
 #include <borc/pom/Source.hpp>
 
 namespace borc {
-    ToolchainImpl::ToolchainImpl(FileTypeRegistry *registry) {}
+    ToolsetImpl::ToolsetImpl(FileTypeRegistry *registry) {}
     
-    ToolchainImpl::~ToolchainImpl() {}
+    ToolsetImpl::~ToolsetImpl() {}
 
-    std::vector<Compiler*> ToolchainImpl::getCompilers() const {
+    std::vector<Compiler*> ToolsetImpl::getCompilers() const {
         std::vector<Compiler*> compilers;
 
         for (auto &compiler : m_compilers) {
@@ -30,7 +30,7 @@ namespace borc {
         return compilers;
     }
     
-    std::vector<Linker*> ToolchainImpl::getLinkers() const {
+    std::vector<Linker*> ToolsetImpl::getLinkers() const {
         std::vector<Linker*> linkers;
 
         for (auto &linker: m_linkers) {
@@ -40,7 +40,7 @@ namespace borc {
         return linkers;
     }
 
-    std::unique_ptr<TaskNode> ToolchainImpl::createBuildTask(const Project *project)  {
+    std::unique_ptr<TaskNode> ToolsetImpl::createBuildTask(const Project *project)  {
         assert(project);
 
         auto projectTaskNode = std::make_unique<TaskNode>();

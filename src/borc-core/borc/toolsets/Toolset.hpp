@@ -15,9 +15,9 @@ namespace borc {
 
     struct TaskNode;
     
-    class Toolchain {
+    class Toolset {
     public:
-        virtual ~Toolchain();
+        virtual ~Toolset();
 
         virtual std::vector<Compiler*> getCompilers() const = 0;
 

@@ -2,7 +2,7 @@
 #ifndef __borc_toolchainimpl_hpp__
 #define __borc_toolchainimpl_hpp__
 
-#include "Toolchain.hpp"
+#include "Toolset.hpp"
 
 #include <cstddef>
 #include <vector>
@@ -15,11 +15,11 @@ namespace borc {
 
     class FileTypeRegistry;
 
-    class ToolchainImpl : public Toolchain {
+    class ToolsetImpl : public Toolset {
     public:
-        explicit ToolchainImpl(FileTypeRegistry *registry);
+        explicit ToolsetImpl(FileTypeRegistry *registry);
 
-        virtual ~ToolchainImpl() = 0;
+        virtual ~ToolsetImpl() = 0;
 
         virtual std::vector<Compiler*> getCompilers() const override;
 

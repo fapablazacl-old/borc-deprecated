@@ -11,7 +11,7 @@
 #include <borc/pom/Source.hpp>
 #include <borc/pom/ProjectParserMock.hpp>
 
-#include <borc/toolchains/ToolchainCpp.hpp>
+#include <borc/toolsets/ToolsetCpp.hpp>
 
 #include <borc/tasks/Task.hpp>
 #include <borc/tasks/TaskNode.hpp>
@@ -19,7 +19,7 @@
 
 int main(int argc, char **argv) {
     auto registry = std::make_unique<borc::FileTypeRegistryImpl>();
-    auto toolchain = std::make_unique<borc::ToolchainCpp>(registry.get());
+    auto toolchain = std::make_unique<borc::ToolsetCpp>(registry.get());
 
     auto projectParser = std::make_unique<borc::ProjectParserMock>();
     auto project = projectParser->parse("nonexistingfile.any");

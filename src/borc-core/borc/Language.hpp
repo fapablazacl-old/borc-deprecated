@@ -3,6 +3,7 @@
 #define __borc_language_hpp__
 
 #include <vector>
+#include <string>
 
 namespace borc {
 
@@ -15,6 +16,8 @@ namespace borc {
     class Language {
     public:
         virtual ~Language();
+
+        virtual std::string getName() const = 0;
 
         /**
          * @brief Get a list of the supported toolset

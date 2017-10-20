@@ -14,6 +14,8 @@ set (target "borc-core")
 set (sources )
 
 set (sources_borc
+    "borc/Version.hpp"
+    "borc/Version.cpp"
 	"borc/Language.hpp"
 	"borc/Language.cpp"
 	"borc/FileType.hpp"

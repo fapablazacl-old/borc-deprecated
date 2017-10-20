@@ -7,7 +7,7 @@
 
 namespace borc {
     class Source;
-    struct FileType;
+    class FileType;
 
     /**
      * @brief A registry for identification and registering for file types

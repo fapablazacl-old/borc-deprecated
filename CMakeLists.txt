@@ -8,7 +8,6 @@ set (CMAKE_CXX_STANDARD 17)
 # Catch testing framework
 include_directories("dep/Catch/include")
 
-
 # yaml-cpp library
 #add_subdirectory("dep/yaml-cpp")
 #include_directories("dep/yaml-cpp/include")
@@ -27,5 +26,6 @@ add_subdirectory("src/borc")
 
 # unit testing
 add_subdirectory("src/borc-test")
-#enable_testing()
-#add_test(BorcTest "${CMAKE_CURRENT_BINARY_DIR}/src/borc-tdd/borc-tdd")
+
+# test-driven development
+add_subdirectory("src/borc-tdd")

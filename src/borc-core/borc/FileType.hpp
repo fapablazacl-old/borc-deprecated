@@ -9,13 +9,13 @@ namespace borc {
     /**
      * @brief A generic file type
      */
-    struct FileType {
+    class FileType {
+    public:
         std::string name;
         std::vector<std::string> extensions;
 
-        bool operator == (const FileType &rhs) const;
-
-        bool operator != (const FileType &rhs) const;
+        // bool operator == (const FileType &rhs) const;
+        // bool operator != (const FileType &rhs) const;
 
         bool check(const std::string &extension) const;
     };

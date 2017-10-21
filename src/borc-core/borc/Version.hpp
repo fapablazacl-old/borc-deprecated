@@ -27,11 +27,11 @@ namespace borc {
             return m_revision;
         }
         
-        Version* setMajor(const int value);
+        Version& setMajor(const int value);
 
-        Version* setMinor(const int value);
+        Version& setMinor(const int value);
 
-        Version* setRevision(const int value);
+        Version& setRevision(const int value);
 
         int compare(const Version *other) const;
 

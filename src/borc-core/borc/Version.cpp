@@ -1,36 +1,49 @@
 
 #include "Version.hpp"
 #include <cassert>
+#include <stdexcept>
 
 namespace borc {
     Version::Version(const int major) {
-        this->setMajor(major);
+        setMajor(major);
     }
 
     Version::Version(const int major, const int minor) {
-        this->setMajor(major)->setMinor(minor);
+        setMajor(major).setMinor(minor);
     }
 
     Version::Version(const int major, const int minor, const int revision) {
-        this->setMajor(major)->setMinor(minor)->setRevision(revision);
+        setMajor(major).setMinor(minor).setRevision(revision);
     }
     
-    Version* Version::setMajor(const int value) {
+    Version& Version::setMajor(const int value) {
+        if (value < 0) {
+            throw std::invalid_argument("Argument should be non-negative");
+        }
+
         m_major = value;
 
-        return this;
+        return *this;
     }
     
-    Version* Version::setMinor(const int value) {
+    Version& Version::setMinor(const int value) {
+        if (value < 0) {
+            throw std::invalid_argument("Argument should be non-negative");
+        }
+
         m_minor = value;
 
-        return this;
+        return *this;
     }
 
-    Version* Version::setRevision(const int value) {
+    Version& Version::setRevision(const int value) {
+        if (value < 0) {
+            throw std::invalid_argument("Argument should be non-negative");
+        }
+
         m_revision = value;
 
-        return this;
+        return *this;
     }
 
     int Version::compare(const Version *other) const {

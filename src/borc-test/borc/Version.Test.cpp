@@ -61,26 +61,32 @@ TEST_CASE("Version Test Case", "borc::Version") {
     SECTION("setters should behave correctly") {
         auto version = borc::Version();
         
-        REQUIRE(version.setMajor(1) == &version);
+        REQUIRE(version.setMajor(1) == version);
         REQUIRE(version.getMajor() == 1);
 
-        REQUIRE(version.setMinor(2) == &version);
+        REQUIRE(version.setMinor(2) == version);
         REQUIRE(version.getMinor() == 2);
 
-        REQUIRE(version.setRevision(1000) == &version);
+        REQUIRE(version.setRevision(1000) == version);
         REQUIRE(version.getRevision() == 1000);
+
+        SECTION("and should throw exceptions when passing negative version numbers") {
+            REQUIRE_THROWS(version.setMajor(-1));
+            REQUIRE_THROWS(version.setMinor(-2));
+            REQUIRE_THROWS(version.setRevision(-3));
+        }
     }
 
     SECTION("comparison operators should behave correctly") {
         auto version = borc::Version();
         
-        REQUIRE(version.setMajor(1) == &version);
+        REQUIRE(version.setMajor(1) == version);
         REQUIRE(version.getMajor() == 1);
 
-        REQUIRE(version.setMinor(2) == &version);
+        REQUIRE(version.setMinor(2) == version);
         REQUIRE(version.getMinor() == 2);
 
-        REQUIRE(version.setRevision(1000) == &version);
+        REQUIRE(version.setRevision(1000) == version);
         REQUIRE(version.getRevision() == 1000);
     }
 

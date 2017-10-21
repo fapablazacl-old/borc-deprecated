@@ -20,16 +20,6 @@ TEST_CASE("FileType Test Case", "borc::FileType") {
         REQUIRE(fileType2.extensions[3] == ".c++");
     }
 
-    /*
-    SECTION("comparison operators should differentiate the different file types") {
-        REQUIRE(fileType == fileType);
-        REQUIRE(fileType2 == fileType2);
-
-        REQUIRE(fileType != fileType2);
-        REQUIRE(fileType2 != fileType);
-    }
-    */
-
     SECTION("check method should detect sources correctly") {
         REQUIRE(fileType.check(".java"));
         REQUIRE(fileType.check(".class"));

@@ -14,7 +14,6 @@ namespace borc {
     }
     */
 
-
     bool FileType::check(const std::string &extension) const {
         auto it = std::find(extensions.begin(), extensions.end(), extension);
 

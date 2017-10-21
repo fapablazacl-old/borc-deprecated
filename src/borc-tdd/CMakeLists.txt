@@ -13,7 +13,6 @@ add_definitions(-DBOOST_PROGRAM_OPTIONS_DYN_LINK)
 set (target "borc-tdd")
 set (sources 
 	"MainTDD.cpp"
-    "TestProjectBuild.cpp"
 )
 
 find_package(Boost 1.45.0 REQUIRED COMPONENTS

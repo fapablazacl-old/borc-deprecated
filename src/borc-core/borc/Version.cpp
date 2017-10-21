@@ -46,23 +46,27 @@ namespace borc {
     }
 
     bool Version::operator< (const Version &other) const {
-        if (m_major >= other.m_major) {
-            return false;
+        if (m_major == other.m_major) {
+            if (m_minor == other.m_minor) {
+                return m_revision < other.m_revision;
+            } else {
+                return m_minor < other.m_minor;
+            }
+        } else {
+            return m_major < other.m_major;
         }
-
-        if (m_minor >= other.m_minor) {
-            return false;
-        }
-
-        if (m_revision >= other.m_revision) {
-            return false;
-        }
-
-        return true;
     }
 
     bool Version::operator> (const Version &other) const {
-        return ! (*this <= other);
+        if (m_major == other.m_major) {
+            if (m_minor == other.m_minor) {
+                return m_revision > other.m_revision;
+            } else {
+                return m_minor > other.m_minor;
+            }
+        } else {
+            return m_major > other.m_major;
+        }
     }
 
     bool Version::operator<= (const Version &other) const {

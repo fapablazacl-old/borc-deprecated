@@ -16,6 +16,7 @@ set (sources
 )
 
 set (sources_borc
+    "borc/Version.Test.cpp"
     "borc/FileType.Test.cpp"
     "borc/FileTypeRegistry.Test.cpp"
     "borc/FileTypeRegistryImpl.Test.cpp"

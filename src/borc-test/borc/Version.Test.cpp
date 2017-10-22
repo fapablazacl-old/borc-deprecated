@@ -77,7 +77,7 @@ TEST_CASE("Version Test Case", "borc::Version") {
         }
     }
 
-    SECTION("comparison operators should behave correctly") {
+    SECTION("setters and getters should behave correctly") {
         auto version = borc::Version();
         
         REQUIRE(version.setMajor(1) == version);
@@ -96,5 +96,11 @@ TEST_CASE("Version Test Case", "borc::Version") {
 
         auto version2 = borc::Version(1, 2, 3);
         REQUIRE(version2.toString() == "1.2.3");
+    }
+
+    SECTION("compare method should return only one of three responses") {
+        REQUIRE(borc::Version(1, 2, 3).compare(borc::Version(1, 2, 1)) == borc::VersionComparisonResult::Greater);
+        REQUIRE(borc::Version(1, 2, 3).compare(borc::Version(1, 3, 1)) == borc::VersionComparisonResult::Lesser);
+        REQUIRE(borc::Version(1, 2, 3).compare(borc::Version(1, 2, 3)) == borc::VersionComparisonResult::Equal);
     }
 }

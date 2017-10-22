@@ -5,6 +5,14 @@
 #include <string>
 
 namespace borc {
+
+    enum class VersionComparisonResult {
+        Unknown = 255,
+        Lesser = -1, 
+        Equal = 0, 
+        Greater = 1
+    };
+
     class Version {
     public:
         explicit Version() {}
@@ -33,7 +41,7 @@ namespace borc {
 
         Version& setRevision(const int value);
 
-        int compare(const Version *other) const;
+        VersionComparisonResult compare(const Version &other) const;
 
         bool operator< (const Version &other) const;
 

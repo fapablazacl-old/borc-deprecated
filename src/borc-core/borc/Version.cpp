@@ -46,15 +46,15 @@ namespace borc {
         return *this;
     }
 
-    int Version::compare(const Version *other) const {
-        assert(other);
-
-        if (*this == *other) {
-            return 0;
-        } else if (*this < *other) {
-            return -1;
-        } else if (*this > *other) {
-            return 1;
+    VersionComparisonResult Version::compare(const Version &other) const {
+        if (*this == other) {
+            return VersionComparisonResult::Equal;
+        } else if (*this < other) {
+            return VersionComparisonResult::Lesser;
+        } else if (*this > other) {
+            return VersionComparisonResult::Greater;
+        } else {
+            return VersionComparisonResult::Unknown;
         }
     }
 

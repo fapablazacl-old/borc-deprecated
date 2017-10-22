@@ -13,7 +13,7 @@
 #include <fmt/format.h>
 
 namespace borc {
-    CompilerImpl::CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types) {
+    CompilerCpp::CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types) {
         assert(registry);
 
         m_registry = registry;
@@ -21,7 +21,7 @@ namespace borc {
         m_supportedTypes = types;
     }
 
-    CompilerImpl::CompilerImpl(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types, const std::string &path) {
+    CompilerCpp::CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types, const std::string &path) {
         assert(registry);
 
         m_registry = registry;
@@ -30,9 +30,9 @@ namespace borc {
         m_path = path;
     }
 
-    CompilerImpl::~CompilerImpl() {}
+    CompilerCpp::~CompilerCpp() {}
 
-    bool CompilerImpl::isCompilable(const Source *source) const {
+    bool CompilerCpp::isCompilable(const Source *source) const {
         assert(source);
 
         const FileType *fileType = m_registry->getFileType(source);
@@ -40,15 +40,15 @@ namespace borc {
         return m_supportedTypes.find(fileType) != m_supportedTypes.end();
     }
 
-    std::string CompilerImpl::getToolName() const {
+    std::string CompilerCpp::getToolName() const {
         return m_toolName;
     }
 
-    std::string CompilerImpl::getPath() const {
+    std::string CompilerCpp::getPath() const {
         return m_path;
     }
 
-    std::unique_ptr<Task> CompilerImpl::createTask(const Source *source) {
+    std::unique_ptr<Task> CompilerCpp::createTask(const Source *source) {
         assert(source);
 
         namespace fs = boost::filesystem;

@@ -13,7 +13,7 @@ namespace borc {
     class Source;
     class FileTypeRegistry;
 
-    struct FileType;
+    class FileType;
 
     class ToolsetCpp : public Toolset {
     public:

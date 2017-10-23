@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-#include "Target.hpp"
+#include "TargetImpl.hpp"
 #include "Source.hpp"
 
 namespace borc {
@@ -25,7 +25,7 @@ namespace borc {
     }
 
     Target* Project::addTarget() {
-        auto target = new Target(this);
+        auto target = new TargetImpl(this);
 
         m_targets.emplace_back(target);
 

@@ -34,6 +34,9 @@ namespace borc {
          */
         const Language* getLanguage() const;
 
+        /**
+         * @brief Set the root path of the project
+         */
         void setPath(const std::string &path);
 
     private:

@@ -42,8 +42,12 @@ set (sources_borc_tasks
 )
 
 set (sources_borc_pom
+	"borc/pom/TargetType.hpp"
+    "borc/pom/TargetType.cpp"
 	"borc/pom/Target.hpp"
     "borc/pom/Target.cpp"
+	"borc/pom/TargetImpl.hpp"
+    "borc/pom/TargetImpl.cpp"
     "borc/pom/Project.hpp"
     "borc/pom/Project.cpp"
     "borc/pom/Source.hpp"

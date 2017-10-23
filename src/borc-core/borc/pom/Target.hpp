@@ -6,60 +6,74 @@
 #include <vector>
 
 namespace borc {
-    enum class TargetType {
-        Program = 1,
-        Library = 2
-    };
-
-    extern std::string to_string(const TargetType type);
-
     class Source;
     class Project;
+
+    enum class TargetType;
+
     class Target {
     public:
-        explicit Target(Project *project);
+        virtual ~Target();
 
-        explicit Target(Project *project, const std::string &name);
+        /**
+         * @brief
+         */
+        virtual Project* getProject() const = 0;
 
-        Project* getProject() const {
-            return m_project;
-        }
+        /**
+         * @brief
+         */
+        virtual Target* setName(const std::string &name) = 0;
 
-        Target* setName(const std::string &name);
+        /**
+         * @brief
+         */
+        virtual Target* setPath(const std::string &path) = 0;
 
-        Target* setPath(const std::string &path);
+        /**
+         * @brief
+         */
+        virtual Target* setType(const TargetType type) = 0;
 
-        Target* setType(const TargetType type);
+        /**
+         * @brief
+         */
+        virtual std::string getName() const = 0;
 
-        std::string getName() const {
-            return m_name;
-        }
+        /**
+         * @brief
+         */
+        virtual std::string getPath() const = 0;
 
-        std::string getPath() const {
-            return m_path;
-        }
+        /**
+         * @brief
+         */
+        virtual TargetType getType() const = 0;
 
-        TargetType getType() const {
-            return m_type;
-        }
+        /**
+         * @brief
+         */
+        virtual Target* addDependency(const Target *target) = 0;
 
-        Target* addDependency(const Target *target);
+        /**
+         * @brief
+         */
+        virtual std::vector<const Target*> getDependencies() const = 0;
 
-        std::vector<const Target*> getDependencies() const;
+        /**
+         * @brief
+         */
+        virtual Source* addSource(const std::string &filePath) = 0;
 
-        Source* addSource(const std::string &filePath);
+        /**
+         * @brief
+         */
+        virtual Target* removeSource(const std::string &filePath) = 0;
 
-        Target* removeSource(const std::string &filePath);
-
-        std::vector<const Source*> getSources() const;
-        
-    private:
-        Project *m_project;
-        TargetType m_type;
-        std::string m_name;
-        std::string m_path;
-        std::vector<const Target*> m_deps;
-        std::vector<std::unique_ptr<const Source>> m_sources;
+        /**
+         * @brief Scans the project path and all its subdirectories for source files, for this target
+         */
+        virtual std::vector<const Source*> getSources() const = 0;
     };
 }
 

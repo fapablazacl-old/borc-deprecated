@@ -5,6 +5,16 @@ project(borc)
 
 set (CMAKE_CXX_STANDARD 17)
 
+set (BORC_VERSION_MAJOR "0")
+set (BORC_VERSION_MINOR"0")
+set (BORC_VERSION_REVISION "0")
+
+add_definitions("-DCMAKE_SOURCE_DIR=${CMAKE_SOURCE_DIR}")
+
+add_definitions("-DBORC_VERSION_MAJOR=${BORC_VERSION_MAJOR}")
+add_definitions("-DBORC_VERSION_MINOR=${BORC_VERSION_MINOR}")
+add_definitions("-DBORC_VERSION_REVISION=${BORC_VERSION_REVISION}")
+
 # Catch testing framework
 include_directories("dep/Catch/include")
 

@@ -10,10 +10,10 @@ namespace borc {
     class FileType;
 
     /**
-     * @brief A registry for identification and registering for file types
+     * @brief A storage for identification and registration of file types
      *
      * This registry class serves as a local database for known file types, and it's used for 
-     * know how to react during certain compilation operations.
+     * know how to react during certain compilation operations (what command to invoke/execute, etc).
      */
     class FileTypeRegistry {
     public:

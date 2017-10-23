@@ -8,8 +8,9 @@ First Iteration (MVP):
         - [OK] Independent of the Programming Language used.
         - [OK] Must express the dependency relationships between targets.
         - [OK] Model the current BORC project structure for testing purposes.
+		- [OK] Support for automatic source file scanning.
         - Implement a project parser format
-
+		
     - Define the classes needed to express toolchains
         - The toolchains holds information about the available:
             - [OK] Compilers, Linkers and Generators used.

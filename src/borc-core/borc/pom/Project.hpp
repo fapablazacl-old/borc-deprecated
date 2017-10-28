@@ -44,6 +44,11 @@ namespace borc {
         virtual std::string getPath() const = 0;
 
         /**
+         * @brief Get the build path for the project
+         */
+        virtual std::string getBuildPath() const = 0;
+
+        /**
          * @brief Set the root path of the project
          */
         virtual Project* setPath(const std::string &path) = 0;

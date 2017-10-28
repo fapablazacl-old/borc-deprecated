@@ -63,7 +63,17 @@ namespace borc {
                 throw std::runtime_error("The current project path doesn't exist");
             }
             
+            if (!fs::create_directory(this->getBuildPath())) {
+                throw std::runtime_error("Couldn't create the .borc internal directory.");
+            }
+
+            // that's for now!
+
             return this;
+        }
+
+        virtual std::string getBuildPath() const override {
+            return (fs::path(m_path) / ".borc").string();
         }
 
     private:

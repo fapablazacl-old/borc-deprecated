@@ -1,50 +1,78 @@
 
 #include "Project.hpp"
 
-#include <algorithm>
-
 #include "TargetImpl.hpp"
 #include "Source.hpp"
 
+#include <stdexcept>
+#include <boost/filesystem.hpp>
+
+namespace fs = boost::filesystem;
+
 namespace borc {
-    Project::Project(const std::string name, const Language *language) {
-        m_name = name;
-        m_language = language;
-    }
+    class ProjectImpl : public Project {
+    public:
+        explicit ProjectImpl(const std::string name, const std::string &path) {
+            this->setName(name)->setPath(path);
+        }
+    
+        virtual ~ProjectImpl() {}
+    
+        virtual std::vector<Target*> getTargets() const override {
+            std::vector<Target*> targets;
+            
+            for (auto &target : m_targets) {
+                targets.push_back(target.get());
+            }
+    
+            return targets;
+        }
+    
+        virtual Target* addTarget() override {
+            auto target = new TargetImpl(this);
+    
+            m_targets.emplace_back(target);
+    
+            return target;
+        }
+    
+        virtual std::string getName() const override {
+            return m_name;
+        }
+    
+        virtual Project* setName(const std::string &name) override {
+            // TODO: Add validation
+            m_name = name;
 
-    Project::~Project() {}
-
-    std::vector<Target*> Project::getTargets() const {
-        std::vector<Target*> targets;
-        
-        for (auto &target : m_targets) {
-            targets.push_back(target.get());
+            return this;
         }
 
-        return targets;
-    }
+        virtual std::string getPath() const override {
+            return m_path;
+        }
+    
+        virtual Project* setPath(const std::string &path) override {
+            // TODO: Add validation
+            m_path = path;
 
-    Target* Project::addTarget() {
-        auto target = new TargetImpl(this);
+            return this;
+        }
 
-        m_targets.emplace_back(target);
+        virtual Project* setup() override {
+            if (!fs::is_directory(m_path)) {
+                throw std::runtime_error("The current project path doesn't exist");
+            }
+            
+            return this;
+        }
 
-        return target;
-    }
+    private:
+        std::string m_name;
+        std::string m_path;
+        std::vector<std::unique_ptr<Target>> m_targets;
+    };
 
-    std::string Project::getName() const {
-        return m_name;
-    }
-
-    std::string Project::getPath() const {
-        return m_path;
-    }
-
-    void Project::setPath(const std::string &path) {
-        m_path = path;
-    }
-
-    const Language* Project::getLanguage() const {
-        return m_language;
+    std::unique_ptr<Project> Project::create(const std::string &name, const std::string &path) {
+        return std::make_unique<ProjectImpl>(name, path);
     }
 }

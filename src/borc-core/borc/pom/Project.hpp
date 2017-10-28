@@ -7,43 +7,57 @@
 #include <memory>
 
 namespace borc {
-    class Language;
-
     class TaskPerformer;
     class Target;
+    class Version;
 
     /**
-     * @brief A Project
+     * @brief Project representation
      */
     class Project {
     public:
-        explicit Project(const std::string name, const Language *language);
-
-        virtual ~Project();
-
-        virtual std::vector<Target*> getTargets() const;
-
-        Target* addTarget();
-
-        std::string getName() const;
-
-        std::string getPath() const;
+        virtual ~Project() {}
 
         /**
-         * @brief Get the key of the programming language used
+         * @brief Get a vector of the supported Targets for the project 
          */
-        const Language* getLanguage() const;
+        virtual std::vector<Target*> getTargets() const = 0;
+
+        /**
+         * @brief Add a new target, linked to this project
+         */
+        virtual Target* addTarget() = 0;
+
+        /**
+         * @brief Get the name of the project
+         */
+        virtual std::string getName() const = 0;
+
+        /**
+         * @brief Set the name of the project
+         */
+        virtual Project* setName(const std::string &name) = 0;
+
+        /**
+         * @brief Get the root path
+         */
+        virtual std::string getPath() const = 0;
 
         /**
          * @brief Set the root path of the project
          */
-        void setPath(const std::string &path);
+        virtual Project* setPath(const std::string &path) = 0;
 
-    private:
-        const Language *m_language = nullptr;
-        std::string m_name;
-        std::string m_path;
-        std::vector<std::unique_ptr<Target>> m_targets;
+        /**
+         * @brief Prepare internal directory hierarchy for build project files
+         */
+        virtual Project* setup() = 0;
+
+    public:
+        /**
+         * @brief Create a new instance 
+         */
+        static std::unique_ptr<Project> create(const std::string &name, const std::string &path="");
     };
 }
 

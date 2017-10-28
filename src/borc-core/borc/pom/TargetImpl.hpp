@@ -31,7 +31,7 @@ namespace borc {
 
         virtual TargetImpl* setType(const TargetType type) override;
 
-        virtual std::string getName() const {
+        virtual std::string getName() const override {
             return m_name;
         }
 

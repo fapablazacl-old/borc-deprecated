@@ -12,7 +12,7 @@ namespace borc {
     std::unique_ptr<Project> ProjectParserMock::parse(const std::string &file) {
         namespace fs = boost::filesystem;
 
-        auto borcProject = std::make_unique<borc::Project>("borc", nullptr);
+        auto borcProject = borc::Project::create("borc");
         
 #if defined(CMAKE_SOURCE_DIR)
         borcProject->setPath(BOOST_STRINGIZE(CMAKE_SOURCE_DIR));

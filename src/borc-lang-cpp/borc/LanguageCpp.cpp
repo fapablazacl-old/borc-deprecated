@@ -1,6 +1,8 @@
 
 #include "LanguageCpp.hpp"
 
+#include <stdexcept>
+
 namespace borc {
     LanguageCpp::LanguageCpp() {}
     

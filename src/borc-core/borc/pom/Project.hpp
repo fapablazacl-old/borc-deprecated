@@ -9,10 +9,9 @@
 namespace borc {
     class TaskPerformer;
     class Target;
-    class Version;
 
     /**
-     * @brief Project representation
+     * @brief Project class.
      */
     class Project {
     public:
@@ -54,13 +53,15 @@ namespace borc {
         virtual Project* setPath(const std::string &path) = 0;
 
         /**
-         * @brief Prepare internal directory hierarchy for build project files
+         * @brief Setups the project, preparing internal data.
+         * 
+         * Prepare the internal directory hierarchy, and the internal data structures for build project files
          */
         virtual Project* setup() = 0;
 
     public:
         /**
-         * @brief Create a new instance 
+         * @brief Creates a new, empty project
          */
         static std::unique_ptr<Project> create(const std::string &name, const std::string &path="");
     };

@@ -67,8 +67,6 @@ namespace borc {
                 throw std::runtime_error("Couldn't create the .borc internal directory.");
             }
 
-            // that's for now!
-
             return this;
         }
 

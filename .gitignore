@@ -2,4 +2,5 @@ build/*
 old/*
 .vscode/*
 .vs/*
+docs/html/*
 

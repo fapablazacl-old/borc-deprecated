@@ -6,74 +6,39 @@
 #include <vector>
 
 namespace borc {
-    class Source;
     class Project;
+    class TaskNode;
 
     enum class TargetType;
 
+    /**
+     * @brief A build target. Can be a documentation target, module target, etc
+     */
     class Target {
     public:
         virtual ~Target();
 
         /**
-         * @brief
+         * @brief Get the parent project
          */
         virtual Project* getProject() const = 0;
 
         /**
-         * @brief
+         * @brief Set the current target name. 
+         * 
+         * This name must be unique among the other targets of the project.
          */
         virtual Target* setName(const std::string &name) = 0;
 
         /**
-         * @brief
-         */
-        virtual Target* setPath(const std::string &path) = 0;
-
-        /**
-         * @brief
-         */
-        virtual Target* setType(const TargetType type) = 0;
-
-        /**
-         * @brief
+         * @brief Get the current target name.
          */
         virtual std::string getName() const = 0;
 
         /**
-         * @brief
+         * @brief Create a task hierarchy to perform the specified action.
          */
-        virtual std::string getPath() const = 0;
-
-        /**
-         * @brief
-         */
-        virtual TargetType getType() const = 0;
-
-        /**
-         * @brief
-         */
-        virtual Target* addDependency(const Target *target) = 0;
-
-        /**
-         * @brief
-         */
-        virtual std::vector<const Target*> getDependencies() const = 0;
-
-        /**
-         * @brief
-         */
-        virtual Source* addSource(const std::string &filePath) = 0;
-
-        /**
-         * @brief
-         */
-        virtual Target* removeSource(const std::string &filePath) = 0;
-
-        /**
-         * @brief Scans the project path and all its subdirectories for source files, for this target
-         */
-        virtual std::vector<const Source*> getSources() const = 0;
+        virtual std::unique_ptr<TaskNode> createTask(const std::string &action) = 0;
     };
 }
 

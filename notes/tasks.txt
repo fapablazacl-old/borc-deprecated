@@ -3,6 +3,8 @@
 First Iteration (MVP): 
 =================================================
 - Develop the minimal core of the build system
+    - Define how to concile the build-description file approach (like cmake) vs the IDE embeddable approach (like Visual Studio)
+        - Define a format that
     - Define the classes of the content of the project and its targets, properly, in order to be buildable.
         - [OK] Independent of the Toolchain used.
         - [OK] Independent of the Programming Language used.

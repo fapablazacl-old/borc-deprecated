@@ -6,7 +6,25 @@
 
 #include <set>
 
+#include <vector>
+
 namespace borc {
+    struct CompilerConfigCpp {
+        //! The symbol used for compiler switches
+        std::string switchSymbol;
+
+        //! The name of the executable command
+        std::string command;
+
+        //! Installation path
+        std::string path;
+
+        //! System include paths
+        std::vector<std::string> includePaths; 
+
+        //! System library paths
+        std::vector<std::string> libraryPaths;
+    };
 
     /**
      * @brief Default compiler implementation

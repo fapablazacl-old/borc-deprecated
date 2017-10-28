@@ -34,6 +34,10 @@ add_subdirectory("src/borc-core")
 include_directories("src/borc")
 add_subdirectory("src/borc")
 
+# C++ support for borc
+include_directories("src/borc-lang-cpp")
+add_subdirectory("src/borc-lang-cpp")
+
 # unit testing
 add_subdirectory("src/borc-test")
 

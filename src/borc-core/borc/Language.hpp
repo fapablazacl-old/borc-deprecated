@@ -6,7 +6,6 @@
 #include <string>
 
 namespace borc {
-
     class Toolset;
     class FileType;
 

@@ -1,6 +1,8 @@
 
 #include "TargetType.hpp"
 
+#include <stdexcept>
+
 namespace borc {
     std::string to_string(const TargetType type) {
         switch (type) {

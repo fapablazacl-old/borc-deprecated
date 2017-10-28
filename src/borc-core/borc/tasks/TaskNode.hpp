@@ -11,7 +11,7 @@ namespace borc {
     /**
      * @brief A single task dependency hierarchy node
      */    
-    struct TaskNode {
+    class TaskNode {
     public:
         ~TaskNode();
 

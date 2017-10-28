@@ -5,8 +5,8 @@
 
 #include <borc/pom/Project.hpp>
 #include <borc/pom/Target.hpp>
+#include <borc/pom/ModuleTargetType.hpp>
 #include <borc/pom/ModuleTarget.hpp>
-#include <borc/pom/TargetType.hpp>
 #include <borc/pom/Source.hpp>
 
 namespace borc {
@@ -22,12 +22,12 @@ namespace borc {
         auto borcTarget = borcProject->createTarget<ModuleTarget>()
             ->setName("borc")
             ->setPath("src/borc")
-            ->setType(borc::TargetType::Program);
+            ->setType(ModuleTargetType::Program);
 
         auto borcCoreTarget = borcProject->createTarget<ModuleTarget>()
             ->setName("borc-core")
             ->setPath("src/borc-core")
-            ->setType(TargetType::Library);
+            ->setType(ModuleTargetType::Library);
 
         return borcProject;
     }

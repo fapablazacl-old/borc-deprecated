@@ -13,7 +13,7 @@ namespace borc {
     class Linker;
     class Task;
 
-    struct TaskNode;
+    class TaskNode;
     
     class Toolset {
     public:

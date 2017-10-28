@@ -7,7 +7,7 @@
 
 namespace borc {
     class Task;
-    struct TaskNode;
+    class TaskNode;
 
     /**
      * @brief A task node visitor that performs the specified complete hierarchy.

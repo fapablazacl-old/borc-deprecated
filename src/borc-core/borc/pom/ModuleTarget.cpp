@@ -1,9 +1,8 @@
 
 #include "ModuleTarget.hpp"
-
+#include "ModuleTargetType.hpp"
 #include "Project.hpp"
 #include "Source.hpp"
-#include "TargetType.hpp"
 #include "TargetAction.hpp"
 
 #include <algorithm>
@@ -74,10 +73,14 @@ namespace borc {
             return this;
         }
 
-        virtual ModuleTargetImpl* setType(const TargetType type) override {
+        virtual ModuleTargetImpl* setType(const ModuleTargetType type) override {
             m_type = type;
 
             return this;
+        }
+
+        virtual ModuleTargetType getType() const override {
+            return m_type;
         }
 
         virtual ModuleTargetImpl* addDependency(const Target *target) override {
@@ -117,7 +120,7 @@ namespace borc {
         Project *m_project;
         std::string m_name;
         Language *m_language;
-        TargetType m_type;
+        ModuleTargetType m_type;
         std::string m_path;
         std::vector<const Target*> m_deps;
         std::vector<std::unique_ptr<const Source>> m_sources;

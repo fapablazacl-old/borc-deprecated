@@ -7,9 +7,12 @@
 #include <memory>
 
 namespace borc {
+    enum class TargetAction;
+
     class TaskPerformer;
     class Target;
     class ModuleTarget;
+    class TaskNode;
 
     /**
      * @brief Project class.
@@ -63,6 +66,11 @@ namespace borc {
          */
         virtual Project* setup() = 0;
 
+        /**
+         * @brief Generate the task tree in order to perform the requested action
+         */
+        virtual std::unique_ptr<TaskNode> createTask(const TargetAction action) = 0;
+        
     private:        
         /**
          * @brief Add a new target, prexisting target, linked to this project. 

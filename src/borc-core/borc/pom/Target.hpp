@@ -7,7 +7,7 @@
 
 namespace borc {
     class Project;
-    struct TaskNode;
+    class TaskNode;
 
     enum class TargetType;
     enum class TargetAction;

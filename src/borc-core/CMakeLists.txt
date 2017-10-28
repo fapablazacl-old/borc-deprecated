@@ -42,14 +42,16 @@ set (sources_borc_tasks
 )
 
 set (sources_borc_pom
-	"borc/pom/TargetType.hpp"
-    "borc/pom/TargetType.cpp"
 	"borc/pom/TargetAction.hpp"
     "borc/pom/TargetAction.cpp"
 	"borc/pom/Target.hpp"
     "borc/pom/Target.cpp"
+
 	"borc/pom/ModuleTarget.hpp"
     "borc/pom/ModuleTarget.cpp"
+	"borc/pom/ModuleTargetType.hpp"
+    "borc/pom/ModuleTargetType.cpp"
+
     "borc/pom/Project.hpp"
     "borc/pom/Project.cpp"
     "borc/pom/Source.hpp"

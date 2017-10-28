@@ -56,6 +56,7 @@ namespace borc {
     std::unique_ptr<TaskNode> ToolsetCpp::createBuildTask(const Project *project)  {
         assert(project);
 
+        /*
         auto projectTaskNode = std::make_unique<TaskNode>();
 
         auto targets = project->getTargets();
@@ -110,5 +111,8 @@ namespace borc {
         }
 
         return projectTaskNode;
+        */
+
+        return std::unique_ptr<TaskNode>();
     }
 }

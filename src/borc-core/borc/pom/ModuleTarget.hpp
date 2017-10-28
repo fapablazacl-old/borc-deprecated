@@ -12,6 +12,8 @@ namespace borc {
     class Project;
     class Language;
 
+    enum class ModuleTargetType;
+
     /**
      * @brief A target that generates executable modules, like a Program or a Library, independent of the programming language used
      */
@@ -47,12 +49,12 @@ namespace borc {
         /**
          * @brief Set the type of ModuleTarget
          */
-        virtual ModuleTarget* setType(const TargetType type)  = 0;
+        virtual ModuleTarget* setType(const ModuleTargetType type) = 0;
 
         /**
          * @brief Get the type of ModuleTarget
          */
-        virtual TargetType getType() const = 0;
+        virtual ModuleTargetType getType() const = 0;
         
         /**
          * @brief Adds a new dependency to the target.

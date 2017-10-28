@@ -5,6 +5,7 @@
 
 #include <borc/pom/Project.hpp>
 #include <borc/pom/Target.hpp>
+#include <borc/pom/ModuleTarget.hpp>
 #include <borc/pom/TargetType.hpp>
 #include <borc/pom/Source.hpp>
 
@@ -18,15 +19,15 @@ namespace borc {
         borcProject->setPath(BOOST_STRINGIZE(CMAKE_SOURCE_DIR));
 #endif
 
-        auto borcTarget = borcProject->addTarget()
+        auto borcTarget = borcProject->createTarget<ModuleTarget>()
             ->setName("borc")
             ->setPath("src/borc")
             ->setType(borc::TargetType::Program);
 
-        auto borcCoreTarget = borcProject->addTarget()
+        auto borcCoreTarget = borcProject->createTarget<ModuleTarget>()
             ->setName("borc-core")
             ->setPath("src/borc-core")
-            ->setType(borc::TargetType::Library);
+            ->setType(TargetType::Library);
 
         return borcProject;
     }

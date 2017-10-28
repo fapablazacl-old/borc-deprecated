@@ -24,7 +24,8 @@ namespace borc {
     LinkerCpp::~LinkerCpp() {}
 
     bool LinkerCpp::isLinkable(const Target *target) const {
-        return target->getSources().size() > 0;
+        // return target->getSources().size() > 0;
+        return false;
     }
 
     std::string LinkerCpp::getToolName() const {

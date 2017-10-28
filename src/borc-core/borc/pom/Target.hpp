@@ -7,9 +7,10 @@
 
 namespace borc {
     class Project;
-    class TaskNode;
+    struct TaskNode;
 
     enum class TargetType;
+    enum class TargetAction;
 
     /**
      * @brief A build target. Can be a documentation target, module target, etc
@@ -36,9 +37,18 @@ namespace borc {
         virtual std::string getName() const = 0;
 
         /**
-         * @brief Create a task hierarchy to perform the specified action.
+         * @brief Create a task hierarchy to perform the specified action on this target
+         *
+         * The concrete actions will depend on:
+         *  - The Type of Target 
+         *  - The needed Toolsets 
          */
-        virtual std::unique_ptr<TaskNode> createTask(const std::string &action) = 0;
+        virtual std::unique_ptr<TaskNode> createTask(const TargetAction action) = 0;
+
+        /**
+         * @brief Gets an array of the actions supported by this target
+         */
+        virtual std::vector<TargetAction> supportedActions() const = 0;
     };
 }
 

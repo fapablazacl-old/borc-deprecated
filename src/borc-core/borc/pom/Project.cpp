@@ -1,7 +1,7 @@
 
 #include "Project.hpp"
 
-#include "TargetImpl.hpp"
+#include "ModuleTarget.hpp"
 #include "Source.hpp"
 
 #include <stdexcept>
@@ -28,11 +28,13 @@ namespace borc {
             return targets;
         }
     
-        virtual Target* addTarget() override {
-            auto target = new TargetImpl(this);
-    
+        virtual Target* addTarget(std::unique_ptr<Target> targetPtr) override {
+            assert(targetPtr->getProject() == this);
+
+            auto target = targetPtr.release();
+
             m_targets.emplace_back(target);
-    
+
             return target;
         }
     

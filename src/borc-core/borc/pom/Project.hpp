@@ -9,6 +9,7 @@
 namespace borc {
     class TaskPerformer;
     class Target;
+    class ModuleTarget;
 
     /**
      * @brief Project class.
@@ -23,9 +24,12 @@ namespace borc {
         virtual std::vector<Target*> getTargets() const = 0;
 
         /**
-         * @brief Add a new target, linked to this project
+         * @brief Utility method that creates a new child target.
          */
-        virtual Target* addTarget() = 0;
+        template<typename TargetImpl>
+        TargetImpl* createTarget() {
+            return static_cast<TargetImpl*>(this->addTarget(TargetImpl::create(this)));
+        }
 
         /**
          * @brief Get the name of the project
@@ -58,6 +62,14 @@ namespace borc {
          * Prepare the internal directory hierarchy, and the internal data structures for build project files
          */
         virtual Project* setup() = 0;
+
+    private:        
+        /**
+         * @brief Add a new target, prexisting target, linked to this project. 
+         *
+         * Intented to be called by borc::Project::createTarget<TargetImpl>
+         */
+        virtual Target* addTarget(std::unique_ptr<Target> target) = 0;
 
     public:
         /**

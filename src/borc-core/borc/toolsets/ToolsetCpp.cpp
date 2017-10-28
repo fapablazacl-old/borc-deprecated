@@ -12,7 +12,7 @@
 #include <borc/tasks/TaskNode.hpp>
 #include <borc/tasks/Task.hpp>
 #include <borc/pom/Project.hpp>
-#include <borc/pom/Target.hpp>
+#include <borc/pom/ModuleTarget.hpp>
 #include <borc/pom/Source.hpp>
 
 #include "CompilerCpp.hpp"
@@ -20,6 +20,8 @@
 
 namespace borc {
     ToolsetCpp::ToolsetCpp(FileTypeRegistry *registry) {
+        assert(registry);
+
         m_c_sourceFile = registry->addFileType("C Source File", {".c"});
         m_c_headerFile = registry->addFileType("C Header File", {".h"});
         m_cpp_sourceFile = registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});

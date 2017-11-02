@@ -41,7 +41,7 @@ namespace borc {
         TreeNode<T>* insertChild(std::unique_ptr<TreeNode<T>> childPtr) {
             auto child = childPtr.get();
 
-            // m_childs.push_back(std::move(child));
+            m_childs.push_back(std::move(childPtr));
 
             return child;
         }

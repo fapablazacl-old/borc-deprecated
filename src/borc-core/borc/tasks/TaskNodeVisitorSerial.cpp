@@ -7,8 +7,8 @@ namespace borc {
     TaskNodeVisitorSerial::~TaskNodeVisitorSerial() {}
 
     void TaskNodeVisitorSerial::visit(TreeNode<Task> *nodeTask, std::function<void(Task*)> fn) {
-        for (auto &child : nodeTask) {
-
+        for (auto &child : *nodeTask) {
+            this->visit(child.get(), fn);
         }
 
         fn(nodeTask->getData());

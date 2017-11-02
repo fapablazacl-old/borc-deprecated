@@ -6,12 +6,12 @@
 #include <vector>
 
 namespace borc {
-    class Project;
-   
-    class Task;
-
     template<typename T>
     class TreeNode;
+
+    class Project;
+    class Task;
+    class Toolset;
 
     enum class TargetType;
     enum class TargetAction;
@@ -53,6 +53,16 @@ namespace borc {
          * @brief Gets an array of the actions supported by this target
          */
         virtual std::vector<TargetAction> supportedActions() const = 0;
+
+        /**
+         * @brief Set the current toolset with we will build the module target
+         */
+        virtual Target* setToolset(Toolset *toolset) = 0;
+
+        /**
+         * @brief Get the current toolset with we will build the module target
+         */
+        virtual Toolset* getToolset() = 0;
     };
 }
 

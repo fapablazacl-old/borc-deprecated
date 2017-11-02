@@ -44,6 +44,10 @@ namespace borc {
 
             std::vector<const Source*> sources = this->getSources();
             for (const Source *source : sources) {
+                if (!m_toolset->checkAction(action, source)) {
+                    continue;
+                }
+
                 auto sourceTaskNode = m_toolset->createTask(action, source);
 
                 targetTaskNode->insertChild(std::move(sourceTaskNode));
@@ -133,6 +137,8 @@ namespace borc {
         }
     
         virtual ModuleTargetImpl* removeSource(const std::string &filePath) override {
+            throw std::runtime_error("Unimplemented");
+
             return this;
         }
 
@@ -151,14 +157,14 @@ namespace borc {
         }
 
     private:
-        Project *m_project = nullptr;
         std::string m_name;
-        Language *m_language = nullptr;
-        Toolset *m_toolset = nullptr;
-        ModuleTargetType m_type = ModuleTargetType::Program;
         std::string m_path;
         std::vector<const Target*> m_deps;
         std::vector<std::unique_ptr<const Source>> m_sources;
+        Project *m_project = nullptr;
+        Language *m_language = nullptr;
+        Toolset *m_toolset = nullptr;
+        ModuleTargetType m_type = ModuleTargetType::Program;
     };
 
     std::unique_ptr<ModuleTarget> ModuleTarget::create(Project *project) {

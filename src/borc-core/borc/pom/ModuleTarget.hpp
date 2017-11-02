@@ -38,16 +38,6 @@ namespace borc {
         virtual ModuleTarget* setLanguage(Language *language) = 0;
 
         /**
-         * @brief Set the current toolset with we will build the module target
-         */
-        virtual ModuleTarget* setToolset(Toolset *toolset) = 0;
-
-        /**
-         * @brief Get the current toolset with we will build the module target
-         */
-        virtual Toolset* getToolset() = 0;
-
-        /**
          * @brief Set the path of the ModuleTarget
          */
         virtual ModuleTarget* setPath(const std::string &path)  = 0;

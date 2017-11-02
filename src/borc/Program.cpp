@@ -16,19 +16,28 @@
 #include <borc/toolsets/ToolsetCpp.hpp>
 
 int main(int argc, char **argv) {
-    auto registry = borc::FileTypeRegistry::create();
-    auto toolchain = borc::ToolsetCpp::create(registry.get());
+    try {    
+        auto registry = borc::FileTypeRegistry::create();
+        auto toolset = borc::ToolsetCpp::create(registry.get());
 
-    auto projectParser = std::make_unique<borc::ProjectParserMock>();
-    auto project = projectParser->parse("nonexistingfile.any");
-    auto taskTree = project->createTask(borc::TargetAction::Build);
-    auto taskVisitor = std::make_unique<borc::TaskNodeVisitorSerial>();
+        auto projectParser = std::make_unique<borc::ProjectParserMock>();
+        auto project = projectParser->parse("nonexistingfile.any");
 
-    taskVisitor->visit(taskTree.get(), [](borc::Task *task) {
-        if (task) {
-            task->perform();
-        }
-    });
+        auto targets = project->getTargets();
+        targets[0]->setToolset(toolset.get());
+        targets[1]->setToolset(toolset.get());
+
+        auto taskTree = project->createTask(borc::TargetAction::Build);
+        auto taskVisitor = std::make_unique<borc::TaskNodeVisitorSerial>();
+
+        taskVisitor->visit(taskTree.get(), [](borc::Task *task) {
+            if (task) {
+                task->perform();
+            }
+        });
+    } catch (const std::exception &exp) {
+        std::cout << exp.what() << std::endl;
+    }
 
     return 0;
 }

@@ -3,6 +3,7 @@
 #define __borc_linker_hpp__
 
 #include <string>
+#include <vector>
 #include <memory>
 
 namespace borc {
@@ -35,7 +36,7 @@ namespace borc {
         /**
          * @brief Creates a task wich will link the specified target at a later stage.
          */
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target, const std::vector<std::string> &objectFiles) = 0;
     };
 }
 

@@ -1,9 +1,6 @@
 
 #include "ToolsetCpp.hpp"
 
-#include "Compiler.hpp"
-#include "Linker.hpp"
-
 #include <cassert>
 #include <algorithm>
 #include <iostream>
@@ -16,9 +13,8 @@
 #include <borc/pom/ModuleTarget.hpp>
 #include <borc/pom/Source.hpp>
 #include <borc/pom/TargetAction.hpp>
-
-#include "CompilerCpp.hpp"
-#include "LinkerCpp.hpp"
+#include <borc/toolsets/CompilerCpp.hpp>
+#include <borc/toolsets/LinkerCpp.hpp>
 
 namespace borc {
 
@@ -38,18 +34,28 @@ namespace borc {
     
         virtual ~ToolsetCppImpl() {}
 
-        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source) override {
+        virtual bool checkAction(const TargetAction action, const Source *source) const override {
             assert(source);
 
             if (action != TargetAction::Build) {
                 throw std::runtime_error("Unsupported target action");   
             }
 
-            Compiler *compiler = this->findCompiler(source);
-
-            if (!compiler) {
-                throw std::runtime_error("Couldn't find a suitable compiler");   
+            if (this->findCompiler(source)) {
+                return true;
+            } else {
+                return false;
             }
+        }
+
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source) override {
+            assert(source);
+
+            if (!this->checkAction(action, source)) {
+                throw std::runtime_error("Couldn't find a suitable compiler for " + source->getFileName());
+            } 
+
+            Compiler *compiler = this->findCompiler(source);
 
             return compiler->createTask(source);
         }
@@ -66,11 +72,11 @@ namespace borc {
                 throw std::runtime_error("Couldn't find a suitable linker");   
             }
 
-            return linker->createTask(target);
+            return linker->createTask(target, {"test"});
         }
 
     private:
-        Compiler *findCompiler(const Source *source) {
+        Compiler *findCompiler(const Source *source) const {
             for (auto &compiler : m_compilers) {
                 if (compiler->isCompilable(source)) {
                     return compiler.get();
@@ -80,7 +86,7 @@ namespace borc {
             return nullptr;
         }
 
-        Linker* findLinker(const ModuleTarget *target) {
+        Linker* findLinker(const ModuleTarget *target) const {
             for (auto &linker : m_linkers) {
                 if (linker->isLinkable(target)) {
                     return linker.get();

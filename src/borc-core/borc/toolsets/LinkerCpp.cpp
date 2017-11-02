@@ -9,6 +9,8 @@
 
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
+#include <boost/algorithm/string/join.hpp>
+
 #include <fmt/format.h>
 
 namespace borc {
@@ -24,8 +26,11 @@ namespace borc {
     LinkerCpp::~LinkerCpp() {}
 
     bool LinkerCpp::isLinkable(const Target *target) const {
-        // return target->getSources().size() > 0;
-        return false;
+        if (target) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     std::string LinkerCpp::getToolName() const {
@@ -36,14 +41,18 @@ namespace borc {
         return m_path;
     }
 
-    std::unique_ptr<TreeNode<Task>> LinkerCpp::createTask(const Target *target) {
+    std::unique_ptr<TreeNode<Task>> LinkerCpp::createTask(const Target *target, const std::vector<std::string> &objectFiles) {
         assert(target);
 
-        namespace fs = boost::filesystem;
+        if (objectFiles.size() == 0) {
+            throw std::runtime_error("At linking stage we should have one or more object files");
+        }
 
-        const std::string commandTemplate = "{0} {1}";
+        const std::string joinedObjectFiles = boost::join(objectFiles, " ");
+
+        const std::string cmdTemplate = "{0} {1} {2}";
         const std::string targetName = target->getName();
-        const std::string cmd = fmt::format(commandTemplate, m_toolName, targetName);
+        const std::string cmd = fmt::format(cmdTemplate, m_toolName, targetName, joinedObjectFiles);
 
         return TreeNode<Task>::create(std::make_unique<LogTask>(cmd));
     }

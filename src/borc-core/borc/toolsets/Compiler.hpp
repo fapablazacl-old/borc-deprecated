@@ -8,6 +8,8 @@
 #include <borc/FileTypeRegistry.hpp>
 
 namespace borc {
+    template<typename T>
+    class TreeNode;
 
     class Task;
     class Source;
@@ -33,9 +35,9 @@ namespace borc {
         virtual std::string getPath() const = 0;
         
         /**
-         * @brief Creates a task wich will build the specified source file at a later stage.
+         * @brief Creates a task hierarchy wich will build the specified source file at a later stage.
          */
-        virtual std::unique_ptr<Task> createTask(const Source *source) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source) = 0;
     };
 }
 

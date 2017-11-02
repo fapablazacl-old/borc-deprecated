@@ -43,7 +43,7 @@ namespace borc {
 
         virtual std::string getPath() const override;
         
-        virtual std::unique_ptr<Task> createTask(const Source *source) override;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Source *source) override;
 
     private:
         std::string m_toolName;

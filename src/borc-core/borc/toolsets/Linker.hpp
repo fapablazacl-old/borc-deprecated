@@ -6,8 +6,10 @@
 #include <memory>
 
 namespace borc {
-    class Task;
+    template<typename T>
+    class TreeNode;
 
+    class Task;
     class Source;
     class Target;
 
@@ -33,7 +35,7 @@ namespace borc {
         /**
          * @brief Creates a task wich will link the specified target at a later stage.
          */
-        virtual std::unique_ptr<Task> createTask(const Target *target) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const Target *target) = 0;
     };
 }
 

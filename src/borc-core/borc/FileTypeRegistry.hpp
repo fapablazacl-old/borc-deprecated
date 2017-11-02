@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 namespace borc {
     class Source;
@@ -17,13 +18,16 @@ namespace borc {
      */
     class FileTypeRegistry {
     public:
-        virtual ~FileTypeRegistry();
+        virtual ~FileTypeRegistry() {}
 
         virtual const FileType* getFileType(const Source *source) const = 0;
 
         virtual const FileType* addFileType(const std::string &name, const std::vector<std::string> &extensions) = 0;
 
         virtual void removeFileType(const FileType *type) = 0;
+
+    public:
+        static std::unique_ptr<FileTypeRegistry> create();
     };
 }
 

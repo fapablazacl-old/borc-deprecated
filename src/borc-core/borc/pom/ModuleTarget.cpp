@@ -1,13 +1,18 @@
 
 #include "ModuleTarget.hpp"
-#include "ModuleTargetType.hpp"
-#include "Project.hpp"
-#include "Source.hpp"
-#include "TargetAction.hpp"
 
 #include <algorithm>
 #include <boost/filesystem.hpp>
 #include <boost/range/iterator_range.hpp>
+
+#include <borc/TreeNode.hpp>
+#include <borc/Language.hpp>
+#include <borc/pom/ModuleTargetType.hpp>
+#include <borc/pom/Project.hpp>
+#include <borc/pom/Source.hpp>
+#include <borc/pom/TargetAction.hpp>
+#include <borc/toolsets/Toolset.hpp>
+#include <borc/tasks/Task.hpp>
 
 namespace borc {
     class ModuleTargetImpl : public ModuleTarget {
@@ -30,7 +35,22 @@ namespace borc {
             return m_name;
         }
 
-        virtual std::unique_ptr<TaskNode> createTask(const TargetAction action) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action) override {
+            if (!m_toolset) {
+                throw std::runtime_error("This project doesn't have a toolset");
+            }
+
+            auto targetTaskNode = m_toolset->createTask(action, this);
+
+            std::vector<const Source*> sources = this->getSources();
+            for (const Source *source : sources) {
+                auto sourceTaskNode = m_toolset->createTask(action, source);
+
+                targetTaskNode->insertChild(std::move(sourceTaskNode));
+            }
+
+            return targetTaskNode;
+        }
 
         virtual std::vector<TargetAction> supportedActions() const override {
             return {TargetAction::Build};
@@ -44,6 +64,20 @@ namespace borc {
             m_language = language;
 
             return this;
+        }
+
+        virtual ModuleTarget* setToolset(Toolset *toolset) override {
+            m_toolset = toolset;
+
+            return this;
+        }
+
+        virtual Toolset* getToolset() override {
+            return m_toolset;
+        }
+
+        virtual std::string getPath() const override {
+            return m_path;
         }
 
         virtual ModuleTargetImpl* setPath(const std::string &path) override {
@@ -117,10 +151,11 @@ namespace borc {
         }
 
     private:
-        Project *m_project;
+        Project *m_project = nullptr;
         std::string m_name;
-        Language *m_language;
-        ModuleTargetType m_type;
+        Language *m_language = nullptr;
+        Toolset *m_toolset = nullptr;
+        ModuleTargetType m_type = ModuleTargetType::Program;
         std::string m_path;
         std::vector<const Target*> m_deps;
         std::vector<std::unique_ptr<const Source>> m_sources;

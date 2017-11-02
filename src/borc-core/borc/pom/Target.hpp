@@ -7,7 +7,11 @@
 
 namespace borc {
     class Project;
-    class TaskNode;
+   
+    class Task;
+
+    template<typename T>
+    class TreeNode;
 
     enum class TargetType;
     enum class TargetAction;
@@ -43,7 +47,7 @@ namespace borc {
          *  - The Type of Target 
          *  - The needed Toolsets 
          */
-        virtual std::unique_ptr<TaskNode> createTask(const TargetAction action) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action) = 0;
 
         /**
          * @brief Gets an array of the actions supported by this target

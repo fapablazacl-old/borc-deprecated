@@ -7,16 +7,21 @@
 
 namespace borc {
     class Task;
-    class TaskNode;
+    
+    template<typename T>
+    class TreeNode;
 
     /**
      * @brief A task node visitor that performs the specified complete hierarchy.
      */    
     class TaskNodeVisitor {
     public:
-        virtual ~TaskNodeVisitor();
+        virtual ~TaskNodeVisitor() {}
 
-        virtual void visit(std::unique_ptr<TaskNode> &root, std::function<void(Task*)> fn) = 0;
+        virtual void visit(TreeNode<Task> *root, std::function<void(Task*)> fn) = 0;
+
+    public:
+        static std::unique_ptr<TaskNodeVisitor> create();
     };
 }
 

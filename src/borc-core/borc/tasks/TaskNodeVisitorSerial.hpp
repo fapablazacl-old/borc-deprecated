@@ -12,7 +12,7 @@ namespace borc {
     public:
         virtual ~TaskNodeVisitorSerial();
 
-        virtual void visit(std::unique_ptr<TaskNode> &root, std::function<void(Task*)> fn) override;
+        virtual void visit(TreeNode<Task> *nodeTask, std::function<void(Task*)> fn) override;
     };
 }
 

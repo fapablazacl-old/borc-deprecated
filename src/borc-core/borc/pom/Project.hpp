@@ -12,7 +12,11 @@ namespace borc {
     class TaskPerformer;
     class Target;
     class ModuleTarget;
-    class TaskNode;
+
+    template<typename T>
+    class TreeNode;
+
+    class Task;
 
     /**
      * @brief Project class.
@@ -69,7 +73,7 @@ namespace borc {
         /**
          * @brief Generate the task tree in order to perform the requested action
          */
-        virtual std::unique_ptr<TaskNode> createTask(const TargetAction action) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action) = 0;
         
     private:        
         /**

@@ -4,29 +4,27 @@
 #include <stdexcept>
 #include <memory>
 
-#include <borc/FileTypeRegistryImpl.hpp>
-
+#include <borc/FileTypeRegistry.hpp>
+#include <borc/TreeNode.hpp>
 #include <borc/pom/Project.hpp>
 #include <borc/pom/Target.hpp>
+#include <borc/pom/TargetAction.hpp>
 #include <borc/pom/Source.hpp>
 #include <borc/pom/ProjectParserMock.hpp>
-
+#include <borc/tasks/Task.hpp>
+#include <borc/tasks/TaskNodeVisitorSerial.hpp>
 #include <borc/toolsets/ToolsetCpp.hpp>
 
-#include <borc/tasks/Task.hpp>
-#include <borc/tasks/TaskNode.hpp>
-#include <borc/tasks/TaskNodeVisitorSerial.hpp>
-
 int main(int argc, char **argv) {
-    auto registry = std::make_unique<borc::FileTypeRegistryImpl>();
-    auto toolchain = std::make_unique<borc::ToolsetCpp>(registry.get());
+    auto registry = borc::FileTypeRegistry::create();
+    auto toolchain = borc::ToolsetCpp::create(registry.get());
 
     auto projectParser = std::make_unique<borc::ProjectParserMock>();
     auto project = projectParser->parse("nonexistingfile.any");
-    auto taskTree = toolchain->createBuildTask(project.get());
+    auto taskTree = project->createTask(borc::TargetAction::Build);
     auto taskVisitor = std::make_unique<borc::TaskNodeVisitorSerial>();
 
-    taskVisitor->visit(taskTree, [](borc::Task *task) {
+    taskVisitor->visit(taskTree.get(), [](borc::Task *task) {
         if (task) {
             task->perform();
         }

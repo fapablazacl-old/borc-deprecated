@@ -7,112 +7,100 @@
 #include <cassert>
 #include <algorithm>
 #include <iostream>
+#include <stdexcept>
 
 #include <borc/FileTypeRegistry.hpp>
-#include <borc/tasks/TaskNode.hpp>
+#include <borc/TreeNode.hpp>
 #include <borc/tasks/Task.hpp>
 #include <borc/pom/Project.hpp>
 #include <borc/pom/ModuleTarget.hpp>
 #include <borc/pom/Source.hpp>
+#include <borc/pom/TargetAction.hpp>
 
 #include "CompilerCpp.hpp"
 #include "LinkerCpp.hpp"
 
 namespace borc {
-    ToolsetCpp::ToolsetCpp(FileTypeRegistry *registry) {
-        assert(registry);
 
-        m_c_sourceFile = registry->addFileType("C Source File", {".c"});
-        m_c_headerFile = registry->addFileType("C Header File", {".h"});
-        m_cpp_sourceFile = registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});
-        m_cpp_headerFile = registry->addFileType("C++ Header File", {".hpp", ".hxx", ".hh", ".h++"});
+    class ToolsetCppImpl : public ToolsetCpp {
+    public:
+        explicit ToolsetCppImpl(FileTypeRegistry *registry) {
+            assert(registry);
 
-        m_compilers.emplace_back(new CompilerCpp(registry, "cl", {m_c_sourceFile, m_cpp_sourceFile}));
-        m_linkers.emplace_back(new LinkerCpp("link"));
-    }
-    
-    ToolsetCpp::~ToolsetCpp() {}
+            m_c_sourceFile = registry->addFileType("C Source File", {".c"});
+            m_c_headerFile = registry->addFileType("C Header File", {".h"});
+            m_cpp_sourceFile = registry->addFileType("C++ Source File", {".cpp", ".cxx", ".cc", ".c++"});
+            m_cpp_headerFile = registry->addFileType("C++ Header File", {".hpp", ".hxx", ".hh", ".h++"});
 
-    std::vector<Compiler*> ToolsetCpp::getCompilers() const {
-        std::vector<Compiler*> compilers;
-
-        for (auto &compiler : m_compilers) {
-            compilers.push_back(compiler.get());
+            m_compilers.emplace_back(new CompilerCpp(registry, "cl", {m_c_sourceFile, m_cpp_sourceFile}));
+            m_linkers.emplace_back(new LinkerCpp("link"));
         }
-
-        return compilers;
-    }
     
-    std::vector<Linker*> ToolsetCpp::getLinkers() const {
-        std::vector<Linker*> linkers;
+        virtual ~ToolsetCppImpl() {}
 
-        for (auto &linker: m_linkers) {
-            linkers.push_back(linker.get());
-        }
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source) override {
+            assert(source);
 
-        return linkers;
-    }
-
-    std::unique_ptr<TaskNode> ToolsetCpp::createBuildTask(const Project *project)  {
-        assert(project);
-
-        /*
-        auto projectTaskNode = std::make_unique<TaskNode>();
-
-        auto targets = project->getTargets();
-
-        auto linkers = this->getLinkers();
-        auto compilers = this->getCompilers();
-
-        for (Target *target : targets) {
-            Linker *linker = nullptr;
-
-            for (Linker *linker_ : linkers) {
-                if (linker_->isLinkable(target)) {
-                    linker = linker_;
-                    break;
-                }
+            if (action != TargetAction::Build) {
+                throw std::runtime_error("Unsupported target action");   
             }
 
+            Compiler *compiler = this->findCompiler(source);
+
+            if (!compiler) {
+                throw std::runtime_error("Couldn't find a suitable compiler");   
+            }
+
+            return compiler->createTask(source);
+        }
+
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ModuleTarget *target) override {
+            assert(target);
+
+            if (action != TargetAction::Build) {
+                throw std::runtime_error("Unsupported target action");   
+            }
+
+            Linker* linker = this->findLinker(target);
             if (!linker) {
-                continue;
+                throw std::runtime_error("Couldn't find a suitable linker");   
             }
 
-            auto targetTaskNode = std::make_unique<TaskNode>();
-            auto targetTask = linker->createTask(target);
-
-            targetTaskNode->task = std::move(targetTask);
-
-            auto sources = target->getSources();
-
-            for (const Source *source : sources) {
-                Compiler *compiler = nullptr;
-
-                for (Compiler *compiler_ : compilers) {
-                    if (compiler_->isCompilable(source)) {
-                        compiler = compiler_;
-                        break;
-                    }
-                }
-
-                if (!compiler) {
-                    continue;
-                }
-
-                auto sourceTaskNode = std::make_unique<TaskNode>();
-                auto sourceTask = compiler->createTask(source);
-
-                sourceTaskNode->task = std::move(sourceTask);
-
-                targetTaskNode->childs.push_back(std::move(sourceTaskNode));
-            }
-
-            projectTaskNode->childs.push_back(std::move(targetTaskNode));
+            return linker->createTask(target);
         }
 
-        return projectTaskNode;
-        */
+    private:
+        Compiler *findCompiler(const Source *source) {
+            for (auto &compiler : m_compilers) {
+                if (compiler->isCompilable(source)) {
+                    return compiler.get();
+                }
+            }
 
-        return std::unique_ptr<TaskNode>();
+            return nullptr;
+        }
+
+        Linker* findLinker(const ModuleTarget *target) {
+            for (auto &linker : m_linkers) {
+                if (linker->isLinkable(target)) {
+                    return linker.get();
+                }
+            }
+
+            return nullptr;
+        }
+
+    private:
+        std::vector<std::unique_ptr<Compiler>> m_compilers;
+        std::vector<std::unique_ptr<Linker>> m_linkers;
+
+        const FileType *m_c_sourceFile = nullptr;
+        const FileType *m_c_headerFile = nullptr;
+        const FileType *m_cpp_sourceFile = nullptr;
+        const FileType *m_cpp_headerFile = nullptr;
+    };
+
+    std::unique_ptr<ToolsetCpp> ToolsetCpp::create(FileTypeRegistry *registry) {
+        return std::make_unique<ToolsetCppImpl>(registry);
     }
 }

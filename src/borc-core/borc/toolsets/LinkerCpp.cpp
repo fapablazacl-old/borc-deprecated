@@ -1,14 +1,14 @@
 
 #include "LinkerCpp.hpp"
 
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/operations.hpp>
-
+#include <borc/TreeNode.hpp>
 #include <borc/pom/Source.hpp>
 #include <borc/pom/Target.hpp>
 #include <borc/tasks/LogTask.hpp>
 #include <borc/tasks/Task.hpp>
 
+#include <boost/filesystem/path.hpp>
+#include <boost/filesystem/operations.hpp>
 #include <fmt/format.h>
 
 namespace borc {
@@ -36,7 +36,7 @@ namespace borc {
         return m_path;
     }
 
-    std::unique_ptr<Task> LinkerCpp::createTask(const Target *target) {
+    std::unique_ptr<TreeNode<Task>> LinkerCpp::createTask(const Target *target) {
         assert(target);
 
         namespace fs = boost::filesystem;
@@ -45,6 +45,6 @@ namespace borc {
         const std::string targetName = target->getName();
         const std::string cmd = fmt::format(commandTemplate, m_toolName, targetName);
 
-        return std::make_unique<LogTask>(cmd);
+        return TreeNode<Task>::create(std::make_unique<LogTask>(cmd));
     }
 }

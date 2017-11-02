@@ -6,11 +6,12 @@
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/operations.hpp>
 
+#include <fmt/format.h>
+
+#include <borc/TreeNode.hpp>
 #include <borc/tasks/Task.hpp>
 #include <borc/tasks/LogTask.hpp>
 #include <borc/pom/Source.hpp>
-
-#include <fmt/format.h>
 
 namespace borc {
     CompilerCpp::CompilerCpp(const FileTypeRegistry *registry, const std::string &toolName, const std::set<const FileType*> &types) {
@@ -48,7 +49,7 @@ namespace borc {
         return m_path;
     }
 
-    std::unique_ptr<Task> CompilerCpp::createTask(const Source *source) {
+    std::unique_ptr<TreeNode<Task>> CompilerCpp::createTask(const Source *source) {
         assert(source);
 
         namespace fs = boost::filesystem;
@@ -60,6 +61,6 @@ namespace borc {
 
         const std::string cmd = fmt::format(commandTemplate, m_toolName, sourceFile.string(), targetFile.string());
 
-        return std::make_unique<LogTask>(cmd);
+        return TreeNode<Task>::create(std::move(std::make_unique<LogTask>(cmd)));
     }
 }

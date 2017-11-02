@@ -3,7 +3,7 @@
 
 #include <borc/pom/Source.hpp>
 #include <borc/FileType.hpp>
-#include <borc/FileTypeRegistryImpl.hpp>
+#include <borc/FileTypeRegistry.hpp>
 
 TEST_CASE("FileTypeRegistryImpl Test Case", "borc::FileTypeRegistryImpl") {
     borc::FileType fileType{"Java Files", {".java", ".class"}};
@@ -11,9 +11,8 @@ TEST_CASE("FileTypeRegistryImpl Test Case", "borc::FileTypeRegistryImpl") {
 
     SECTION("addFileType method should") {
         SECTION("append the C++ File Type correctly") {
-            borc::FileTypeRegistryImpl registry;
-
-            auto cppFileType = registry.addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
+            auto registry = borc::FileTypeRegistry::create();
+            auto cppFileType = registry->addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
 
             REQUIRE(cppFileType != nullptr);
             REQUIRE(cppFileType->name == "C++ Source File");
@@ -25,9 +24,8 @@ TEST_CASE("FileTypeRegistryImpl Test Case", "borc::FileTypeRegistryImpl") {
         }
 
         SECTION("append the Java File Type correctly") {
-            borc::FileTypeRegistryImpl registry;
-
-            auto javaFileType = registry.addFileType("Java Files", {".java", ".class"});
+            auto registry = borc::FileTypeRegistry::create();
+            auto javaFileType = registry->addFileType("Java Files", {".java", ".class"});
 
             REQUIRE(javaFileType != nullptr);
             REQUIRE(javaFileType->name == "Java Files");
@@ -37,35 +35,35 @@ TEST_CASE("FileTypeRegistryImpl Test Case", "borc::FileTypeRegistryImpl") {
         }
 
         SECTION("return a nullptr borc::FielType when inserting an empty extension list") {
-            borc::FileTypeRegistryImpl registry;
+            auto registry = borc::FileTypeRegistry::create();
             
-            auto csFileType = registry.addFileType("CS Files", {});
+            auto csFileType = registry->addFileType("CS Files", {});
 
             REQUIRE(csFileType == nullptr);
         }
 
         SECTION("return a different file type instance for each invocation") {
-            borc::FileTypeRegistryImpl registry;
+            auto registry = borc::FileTypeRegistry::create();
 
-            auto cppFileType = registry.addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
-            auto javaFileType = registry.addFileType("Java Files", {".java", ".class"});
+            auto cppFileType = registry->addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
+            auto javaFileType = registry->addFileType("Java Files", {".java", ".class"});
 
             REQUIRE(cppFileType != javaFileType);
         }
     }
 
     SECTION("getFileType method should detect file types correctly") {
-        borc::FileTypeRegistryImpl registry;
+        auto registry = borc::FileTypeRegistry::create();
 
-        auto cppFileType = registry.addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
-        auto javaFileType = registry.addFileType("Java Files", {".java", ".class"});
+        auto cppFileType = registry->addFileType("C++ Source File", {".cpp", ".cc", ".cxx", ".c++"});
+        auto javaFileType = registry->addFileType("Java Files", {".java", ".class"});
 
         borc::Source cppSource("main.cc", nullptr);
         borc::Source javaClass("main.class", nullptr);
         borc::Source csClass("Main.cs", nullptr);
 
-        REQUIRE(registry.getFileType(&cppSource) == cppFileType);
-        REQUIRE(registry.getFileType(&javaClass) == javaFileType);
-        REQUIRE(registry.getFileType(&csClass) == nullptr);
+        REQUIRE(registry->getFileType(&cppSource) == cppFileType);
+        REQUIRE(registry->getFileType(&javaClass) == javaFileType);
+        REQUIRE(registry->getFileType(&csClass) == nullptr);
     }
 }

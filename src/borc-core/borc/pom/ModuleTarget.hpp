@@ -11,6 +11,7 @@ namespace borc {
     class Source;
     class Project;
     class Language;
+    class Toolset;
 
     enum class ModuleTargetType;
 
@@ -35,6 +36,16 @@ namespace borc {
          * @brief Set the current programming language used by the current ModuleTarget
          */
         virtual ModuleTarget* setLanguage(Language *language) = 0;
+
+        /**
+         * @brief Set the current toolset with we will build the module target
+         */
+        virtual ModuleTarget* setToolset(Toolset *toolset) = 0;
+
+        /**
+         * @brief Get the current toolset with we will build the module target
+         */
+        virtual Toolset* getToolset() = 0;
 
         /**
          * @brief Set the path of the ModuleTarget

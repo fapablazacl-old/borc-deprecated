@@ -13,20 +13,28 @@ namespace borc {
     class Linker;
     class Task;
 
-    class TaskNode;
-    
+    class Source;
+    class ModuleTarget;
+    enum class TargetAction;
+
+    template<typename T>
+    class TreeNode;
+
+    class Task;
+
     class Toolset {
     public:
         virtual ~Toolset();
 
-        virtual std::vector<Compiler*> getCompilers() const = 0;
-
-        virtual std::vector<Linker*> getLinkers() const = 0;
+        /**
+         * @brief Create the build task hierarchy needed to perform the specified action on the specified source
+         */
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source) = 0;
 
         /**
-         * @brief Create the build task hierarchy needed to build the specified project
+         * @brief Create the build task hierarchy needed to perform the specified action on the specified module target
          */
-        virtual std::unique_ptr<TaskNode> createBuildTask(const Project *project) = 0;
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const ModuleTarget *target) = 0;
     };
 }
 

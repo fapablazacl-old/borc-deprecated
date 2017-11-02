@@ -22,15 +22,13 @@ set (sources_borc
     "borc/FileType.cpp"
 	"borc/FileTypeRegistry.hpp"
     "borc/FileTypeRegistry.cpp"
-    "borc/FileTypeRegistryImpl.hpp"
-    "borc/FileTypeRegistryImpl.cpp"
+	"borc/TreeNode.hpp"
+    "borc/TreeNode.cpp"
 )
 
 set (sources_borc_tasks
     "borc/tasks/Task.hpp"
     "borc/tasks/Task.cpp"
-	"borc/tasks/TaskNode.hpp"
-    "borc/tasks/TaskNode.cpp"
 	"borc/tasks/TaskNodeVisitor.hpp"
     "borc/tasks/TaskNodeVisitor.cpp"
 	"borc/tasks/TaskNodeVisitorSerial.hpp"

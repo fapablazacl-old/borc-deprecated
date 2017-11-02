@@ -1,17 +1,16 @@
 
-#include "TaskNodeVisitorSerial.hpp"
-
-#include "TaskNode.hpp"
-#include "Task.hpp"
+#include <borc/TreeNode.hpp>
+#include <borc/tasks/TaskNodeVisitorSerial.hpp>
+#include <borc/tasks/Task.hpp>
 
 namespace borc {
     TaskNodeVisitorSerial::~TaskNodeVisitorSerial() {}
 
-    void TaskNodeVisitorSerial::visit(std::unique_ptr<TaskNode> &root, std::function<void(Task*)> fn) {
-        for (auto &childNode : root->childs) {
-            this->visit(childNode, fn);
+    void TaskNodeVisitorSerial::visit(TreeNode<Task> *nodeTask, std::function<void(Task*)> fn) {
+        for (auto &child : nodeTask) {
+
         }
 
-        fn(root->task.get());
+        fn(nodeTask->getData());
     }
 }

@@ -1,14 +1,13 @@
 
 #include "Project.hpp"
 
-#include "TargetAction.hpp"
-#include "ModuleTarget.hpp"
-#include "Source.hpp"
-
-#include <borc/tasks/TaskNode.hpp>
-
 #include <stdexcept>
 #include <boost/filesystem.hpp>
+#include <borc/TreeNode.hpp>
+#include <borc/pom/TargetAction.hpp>
+#include <borc/pom/ModuleTarget.hpp>
+#include <borc/pom/Source.hpp>
+#include <borc/tasks/Task.hpp>
 
 namespace fs = boost::filesystem;
 
@@ -75,7 +74,7 @@ namespace borc {
             return this;
         }
 
-        virtual std::unique_ptr<TaskNode> createTask(const TargetAction action) override {
+        virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action) override {
             if (action == TargetAction::Build) {
                 return this->createBuildTask();
             } else {
@@ -88,15 +87,12 @@ namespace borc {
         }
 
     private:
-        std::unique_ptr<TaskNode> createBuildTask()  {
+        std::unique_ptr<TreeNode<Task>> createBuildTask()  {
             // TODO: Take into account dependency management
-            auto taskNode = std::make_unique<TaskNode>();
+            auto taskNode = std::make_unique<TreeNode<Task>>();
 
             for (auto &target : m_targets) {
-                auto targetTaskNode = target->createTask(TargetAction::Build);
-
-                // TODO: Enhance the style of the TaskNode class
-                taskNode->childs.push_back(std::move(targetTaskNode));
+                taskNode->insertChild(target->createTask(TargetAction::Build));
             }
 
             return taskNode;

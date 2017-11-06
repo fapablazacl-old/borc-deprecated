@@ -12,7 +12,7 @@
 #include <borc/pom/Source.hpp>
 #include <borc/pom/ProjectParserMock.hpp>
 #include <borc/tasks/Task.hpp>
-#include <borc/tasks/TaskNodeVisitorSerial.hpp>
+#include <borc/tasks/TaskNodeVisitor.hpp>
 #include <borc/toolsets/ToolsetCpp.hpp>
 
 int main(int argc, char **argv) {
@@ -20,15 +20,16 @@ int main(int argc, char **argv) {
         auto registry = borc::FileTypeRegistry::create();
         auto toolset = borc::ToolsetCpp::create(registry.get());
 
-        auto projectParser = std::make_unique<borc::ProjectParserMock>();
-        auto project = projectParser->parse("nonexistingfile.any");
+        auto projectParser = borc::ProjectParserMock();
+        auto project = projectParser.parse("nonexistingfile.any");
 
         auto targets = project->getTargets();
-        targets[0]->setToolset(toolset.get());
-        targets[1]->setToolset(toolset.get());
+        for (borc::Target* target : targets) {
+            target->setToolset(toolset.get());
+        }
 
         auto taskTree = project->createTask(borc::TargetAction::Build);
-        auto taskVisitor = std::make_unique<borc::TaskNodeVisitorSerial>();
+        auto taskVisitor = borc::TaskNodeVisitor::create();
 
         taskVisitor->visit(taskTree.get(), [](borc::Task *task) {
             if (task) {

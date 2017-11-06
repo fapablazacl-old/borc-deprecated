@@ -1,6 +1,6 @@
 
-#ifndef __borc_ModuleTarget_hpp__
-#define __borc_ModuleTarget_hpp__
+#ifndef __borc_moduletarget_hpp__
+#define __borc_moduletarget_hpp__
 
 #include <memory>
 #include <vector>

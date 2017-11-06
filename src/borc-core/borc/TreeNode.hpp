@@ -10,6 +10,9 @@ namespace borc {
     template<typename T>
     class TreeNode final {
     public:
+        typedef typename std::list<std::unique_ptr<TreeNode<T>>>::iterator iterator;
+
+    public:
         TreeNode() {}
 
         TreeNode(std::unique_ptr<T> data) {
@@ -54,15 +57,11 @@ namespace borc {
             return node->end();
         }
 
-        typename std::list<std::unique_ptr<TreeNode<T>>>::iterator
-            begin() {
-
+        iterator begin() {
             return m_childs.begin();
         }
 
-        typename std::list<std::unique_ptr<TreeNode<T>>>::iterator
-            end() {
-
+        iterator end() {
             return m_childs.end();
         }
 

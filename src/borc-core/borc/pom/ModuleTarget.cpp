@@ -15,6 +15,21 @@
 #include <borc/tasks/Task.hpp>
 
 namespace borc {
+
+    enum class ModuleTargetSourceManagerStorage {
+        Implicit, 
+        Explicit
+    };
+
+    class ModuleTargetSourceManager {
+    public:
+        virtual ~ModuleTargetSourceManager() {}
+
+        virtual ModuleTargetSourceManagerStorage getStorage() const = 0;
+
+        virtual std::vector<const Source*> getSources() const = 0;
+    };
+
     class ModuleTargetImpl : public ModuleTarget {
     public:
         explicit ModuleTargetImpl(Project *project) : m_project(project) {}

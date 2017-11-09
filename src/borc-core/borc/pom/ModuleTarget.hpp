@@ -68,19 +68,9 @@ namespace borc {
         virtual std::vector<const Target*> getDependencies() const  = 0;
 
         /**
-         * @brief Adds a new source file to the module target
-         */
-        virtual Source* addSource(const std::string &filePath)  = 0;
-
-        /**
-         * @brief Remove a source file to the module target
-         */
-        virtual ModuleTarget* removeSource(const std::string &filePath)  = 0;
-
-        /**
          * @brief Enumerate all the current source files 
          */
-        virtual std::vector<const Source*> getSources() const  = 0;
+        virtual std::vector<Source> getSources() const  = 0;
 
     private:
         static std::unique_ptr<ModuleTarget> create(Project *project);

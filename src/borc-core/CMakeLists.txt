@@ -75,10 +75,6 @@ set (sources_borc_toolset
     "borc/toolsets/ToolsetCpp.cpp"
 )
 
-set (sources_borc_cpp
-    
-)
-
 find_package(Boost 1.45.0 REQUIRED COMPONENTS
     program_options
     filesystem
@@ -91,7 +87,7 @@ source_group("\\borc"               FILES ${sources_borc})
 source_group("\\borc\\tasks"        FILES ${sources_borc_tasks})
 source_group("\\borc\\pom"          FILES ${sources_borc_pom})
 source_group("\\borc\\cpp"          FILES ${sources_borc_cpp})
-source_group("\\borc\\toolsets"   FILES ${sources_borc_toolset})
+source_group("\\borc\\toolsets"     FILES ${sources_borc_toolset})
 
 add_library (${target} 
 	${sources}

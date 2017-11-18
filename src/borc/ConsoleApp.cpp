@@ -15,18 +15,21 @@
 namespace borc {
     class ConsoleAppImpl : public ConsoleApp {
     public:
-        ConsoleAppImpl(const std::string &path) {
+        explicit ConsoleAppImpl(const std::string &path) {
             m_path = path;
         }
 
         virtual std::vector<std::string> listTargets() override {
-            std::vector<std::string> targets;
-
             auto project = this->parseProject();
+            auto targets = project->getTargets();
 
-            project->
+            std::vector<std::string> result;
 
-            return targets;
+            for (Target *target : targets) {
+                result.push_back(target->getName());
+            }
+
+            return result;
         }
         
         virtual void build(const std::string &targetName) override {
@@ -53,6 +56,8 @@ namespace borc {
             for (borc::Target* target : targets) {
                 target->setToolset(toolset.get());
             }
+
+            return project;
         }
 
     private:

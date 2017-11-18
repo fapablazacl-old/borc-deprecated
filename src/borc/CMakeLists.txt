@@ -11,7 +11,11 @@ add_definitions(-DBOOST_ALL_NO_LIB)
 add_definitions(-DBOOST_PROGRAM_OPTIONS_DYN_LINK)
 
 set (target "borc")
-set (sources "Program.cpp")
+set (sources 
+	"Program.cpp"
+	"ConsoleApp.hpp"
+	"ConsoleApp.cpp"
+)
 
 find_package(Boost 1.45.0 REQUIRED COMPONENTS
     program_options

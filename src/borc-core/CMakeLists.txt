@@ -103,7 +103,6 @@ add_library (${target}
 target_link_libraries (
     ${target} 
     ${Boost_LIBRARIES} 
-    #yaml-cpp
     fmt
 )
 

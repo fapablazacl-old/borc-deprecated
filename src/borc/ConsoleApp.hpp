@@ -11,10 +11,12 @@ namespace borc {
     public:
         virtual ~ConsoleApp() {}
 
-        virtual std::vector<std::string> listTargets() = 0;
-
         virtual void build(const std::string &targetName) = 0;
-        
+
+        virtual void init() = 0;
+
+        virtual void list() = 0;
+
     public:
         static std::unique_ptr<ConsoleApp> create(const std::string &path);
     };

@@ -8,7 +8,7 @@ namespace borc {
     class Project;
     class ProjectParserMock : public ProjectParser {
     public:
-        ~ProjectParserMock() {}
+        virtual ~ProjectParserMock() {}
 
         virtual std::unique_ptr<Project> parse(const std::string &file) override;
     };    

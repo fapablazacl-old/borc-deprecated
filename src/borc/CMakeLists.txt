@@ -12,7 +12,7 @@ add_definitions(-DBOOST_PROGRAM_OPTIONS_DYN_LINK)
 
 set (target "borc")
 set (sources 
-	"Program.cpp"
+	"Main.cpp"
 	"ConsoleApp.hpp"
 	"ConsoleApp.cpp"
 )
@@ -32,7 +32,7 @@ target_link_libraries (
     ${target} 
     ${Boost_LIBRARIES} 
     borc-core
-    #yaml-cpp
+    yaml-cpp
     fmt
 )
 

@@ -8,9 +8,7 @@ namespace borc {
     class Project;
     class ProjectParserYaml : public ProjectParser {
     public:
-        ~ProjectParserYaml() {}
-
-        virtual std::unique_ptr<Project> parse(const std::string &file) override;
+        virtual ~ProjectParserYaml() {}
 
     public:
         static std::unique_ptr<ProjectParserYaml> create();

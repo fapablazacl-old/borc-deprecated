@@ -12,7 +12,6 @@
 namespace fs = boost::filesystem;
 
 namespace borc {
-
     class ProjectParserYamlImpl : public ProjectParserYaml {
     public:
         virtual ~ProjectParserYamlImpl() {}

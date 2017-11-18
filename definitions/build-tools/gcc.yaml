@@ -1,8 +1,0 @@
-buildTool:
-  name: "gcc"
-  type: "compiler"
-  language: "C++"
-  switches:
-    includePath: "-I"
-    compile: "-c"
-    outputFile: "-o"

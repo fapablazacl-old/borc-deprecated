@@ -1,8 +1,0 @@
-buildTool:
-  name: "cl"
-  type: "compiler"
-  language: "C++"
-  switches:
-    includePath: "/I"
-    compile: "/c"
-    outputFile: "/o"

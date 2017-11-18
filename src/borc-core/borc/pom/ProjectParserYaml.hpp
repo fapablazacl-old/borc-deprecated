@@ -11,6 +11,9 @@ namespace borc {
         ~ProjectParserYaml() {}
 
         virtual std::unique_ptr<Project> parse(const std::string &file) override;
+
+    public:
+        static std::unique_ptr<ProjectParserYaml> create();
     };    
 }
 

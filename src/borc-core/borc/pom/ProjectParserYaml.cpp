@@ -1,73 +1,77 @@
 
 #include "ProjectParserYaml.hpp"
 
-#include "Target.hpp"
-#include "CppProject.hpp"
-
-#include <iostream>
-
+#include <borc/Version.hpp>
 #include <boost/filesystem.hpp>
 #include <yaml-cpp/yaml.h>
+
+#include "ModuleTarget.hpp"
+#include "ModuleTargetType.hpp"
+#include "Project.hpp"
 
 namespace fs = boost::filesystem;
 
 namespace borc {
-    void parseTarget(Target *target, const YAML::Node &node) {
-        // get name
-        target->setName(node["name"].as<std::string>());
 
-        // get target relative directory
-        if (node["path"]) {
-            target->setPath(node["path"].as<std::string>());
-        } else {
-            target->setPath(target->getName());
-        }
+    class ProjectParserYamlImpl : public ProjectParserYaml {
+    public:
+        virtual ~ProjectParserYamlImpl() {}
 
-        // get target dependencies 
-        /*
-        if (node["imports"]) {
-        if (node["imports"].IsSequence()) {
-        for (const YAML::Node &depNode : node["imports"]) {
-        target.deps.push_back(depNode.as<std::string>());
-        }
-        } else {
-        const auto dep = node["imports"].as<std::string>();
-        target.deps.push_back(dep);
-        }
-        }
-        */
-    }
+        virtual std::unique_ptr<Project> parse(const std::string &file) override {
+            fs::path path(file);
 
-    std::unique_ptr<Project> ProjectParserYaml::parse(const std::string &file) {
-        fs::path path(file);
+            YAML::Node borcfile = YAML::LoadFile(path.string());
 
-        YAML::Node borcfile = YAML::LoadFile(path.string());
-
-        if (!borcfile["project"]) {
-            throw std::runtime_error("There isn't a 'project' section defined");
-        }
-
-        if (!borcfile["targets"] || borcfile["targets"].size() == 0) {
-            throw std::runtime_error("There isn't a 'targets' section defined");
-        }
-
-        auto projectNode = borcfile["project"];
-        auto projectName = projectNode["name"].as<std::string>();
-        auto project = std::make_unique<CppProject>(projectName);
-
-        for (const YAML::Node targetNode : borcfile["targets"]) {
-            auto target = project->addTarget();
-
-            parseTarget(target, targetNode);
-
-            if (targetNode["library"]) {
-                target->setType(TargetType::Library);
+            if (!borcfile["project"]) {
+                throw std::runtime_error("There isn't a 'project' section defined");
             }
-            else if (targetNode["program"]) {
-                target->setType(TargetType::Program);
+            
+            auto projectNode = borcfile["project"];
+            auto project = this->parseProject(projectNode);
+            for (const YAML::Node targetNode : borcfile["target"]) {
+                this->parseTarget(project.get(), targetNode);
             }
+
+            return project;
         }
 
-        return project;
+    private:
+        std::unique_ptr<Project> parseProject(const YAML::Node &node) {
+            auto name = node["name"].as<std::string>();
+            auto project = Project::create(name);
+
+            // auto version = node["version"].as<std::string>();
+            // project->setVersion(Version::parse(version));
+
+            return project;
+        }
+
+        Target* parseTarget(Project *project, const YAML::Node &node) {
+            auto name = node["name"].as<std::string>();
+            auto type = node["type"].as<std::string>();
+            auto path = node["path"].as<std::string>();
+
+            if (type == "library" || type == "program") {
+                // module target!
+                auto target = project->createTarget<ModuleTarget>();
+
+                target->setName(name);
+                target->setPath(path);
+                
+                if (type == "library") {
+                    target->setType(ModuleTargetType::Library);
+                } else if (type == "program") {
+                    target->setType(ModuleTargetType::Program);
+                }
+
+                return target;
+            } else {
+                throw std::runtime_error("Unsupported target type");
+            }
+        }
+    };
+
+    std::unique_ptr<ProjectParserYaml> ProjectParserYaml::create() {
+        return std::make_unique<ProjectParserYamlImpl>();
     }
 }

@@ -57,6 +57,9 @@ namespace borc {
 
         std::string toString() const;
 
+    public:
+        static Version parse(const std::string &str);
+
     private:
         int m_major = 0;
         int m_minor = 0;

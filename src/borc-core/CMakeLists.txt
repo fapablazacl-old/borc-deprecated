@@ -58,6 +58,8 @@ set (sources_borc_pom
     "borc/pom/ProjectParser.cpp"
     "borc/pom/ProjectParserMock.hpp"
     "borc/pom/ProjectParserMock.cpp"
+    "borc/pom/ProjectParserYaml.hpp"
+    "borc/pom/ProjectParserYaml.cpp"
 )
 
 set (sources_borc_toolset

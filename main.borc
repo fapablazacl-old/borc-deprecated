@@ -1,0 +1,17 @@
+# for now, just have all this project structure on the root directory in this file
+
+project: 
+  name: borc
+  version: "0.0.1"
+
+target:
+  name: borc
+  type: program
+  path: src/borc
+  dependencies:
+    - borc-core
+  
+target:
+  name: borc-core
+  type: library
+  path: src/borc-core

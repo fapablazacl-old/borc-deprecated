@@ -6,8 +6,6 @@
 
 #include "ConsoleApp.hpp"
 
-#include <Windows.h>
-
 int main(int argc, char **argv) {
     try {
         auto consoleApp = borc::ConsoleApp::create("");

@@ -1,8 +1,0 @@
-buildTool:
-  tool: "nasm"
-  type: "compiler"
-  language: "asm"
-  switches:
-    outputFile: "-o"
-    includePath: "-I"
-    format: "-f"

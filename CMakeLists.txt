@@ -19,8 +19,11 @@ add_definitions("-DBORC_VERSION_REVISION=${BORC_VERSION_REVISION}")
 include_directories("dep/Catch/include")
 
 # yaml-cpp library
-#add_subdirectory("dep/yaml-cpp")
-#include_directories("dep/yaml-cpp/include")
+option(YAML_CPP_BUILD_TESTS "Enable testing" OFF)
+option(YAML_CPP_BUILD_TOOLS "Enable parse tools" OFF)
+option(YAML_CPP_BUILD_CONTRIB "Enable contrib stuff in library" OFF)
+add_subdirectory("dep/yaml-cpp")
+include_directories("dep/yaml-cpp/include")
 
 # fmt testing format library
 include_directories("dep/fmt/")

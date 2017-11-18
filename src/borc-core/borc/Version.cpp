@@ -2,6 +2,9 @@
 #include "Version.hpp"
 #include <cassert>
 #include <stdexcept>
+#include <sstream>
+#include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 
 namespace borc {
     Version::Version(const int major) {
@@ -112,5 +115,21 @@ namespace borc {
 
     std::string Version::toString() const {
         return std::to_string(m_major) + "." + std::to_string(m_minor) + "." + std::to_string(m_revision);
+    }
+
+    Version Version::parse(const std::string &str) {
+        std::vector<std::string> results;
+
+        boost::split(results, str, boost::is_any_of("."));
+
+        if (results.size() > 3 || results.size() < 1) {
+            throw std::runtime_error("Invalid version format");
+        }
+
+        return Version {
+            boost::lexical_cast<int>(results[0]),
+            boost::lexical_cast<int>(results[1]),
+            boost::lexical_cast<int>(results[2])
+        };
     }
 }

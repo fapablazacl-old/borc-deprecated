@@ -1,8 +1,10 @@
 
 #include "ProjectParserYaml.hpp"
 
-#include <borc/Version.hpp>
+
+#include <map>
 #include <boost/filesystem.hpp>
+#include <borc/Version.hpp>
 #include <yaml-cpp/yaml.h>
 
 #include "ModuleTarget.hpp"
@@ -12,6 +14,11 @@
 namespace fs = boost::filesystem;
 
 namespace borc {
+    static std::map<std::string, ModuleTargetType> s_types = {
+        {"library", ModuleTargetType::Library},
+        {"program", ModuleTargetType::Program},
+    };
+
     class ProjectParserYamlImpl : public ProjectParserYaml {
     public:
         virtual ~ProjectParserYamlImpl() {}
@@ -50,23 +57,20 @@ namespace borc {
             auto type = node["type"].as<std::string>();
             auto path = node["path"].as<std::string>();
 
-            if (type == "library" || type == "program") {
-                // module target!
-                auto target = project->createTarget<ModuleTarget>();
+            auto typeIt = s_types.find(type);
 
-                target->setName(name);
-                target->setPath(path);
-                
-                if (type == "library") {
-                    target->setType(ModuleTargetType::Library);
-                } else if (type == "program") {
-                    target->setType(ModuleTargetType::Program);
-                }
-
-                return target;
-            } else {
+            if (typeIt == s_types.end()) {
                 throw std::runtime_error("Unsupported target type");
             }
+
+            // module target!
+            auto target = project->createTarget<ModuleTarget>();
+
+            target->setName(name);
+            target->setPath(path);
+            target->setType(typeIt->second);
+            
+            return target;
         }
     };
 

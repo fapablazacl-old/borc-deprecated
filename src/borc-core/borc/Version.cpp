@@ -1,8 +1,10 @@
 
 #include "Version.hpp"
+
 #include <cassert>
 #include <stdexcept>
 #include <sstream>
+#include <vector>
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 

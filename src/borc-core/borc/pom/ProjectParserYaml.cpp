@@ -1,7 +1,6 @@
 
 #include "ProjectParserYaml.hpp"
 
-
 #include <map>
 #include <iostream>
 #include <boost/filesystem.hpp>
@@ -36,9 +35,7 @@ namespace borc {
             auto projectNode = borcfile["project"];
             auto project = this->parseProject(projectNode);
 
-            assert(borcfile["target"]);
-
-            for (const YAML::Node targetNode : borcfile["target"]) {
+            for (const YAML::Node targetNode : borcfile["targets"]) {
                 this->parseTarget(project.get(), targetNode);
             }
 
@@ -47,11 +44,8 @@ namespace borc {
 
     private:
         std::unique_ptr<Project> parseProject(const YAML::Node &node) {
-            std::cout << "parseProject" << std::endl;
-
             auto name = node["name"].as<std::string>();
             auto project = Project::create(name);
-
             // auto version = node["version"].as<std::string>();
             // project->setVersion(Version::parse(version));
 

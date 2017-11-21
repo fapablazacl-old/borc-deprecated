@@ -43,20 +43,28 @@ int main(int argc, char **argv) {
     }
 }
 
+static std::unique_ptr<borc::ConsoleApp> createApp() {
+    fs::path borcfile = fs::current_path() / "main.borc";
+
+    if (!fs::exists(borcfile)) {
+        throw std::runtime_error("A borcfile doesn't exist in the current path");
+    }
+
+    auto consoleApp = borc::ConsoleApp::create(borcfile.string());
+
+    return consoleApp;
+}
+
 int dispatch(const po::variables_map &vm, const po::options_description &desc) {
     if (vm.count("init")) {
         
         
     } else if (vm.count("build")) {
-        
+        auto consoleApp = createApp();
+
+        consoleApp->build("");
     } else {
-        fs::path borcfile = fs::current_path() / "main.borc";
-
-        if (!fs::exists(borcfile)) {
-            throw std::runtime_error("A borcfile doesn't exist");
-        }
-
-        auto consoleApp = borc::ConsoleApp::create(borcfile.string());
+        auto consoleApp = createApp();
 
         consoleApp->list();
     }

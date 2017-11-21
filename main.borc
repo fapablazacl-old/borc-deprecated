@@ -4,14 +4,15 @@ project:
   name: borc
   version: "0.0.1"
 
-target:
-  name: borc
-  type: program
-  path: src/borc
-  dependencies:
-    - borc-core
-  
-target:
-  name: borc-core
-  type: library
-  path: src/borc-core
+targets:
+  -
+    name: borc
+    type: program
+    path: src/borc
+    dependencies:
+      - borc-core
+
+  - 
+    name: borc-core
+    type: library
+    path: src/borc-core

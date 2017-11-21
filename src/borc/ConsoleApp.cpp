@@ -18,6 +18,8 @@ namespace borc {
     public:
         explicit ConsoleAppImpl(const std::string &path) {
             m_path = path;
+            m_registry = borc::FileTypeRegistry::create();
+            m_toolset = borc::ToolsetCpp::create(m_registry.get());
         }
 
         virtual void list() override {
@@ -27,7 +29,7 @@ namespace borc {
             std::cout << "Available targets:" << std::endl;
 
             for (Target *target : targets) {
-                std::cout << "  - " << target->getName() << std::endl;
+                std::cout << "  * " << target->getName() << std::endl;
             }
         }
         
@@ -44,21 +46,17 @@ namespace borc {
         }
 
         virtual void init() override {
-            // generate the main YAML description file
-            throw std::runtime_error("Not implemented yet!");
+            throw std::runtime_error("The init action isn't implemented yet!");
         }
 
     private:
         std::unique_ptr<borc::Project> parseProject() {
-            auto registry = borc::FileTypeRegistry::create();
-            auto toolset = borc::ToolsetCpp::create(registry.get());
-    
             auto parser = borc::ProjectParserYaml::create();
             auto project = parser->parse(m_path);
     
             auto targets = project->getTargets();
             for (borc::Target* target : targets) {
-                target->setToolset(toolset.get());
+                target->setToolset(m_toolset.get());
             }
 
             return project;
@@ -66,6 +64,8 @@ namespace borc {
 
     private:
         std::string m_path;
+        std::unique_ptr<borc::FileTypeRegistry> m_registry;
+        std::unique_ptr<borc::ToolsetCpp> m_toolset;
     };
 
     std::unique_ptr<ConsoleApp> ConsoleApp::create(const std::string &path) {

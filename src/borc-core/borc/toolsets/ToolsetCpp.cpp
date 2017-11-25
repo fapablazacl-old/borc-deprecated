@@ -17,7 +17,6 @@
 #include <borc/toolsets/LinkerCpp.hpp>
 
 namespace borc {
-
     class ToolsetCppImpl : public ToolsetCpp {
     public:
         explicit ToolsetCppImpl(FileTypeRegistry *registry) {
@@ -41,11 +40,7 @@ namespace borc {
                 throw std::runtime_error("Unsupported target action");   
             }
 
-            if (this->findCompiler(source)) {
-                return true;
-            } else {
-                return false;
-            }
+            return this->findCompiler(source);
         }
 
         virtual std::unique_ptr<TreeNode<Task>> createTask(const TargetAction action, const Source *source) override {
@@ -77,6 +72,8 @@ namespace borc {
 
     private:
         Compiler *findCompiler(const Source *source) const {
+            assert(source);
+
             for (auto &compiler : m_compilers) {
                 if (compiler->isCompilable(source)) {
                     return compiler.get();

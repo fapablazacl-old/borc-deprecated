@@ -29,6 +29,8 @@ set (sources_borc
 set (sources_borc_tasks
     "borc/tasks/Task.hpp"
     "borc/tasks/Task.cpp"
+    "borc/tasks/DirectoryTask.hpp"
+    "borc/tasks/DirectoryTask.cpp"
 	"borc/tasks/TaskNodeVisitor.hpp"
     "borc/tasks/TaskNodeVisitor.cpp"
 	"borc/tasks/TaskNodeVisitorSerial.hpp"

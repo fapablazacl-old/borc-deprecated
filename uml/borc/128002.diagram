@@ -1,0 +1,113 @@
+format 214
+
+classcanvas 128002 class_ref 128002 // Language
+  classdiagramsettings member_max_width 0 end
+  xyz 53 417 2000
+end
+classcanvas 128130 class_ref 128130 // ElementType
+  classdiagramsettings member_max_width 0 end
+  xyz 236 593 2000
+end
+classcanvas 128258 class_ref 128258 // ElementRegistry
+  classdiagramsettings member_max_width 0 end
+  xyz 53 596 2005
+end
+classcanvas 128642 class_ref 128386 // Toolset
+  classdiagramsettings member_max_width 0 end
+  xyz 281 350 2000
+end
+classcanvas 128770 class_ref 128514 // Compiler
+  classdiagramsettings member_max_width 0 end
+  xyz 223 472 2000
+end
+classcanvas 128898 class_ref 128642 // Linker
+  classdiagramsettings member_max_width 0 end
+  xyz 346 470 2000
+end
+classcanvas 129538 class_ref 128770 // Project
+  classdiagramsettings member_max_width 0 end
+  xyz 124 26 2000
+end
+classcanvas 129666 class_ref 128898 // Target
+  classdiagramsettings member_max_width 0 end
+  xyz 128 131 2000
+end
+classcanvas 129794 class_ref 129026 // Source
+  classdiagramsettings member_max_width 0 end
+  xyz 292 129 2000
+end
+classcanvas 130434 class_ref 129154 // ModuleTarget
+  classdiagramsettings member_max_width 0 end
+  xyz 103 254 2000
+end
+note 130818 "- Add the capability to more build orchestration rules in order to support more languages/workflows without recompiling.
+- Generalize the concept of 'Linker' and 'Compiler' tool in order to represent more file procceses other than software compilation, like packaging, generation, etc.
+"
+  xyzwh 539 241 2000 411 83
+classcanvas 130946 class_ref 129282 // Tool
+  classdiagramsettings member_max_width 0 end
+  xyz 416 267 2000
+end
+classcanvas 131074 class_ref 129410 // Transformer
+  classdiagramsettings member_max_width 0 end
+  xyz 626 604 2000
+end
+classcanvas 131202 class_ref 129538 // Compositor
+  classdiagramsettings member_max_width 0 end
+  xyz 753 603 2000
+end
+classcanvas 131330 class_ref 129666 // Filter
+  classdiagramsettings member_max_width 0 end
+  xyz 538 603 2000
+end
+classcanvas 131586 class_ref 129922 // Element
+  classdiagramsettings member_max_width 0 end
+  xyz 662 405 2005
+end
+classcanvas 131714 class_ref 130050 // ElementSequence
+  classdiagramsettings member_max_width 0 end
+  xyz 815 403 2000
+end
+classcanvas 131842 class_ref 130178 // PropertyMap
+  classdiagramsettings member_max_width 0 end
+  xyz 1004 401 2000
+end
+note 131970 "Each ToolType represent an internal or external procces"
+  xyzwh 945 562 2000 217 65
+note 132098 ""
+  xyzwh 477 437 2000 35 35
+classcanvas 132226 class_ref 129794 // Generator
+  classdiagramsettings member_max_width 0 end
+  xyz 413 603 2000
+end
+relationcanvas 128514 relation_ref 128002 // <composition>
+  from ref 128258 z 2006 to ref 128130
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129282 relation_ref 128258 // <composition>
+  from ref 128642 z 2001 to ref 128770
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129410 relation_ref 128386 // <composition>
+  from ref 128642 z 2001 to ref 128898
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130306 relation_ref 128642 // <composition>
+  from ref 129538 z 2001 to ref 129666
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130562 relation_ref 128770 // <generalisation>
+  from ref 130434 z 2001 to ref 129666
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130690 relation_ref 128898 // <composition>
+  from ref 129666 z 2001 to ref 129794
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

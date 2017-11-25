@@ -1,0 +1,20 @@
+window_sizes 1366 705 218 1142 526 120
+plastique_style
+diagrams
+  active  classdiagram_ref 128002 // borc-core
+    1142 526 100 A4-Landscape 369 66
+  componentdiagram_ref 128130 // prueba
+    120 117 100 A4 0 0
+end
+show_stereotypes
+selected attribute_ref 128002 // name
+open
+  class_ref 128386 // Toolset
+  class_ref 128514 // Compiler
+  class_ref 129410 // Transformer
+  class_ref 129538 // Compositor
+  class_ref 129666 // Filter
+  class_ref 129794 // Generator
+  class_ref 129922 // Element
+end
+end

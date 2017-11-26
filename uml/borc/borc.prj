@@ -1,6 +1,6 @@
 format 214
 "borc"
-  revision 3
+  revision 5
   modified_by 2 "fapablaza"
 
 
@@ -8,11 +8,11 @@ format 214
   // class settings
   default_attribute_visibility private default_relation_visibility private default_operation_visibility public
   
-  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no show_members_full_definition no show_members_visibility no show_members_stereotype no show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility no show_infonote no shadow yes gradient none show_stereotype_properties no end
+  classdiagramsettings draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no show_members_full_definition no show_members_visibility yes show_members_stereotype yes show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir no show_parameter_name no package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility no show_infonote no shadow yes gradient none show_stereotype_properties no end
   
   usecasediagramsettings package_name_in_tab no show_context_mode no auto_label_position yes draw_all_relations yes class_drawing_mode actor shadow yes gradient none show_stereotype_properties no end
   
-  sequencediagramsettings show_full_operations_definition no show_class_of_operation no write_horizontally yes instances_drawing_mode natural drawing_language uml draw_all_relations yes shadow yes gradient none show_stereotype_properties no show_class_context_mode no show_msg_context_mode no end
+  sequencediagramsettings show_full_operations_definition yes show_class_of_operation yes write_horizontally yes instances_drawing_mode natural drawing_language uml draw_all_relations yes shadow yes gradient none show_stereotype_properties no show_class_context_mode no show_msg_context_mode no end
   
   collaborationdiagramsettings show_full_operations_definition no show_class_of_operation no show_hierarchical_rank no write_horizontally yes instances_drawing_mode natural drawing_language uml package_name_in_tab no show_class_pack_context_mode no show_msg_context_mode no draw_all_relations yes shadow yes gradient none show_stereotype_properties no end
   
@@ -57,7 +57,7 @@ format 214
      end
     classdiagram 128002 "borc-core"
       classdiagramsettings draw_all_relations no member_max_width 0 end
-      size A4-Landscape
+      size A0-Landscape
     end
 
     class 128002 "Language"
@@ -76,20 +76,39 @@ ${inlines}
     end
 
     class 128130 "ElementType"
-      visibility package 
-      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
+      visibility package stereotype "enum"
+      cpp_decl "${comment}enum ${name} {
+${items}};
 "
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
+      java_decl "${comment}${@}${visibility}${static}${final}${abstract}enum ${name}${implements} {
+${items};
+${members}}
+"
+      php_decl "${comment}${visibility}final class ${name} {
+${items}}
+"
+      python_2_2 python_decl "class ${name}:
+${docstring}${members}
+"
+      idl_decl "${comment}enum ${name} {
+${items}};
+"
       explicit_switch_type ""
       mysql_decl ""
       
       classrelation 128130 // <composition>
 	relation_ref 128002 // <composition>
+      end
+
+      attribute 134530 "File"
+	public type class_ref 128130 // ElementType
+	cpp_decl "  ${name}${value},${comment}"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
       end
     end
 
@@ -116,80 +135,6 @@ ${inlines}
 	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
 "
 	    classrelation_ref 128130 // <composition>
-      end
-    end
-
-    class 128386 "Toolset"
-      visibility package 
-      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      classrelation 128514 // <composition>
-	relation 128258 *---
-	  a role_name "" private
-	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    classrelation_ref 128514 // <composition>
-	  b role_name "" private
-	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    classrelation_ref 128642 // <composition>
-      end
-
-      classrelation 128770 // <composition>
-	relation 128386 *---
-	  a role_name "" private
-	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    classrelation_ref 128770 // <composition>
-	  b role_name "" private
-	    cpp default "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    classrelation_ref 128898 // <composition>
-      end
-    end
-
-    class 128514 "Compiler"
-      visibility package 
-      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      classrelation 128642 // <composition>
-	relation_ref 128258 // <composition>
-      end
-    end
-
-    class 128642 "Linker"
-      visibility package 
-      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      classrelation 128898 // <composition>
-	relation_ref 128386 // <composition>
       end
     end
 
@@ -305,21 +250,6 @@ ${inlines}
       end
     end
 
-    class 129282 "Tool"
-      visibility package 
-      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-    end
-
     class 129410 "Transformer"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
@@ -334,18 +264,12 @@ ${inlines}
       mysql_decl ""
       
       comment "Transforms N elements into M elements."
-      operation 128002 "transform"
-	public explicit_return_type ""
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
+      classrelation 136962 // <generalisation>
+	relation 135938 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 136962 // <generalisation>
+	  b parent class_ref 136706 // Operator
       end
     end
 
@@ -363,18 +287,12 @@ ${inlines}
       mysql_decl ""
       
       comment "Composes one final element from N input elements"
-      operation 128258 "compose"
-	public explicit_return_type ""
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
+      classrelation 137090 // <generalisation>
+	relation 136066 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 137090 // <generalisation>
+	  b parent class_ref 136706 // Operator
       end
     end
 
@@ -392,19 +310,12 @@ ${inlines}
       mysql_decl ""
       
       comment "Given a sequence of N input elements, produces M output elements based on certain conditions."
-      operation 128130 "filter"
-	public return_type class_ref 130050 // ElementSequence
-	nparams 1
-	  param in name "sequence" type class_ref 130050 // ElementSequence
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}const ${t0} & ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}const ${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
+      classrelation 136834 // <generalisation>
+	relation 135810 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 136834 // <generalisation>
+	  b parent class_ref 136706 // Operator
       end
     end
 
@@ -421,18 +332,13 @@ ${inlines}
       explicit_switch_type ""
       mysql_decl ""
       
-      operation 128386 "generate"
-	public return_type class_ref 130050 // ElementSequence
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
+      comment "Given a set of input parameters, generates a Sequence of Elements."
+      classrelation 136706 // <generalisation>
+	relation 135682 ---|>
+	  a public
+	    cpp default "${type}"
+	    classrelation_ref 136706 // <generalisation>
+	  b parent class_ref 136706 // Operator
       end
     end
 
@@ -449,35 +355,67 @@ ${inlines}
       explicit_switch_type ""
       mysql_decl ""
       
-      attribute 128002 "name"
-	private explicit_type ""
-	cpp_decl "    ${comment}${static}${thread_local}${mutable}${volatile}${const}${type} ${name}${value};
+      operation 134914 "getName"
+	public explicit_return_type "string"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
       end
-    end
 
-    class 130050 "ElementSequence"
-      visibility package 
-      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
     end
 
     class 130178 "PropertyMap"
+      visibility package stereotype "typedef" explicit_base_type ""
+      cpp_decl "${comment}typedef ${type} ${name};
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl "${comment}typedef ${type} ${name};
+"
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      comment "Alias for map<string, string>. Holds a map of key-value string pairs to pass certain flexible properties.
+"
+    end
+
+    class 136706 "Operator"
+      abstract visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      operation 135042 "perform"
+	public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+      end
+    end
+
+    class 136962 "OperatorFactory"
       visibility package 
       cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -490,6 +428,13 @@ ${inlines}
       explicit_switch_type ""
       mysql_decl ""
       
+      classrelation 137218 // <dependency>
+	relation 136194 -_->
+	  a public
+	    cpp default "#include in source"
+	    classrelation_ref 137218 // <dependency>
+	  b parent class_ref 136706 // Operator
+      end
     end
   end
 

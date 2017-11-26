@@ -4,3 +4,5 @@ old/*
 .vs/*
 docs/html/*
 
+docs/build/*
+docs/*

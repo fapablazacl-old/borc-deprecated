@@ -35,27 +35,61 @@ Descriptable Entities
 * Templates for various software artifacts.
 
 
-Command Line Tool Flow 1: Generating a simple, default C++ console executable
+Scenario 1: Multimedia engine project (XE)
 -----------------------------------------------------------------------------
+Let's suppose we have this C++ based project. It's a multimedia engine, used to make games in 3D, with bindings to Python and the Web and has the following structure:
 
-Example::
+Folder structure::
+  xe/
+    src/
+      xe-core/
+        xe/ ...
+        xe-core.borc
+      xe-gfx-gl3/
+        xe/ ...
+        xe-gfx-gl3.borc
+      xe-gfx-es2/
+        xe/ ...
+        xe-gfx-es2.borc
+      xe-sfx-al/
+        xe/ ...
+        xe-sfx-al.borc
+      xe-python/
+        xe/
+        xe-python.borc
+      xe-js/
+        xe/
+        xe-js.borc
+    main.borc
 
-    $ borc --init --name MyProject --template cpp/console-app
+Because we need to interact with another languages and systems, we require:
+  * A C++ toolchain (arch: host)
+  * A C++ toolchain (arch: WebAssembly, required for the Web port, optional)
+  * A Python toolchain (arch: host, required for python bindings, optional)
+  * A Android SDK and NDK (arch: host, target arch: ARM/x86, required for android bindings, optional).
 
-The command generates the following folder structure::
+As we can see, there is plenty of choices and configuration combinations.
 
-    MyProject/
-        .borc/
-        src/
-    
-Command Line Tool Flow 2: Generating an empty project
------------------------------------------------------
+In order to configure this project, let's run the following command::
+  $ cd /path/to/project/xe
+  $ borc configure
 
-Example::
+  Configuring project 'xe' ...
+  Scanning targets, dependencies and requirements ...
+  Cloning Git repositories ...
 
-    $ cd /path/to/project/root
-    $ borc --init helloworld
-    Initialized empty 'helloworld' project
-    $ cd helloworld
-    $ borc --name helloworld --language cplusplus --add component 
-    Added component helloworld
+  
+  Using default toolchains
+    [C++] Emscripten Compiler, version 4.2.0, targeting WebAssembly, with static runtime library.
+    [C++] GCC Compiler, version 7.1.0, targeting x64, with shared runtime library
+    [Python] 
+  
+We need to compiler 
+    .borc/
+      {compiler}/
+        {configuration}/
+          {projectName}/
+            bin/
+              MyProject[.exe]
+            obj/
+              MyProject.cpp.obj

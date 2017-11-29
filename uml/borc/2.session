@@ -2,7 +2,7 @@ window_sizes 1366 705 218 1142 526 120
 plastique_style
 diagrams
   active  classdiagram_ref 128002 // borc-core
-    1142 526 100 A0-Landscape 192 0
+    1142 526 100 A0-Landscape 372 0
   componentdiagram_ref 128130 // prueba
     120 117 100 A4 0 0
 end

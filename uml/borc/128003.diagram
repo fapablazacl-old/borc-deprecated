@@ -1,25 +1,26 @@
 format 215
 
-classcanvas 128003 class_ref 128003 // Compiler
-  classdiagramsettings member_max_width 0 end
-  xyz 100 221 2000
+classinstancecanvas 128003 classinstance_ref 128003 // project
+  xyz 26 4 2005 life_line_z 2000
 end
-classcanvas 128131 class_ref 128131 // Linker
-  classdiagramsettings member_max_width 0 end
-  xyz 273 219 2000
+classinstancecanvas 128131 classinstance_ref 128131 // target
+  xyz 287 4 2005 life_line_z 2000
 end
-classcanvas 128259 class_ref 128259 // Toolchain
-  classdiagramsettings member_max_width 0 end
-  xyz 179 116 2000
+durationcanvas 128515 classinstance_ref 128003 // project:Project
+  xyzwh 73 82 2010 11 97
 end
-relationcanvas 128387 relation_ref 128003 // <composition>
-  from ref 128259 z 2001 to ref 128003
-  no_role_a no_role_b
-  multiplicity_a_pos 143 198 3000 no_multiplicity_b
+durationcanvas 128643 classinstance_ref 128131 // target:Target
+  xyzwh 328 82 2010 11 44
 end
-relationcanvas 128515 relation_ref 128131 // <composition>
-  from ref 128259 z 2001 to ref 128131
-  no_role_a no_role_b
-  multiplicity_a_pos 261 196 3000 no_multiplicity_b
-end
+msg 128771 synchronous
+  from durationcanvas_ref 128515
+  to durationcanvas_ref 128643
+  yz 82 2015 msg operation_ref 128259 // "collectItems() : ItemArray"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 93 66
+msg 128899 return
+  from durationcanvas_ref 128643
+  to durationcanvas_ref 128515
+  yz 112 2015 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
 end

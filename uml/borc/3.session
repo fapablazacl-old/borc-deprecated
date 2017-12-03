@@ -1,13 +1,14 @@
 window_sizes 1366 705 249 1112 548 104
 
 diagrams
-  active  classdiagram_ref 128002 // borc-core
-    1112 548 100 A0-Landscape 0 3
+  classdiagram_ref 128002 // borc-core
+    1112 548 100 A0-Landscape 700 0
+  active  sequencediagram_ref 128003 // Project.perform
+    1112 548 100 A4 0 0
 end
 show_stereotypes
-selected operation_ref 137347 // setName
+selected sequencediagram_ref 128003 // Project.perform
 open
-  class_ref 128770 // Project
-  class_ref 128131 // ItemSource
+  classview_ref 128002 // borc-core
 end
 end

@@ -35,7 +35,81 @@ Descriptable Entities
 * Templates for various software artifacts.
 
 
-Scenario 1: Multimedia engine project (XE)
+BORC Definitions
+-------------------------
+
+A Project:
+* Has a collection of Targets
+
+A Target:
+* Is a Software Artifact
+* Is based on a Target Archetype.
+* Is defined by a collection of Files
+* Supports a certain set of Actions
+
+A Target Archetype:
+* Is a Software Artifact Definition, used to "derive" concrete targets.
+* Has a set of predefined Actions
+* References a set of predefined Toolchains Kinds
+
+A Toolchain:
+* Is a collection of Compilers and Linkers.
+* They are used to Build a target.
+
+A Action:
+* Is an operation applied to a Target, that can use a given Toolchain or another entity.
+* That operation needs:
+  * A subset of the Files contained on a Target (¿Why a subset?)
+  * A Toolchain in order to process those Files 
+* That operation also can have Arguments.
+
+
+BORC Command Line Utility
+-------------------------
+
+The BORC Command Line Utility is the main interface for "regular" users (developers using it for managing their build system needs).
+This utility must be used in order to:
+
+* Setup an initial development project.
+* Configure it with several toolchains for different purposes and/or aspects.
+* Update a project, giving more capabilities, purposes, or aspects during build-time.
+* Perform the building of all the targets for a fiven development project.
+
+
+Scenario 1: A simple console application, that outputs 'HelloWorld from Sample Project!'
+----------------------------------------------------------------------------------------
+
+$ borc 
+  Not a valid BORC directory (no file main.borc)
+
+$ borc --working-directory sample-project/
+  You are on the SampleProject project, version v1.0.0.
+
+  Available Targets:
+    SampleProject (cplusplus/executable)
+    Actions:
+      build, install, clean, purge, run
+    
+    Compatible Toolchains:
+      cplusplus (system clang-5.1.2)
+      asm toolchain (N/A)
+    
+$ cd sample-project
+$ borc 
+  (same output as before)
+
+$ borc --target SampleProject --action build
+  Building target SampleProject (Debug, x64),  ...
+  Done.
+
+$ borc --target SampleProject --action run
+  HelloWorld from Sample Project!
+
+Notes:
+  * Actions may have dependencies between them ('run' depends on 'build')
+
+
+Scenario 2: Multimedia engine project (XE)
 -----------------------------------------------------------------------------
 Let's suppose we have this C++ based project. It's a multimedia engine, used to make games in 3D, with bindings to Python and the Web and has the following structure:
 
@@ -93,3 +167,4 @@ We need to compiler
               MyProject[.exe]
             obj/
               MyProject.cpp.obj
+ 

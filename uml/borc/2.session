@@ -1,13 +1,6 @@
-window_sizes 1366 705 218 1142 526 120
-plastique_style
-diagrams
-  active  classdiagram_ref 128002 // borc-core
-    1142 526 100 A0-Landscape 372 0
-  componentdiagram_ref 128130 // prueba
-    120 117 100 A4 0 0
-end
+window_sizes 1366 705 320 1040 528 120
+cleanlooks_style
 show_stereotypes
-selected classview_ref 128002 // borc-core
-open
-end
+selected 
+package_ref 129 // borc
 end

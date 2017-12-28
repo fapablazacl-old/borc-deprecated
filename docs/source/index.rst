@@ -21,7 +21,7 @@ Planned Features
 C++ Planned Features
 --------------------
 
-* One build directory, automatic management for configurations, compilers, architectures, etc
+* One build directory, automatic management for configurations, compilers, cpu architectures, etc
 * Gives modularization of C/C++ projects via metadata in the description files.
 
 
@@ -29,37 +29,40 @@ Descriptable Entities
 ---------------------
 
 * Software Artifacts (components, redistributables, manuals, etc), 
-* Toolchains for not previously supported programming languages/technologies, frameworks, etc.
+* Toolchains for not previously supported programming languages.
 * File Types
 * Actions
-* Templates for various software artifacts.
+* Templates for various software artifacts, for a quickstart development.
 
 
 BORC Definitions
 -------------------------
 
 A Project:
-* Has a collection of Targets
+* Has a collection of Artifacts
 
-A Target:
-* Is a Software Artifact
-* Is based on a Target Archetype.
+A Artifact:
+* Is based on a Archetype.
 * Is defined by a collection of Files
 * Supports a certain set of Actions
 
-A Target Archetype:
-* Is a Software Artifact Definition, used to "derive" concrete targets.
+A Archetype:
+* Is a Software Artifact Definition, used to "derive" concrete artifacts.
 * Has a set of predefined Actions
 * References a set of predefined Toolchains Kinds
 
 A Toolchain:
 * Is a collection of Compilers and Linkers.
-* They are used to Build a target.
+* They are used to Build a artifact.
+
+A Toolchain:
+* Is a collection of Compilers and Linkers.
+* They are used to Build a artifact.
 
 A Action:
-* Is an operation applied to a Target, that can use a given Toolchain or another entity.
+* Is an operation applied to a Artifact, that can use a given Toolchain or another entity.
 * That operation needs:
-  * A subset of the Files contained on a Target (¿Why a subset?)
+  * A subset of the Files contained on a Artifact (¿Why a subset?)
   * A Toolchain in order to process those Files 
 * That operation also can have Arguments.
 
@@ -74,40 +77,43 @@ This utility must be used in order to:
 * Configure it with several toolchains for different purposes and/or aspects.
 * Update a project, giving more capabilities, purposes, or aspects during build-time.
 * Perform the building of all the targets for a fiven development project.
-
+* (pending to add another definitions)
 
 Scenario 1: A simple console application, that outputs 'HelloWorld from Sample Project!'
 ----------------------------------------------------------------------------------------
 
-$ borc 
-  Not a valid BORC directory (no file main.borc)
+$ borc --help
+  BORC Build Orchestrator 0.0.0 (GIT commit aaaaaaaaaaaaaaaa)
+  
+$ borc
+  Not a valid BORC directory (no file main.borc nor .borc directory)
+  Use 'borc init' to setup an initial project
 
 $ borc --working-directory sample-project/
-  You are on the SampleProject project, version v1.0.0.
+  project SampleProject project, version 1.0.0
+    artifact SampleProgram (cplusplus/executable)
 
-  Available Targets:
-    SampleProject (cplusplus/executable)
-    Actions:
-      build, install, clean, purge, run
-    
-    Compatible Toolchains:
-      cplusplus (system clang-5.1.2)
-      asm toolchain (N/A)
-    
 $ cd sample-project
+
 $ borc 
   (same output as before)
 
-$ borc --target SampleProject --action build
-  Building target SampleProject (Debug, x64),  ...
-  Done.
+$ borc run 
+  Error: there is no a default artifact. Please, select one with 
+    borc --set-default-artifact artifactName
+    
+$ borc --set-default-artifact SampleProgram
 
-$ borc --target SampleProject --action run
+$ borc run 
+  Building artifact SampleProgram (Debug, x64)  ...
+  Done.
   HelloWorld from Sample Project!
 
-Notes:
-  * Actions may have dependencies between them ('run' depends on 'build')
+$ borc run
+  HelloWorld from Sample Project!
 
+$ borc artifact add SampleLibrary
+  Added new artifact
 
 Scenario 2: Multimedia engine project (XE)
 -----------------------------------------------------------------------------
@@ -140,7 +146,7 @@ Because we need to interact with another languages and systems, we require:
   * A C++ toolchain (arch: host)
   * A C++ toolchain (arch: WebAssembly, required for the Web port, optional)
   * A Python toolchain (arch: host, required for python bindings, optional)
-  * A Android SDK and NDK (arch: host, target arch: ARM/x86, required for android bindings, optional).
+  * A Android SDK and NDK (arch: host, artifact arch: ARM/x86, required for android bindings, optional).
 
 As we can see, there is plenty of choices and configuration combinations.
 
@@ -152,7 +158,6 @@ In order to configure this project, let's run the following command::
   Scanning targets, dependencies and requirements ...
   Cloning Git repositories ...
 
-  
   Using default toolchains
     [C++] Emscripten Compiler, version 4.2.0, targeting WebAssembly, with static runtime library.
     [C++] GCC Compiler, version 7.1.0, targeting x64, with shared runtime library

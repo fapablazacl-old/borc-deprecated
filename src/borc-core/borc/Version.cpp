@@ -5,8 +5,6 @@
 #include <stdexcept>
 #include <sstream>
 #include <vector>
-#include <boost/algorithm/string.hpp>
-#include <boost/lexical_cast.hpp>
 
 namespace borc {
     Version::Version(const int major) {
@@ -119,19 +117,28 @@ namespace borc {
         return std::to_string(m_major) + "." + std::to_string(m_minor) + "." + std::to_string(m_revision);
     }
 
-    Version Version::parse(const std::string &str) {
-        std::vector<std::string> results;
+    static std::vector<std::string> split(const std::string &s, char delim) {
+        std::stringstream ss(s);
+        std::string item;
+        std::vector<std::string> elems;
 
-        boost::split(results, str, boost::is_any_of("."));
+        while (std::getline(ss, item, delim)) {
+            elems.push_back(std::move(item)); 
+        }
+        return elems;
+    }
+
+    Version Version::parse(const std::string &str) {
+        const auto results = split(str, '.');
 
         if (results.size() > 3 || results.size() < 1) {
             throw std::runtime_error("Invalid version format");
         }
 
         return Version {
-            boost::lexical_cast<int>(results[0]),
-            boost::lexical_cast<int>(results[1]),
-            boost::lexical_cast<int>(results[2])
+            std::atoi(results[0].c_str()),
+            std::atoi(results[1].c_str()),
+            std::atoi(results[2].c_str())
         };
     }
 }
